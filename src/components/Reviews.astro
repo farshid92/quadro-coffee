@@ -9,7 +9,7 @@ interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = getContent(lang);
 ---
-<Panel id="yorumlar" bg="var(--color-paper)" prev="var(--color-espresso)" tone="light" label={t.reviews.title} labelledby="reviews-title" class="mx-auto w-full max-w-[1240px]">
+<Panel id="yorumlar" bg="var(--color-paper)" end="var(--color-cream)" prev="var(--color-hero)" tone="light" label={t.reviews.title} labelledby="reviews-title" class="mx-auto w-full max-w-[1240px]">
   <h2 id="reviews-title" data-reveal="spaced" class="spaced mb-2 text-center text-[clamp(40px,4.6vw,64px)] leading-none">{t.reviews.title}</h2>
   <p data-reveal class="mb-[clamp(14px,3vh,44px)] flex flex-col items-center text-muted">
     <span class="font-display text-[clamp(60px,10vh,120px)] leading-none text-espresso">{t.reviews.rating}</span>

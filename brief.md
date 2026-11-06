@@ -32,7 +32,10 @@ Single page, Turkish at `/`, English at `/en/`. Sections: Hero · Categories · 
   - The 4 specials (`turkish-coffee.jpg`, `latte.jpg`, `iced-latte.jpg`, `iced-v60.jpg`) are AI-generated placeholders; replace with real photos of Quadro's drinks before launch
 - [ ] Logo file (SVG or high-res)
 - [ ] Full menu with prices (specials are coffee placeholders until then)
-- [ ] Live music schedule
+- [ ] Real evening programme (matches shown and live-music nights) in `content/events.json`
+  - The current November 2026 schedule is DEMO data with invented dates, teams and music nights. Replace it with the owner's real programme before launch, and update it every month (after the last date the panel shows "new schedule coming soon")
+  - The 13 Nov demo night uses Sidar Karakuş's photo, cropped from a Quadro poster (her real night there was 17 June, 20:00, tickets via Gişe Kıbrıs). Confirm with the owner/artist that the photo can be used on the website
+  - Match and live-music photos: set `matchPhoto` / `musicPhoto` (or `photo` on a single event); until then the scoreboard is plain and the poster shows a drawn spotlight
 - [ ] Confirm WhatsApp number (assumed same as phone)
 - [ ] 3 real Google reviews the owner is happy to feature
   - Picked from Google (4 Nov 2026): Johannes M., Vahid M., Melin (all 5★, English; Turkish translations added on the TR page). Waiting for the owner's OK; Turkish translations need a native check

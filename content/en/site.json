@@ -62,10 +62,19 @@
   },
   "evenings": {
     "title": "Evenings at Quadro",
-    "items": [
-      { "name": "Live music", "text": "TODO: days and time", "image": null },
-      { "name": "Match nights", "text": "Big games on screen. Next match on Instagram.", "image": null }
-    ]
+    "broadcast": "Live on screen",
+    "liveNow": "Live now",
+    "units": ["Days", "Hours", "Minutes"],
+    "when": {"live": "On stage now", "tonight": "Tonight", "tomorrow": "Tomorrow night", "next": "Next live music"},
+    "programme": "{month} programme",
+    "today": "Today",
+    "match": "Match",
+    "music": "Live music",
+    "calendarLabel": "{month} events calendar",
+    "noMatch": "New match schedule coming soon. Follow us on Instagram.",
+    "noMusic": "New live music nights coming soon.",
+    "matchAlt": "Match night at Quadro",
+    "musicAlt": "Live music at Quadro"
   },
   "reviews": {
     "title": "Our guests",

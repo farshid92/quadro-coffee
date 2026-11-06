@@ -12,7 +12,7 @@ const mapSrc = `https://www.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
 const height = 'min-h-[clamp(320px,52vh,460px)]';
 const card = 'rounded-xl shadow-[0_24px_50px_-28px_rgba(34,23,15,0.6)]';
 ---
-<Panel id="iletisim" bg="var(--color-copper-light)" prev="var(--color-paper)" tone="light" label={t.visit.title} labelledby="visit-title" class="mx-auto w-full max-w-[1240px]">
+<Panel id="iletisim" bg="var(--color-copper-light)" end="var(--color-cream)" prev="var(--color-cream)" tone="light" label={t.visit.title} labelledby="visit-title" class="mx-auto w-full max-w-[1240px]">
   <h2 id="visit-title" data-reveal="spaced" class="spaced mb-[clamp(20px,4vh,40px)] text-[clamp(40px,4.6vw,64px)] leading-none">{t.visit.title}</h2>
   <div class="grid gap-6 md:grid-cols-[minmax(0,0.75fr)_minmax(0,1fr)] lg:gap-10">
     <!-- Address, hours and buttons written into the sky of the street photo. The top is shaded so the text reads;

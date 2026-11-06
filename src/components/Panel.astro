@@ -1,6 +1,7 @@
 ---
 // One full-screen section. See the "Panels" block in global.css and src/scripts/deck.ts.
 //   bg / prev: CSS colours of this panel and of the one before it (prev shows behind the curved edge)
+//   end:       phones only: the panel fades from bg (top) to this colour (bottom)
 //   tone:      'dark' panels use light text; 'light' panels use espresso text
 //   label:     section name for the progress dots
 //   first:     the opening panel (no curved entrance; shares the first screen with the header)
@@ -9,13 +10,14 @@ interface Props {
   as?: 'section' | 'footer';
   bg: string;
   prev?: string;
+  end?: string;
   tone: 'dark' | 'light';
   label: string;
   labelledby?: string;
   first?: boolean;
   class?: string;
 }
-const { id, as: Tag = 'section', bg, prev, tone, label, labelledby, first, class: className = '' } = Astro.props;
+const { id, as: Tag = 'section', bg, prev, end, tone, label, labelledby, first, class: className = '' } = Astro.props;
 ---
 <Tag
   id={id}
@@ -26,7 +28,7 @@ const { id, as: Tag = 'section', bg, prev, tone, label, labelledby, first, class
   data-label={label}
   aria-labelledby={labelledby}
   aria-label={labelledby ? undefined : label}
-  style={`--bg:${bg};${prev ? `--prev:${prev};` : ''}`}
+  style={`--bg:${bg};${prev ? `--prev:${prev};` : ''}${end ? `--bg-end:${end};` : ''}`}
 >
   <div class="panel-fill" aria-hidden="true"></div>
   <div class={`panel-inner ${tone === 'dark' ? 'text-white' : 'text-espresso'} ${className}`}>

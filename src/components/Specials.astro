@@ -8,7 +8,7 @@ interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = getContent(lang);
 ---
-<Panel id="menu" bg="var(--color-copper)" prev="var(--color-hero)" tone="light" label={t.specials.title} labelledby="specials-title" class="mx-auto w-full max-w-[1240px]">
+<Panel id="menu" bg="var(--color-copper)" end="var(--color-copper-light)" prev="var(--color-hero)" tone="light" label={t.specials.title} labelledby="specials-title" class="mx-auto w-full max-w-[1240px]">
   <h2 id="specials-title" data-reveal="spaced" class="spaced mb-1 text-center text-[clamp(40px,4.6vw,64px)] leading-none">{t.specials.title}</h2>
   <p data-reveal class="mb-[clamp(20px,3.5vh,36px)] text-center text-sm font-medium">{t.specials.subtitle}</p>
   <div data-reveal class="mx-auto mb-[clamp(20px,3.5vh,36px)] w-full max-w-[760px]"><Categories lang={lang} /></div>

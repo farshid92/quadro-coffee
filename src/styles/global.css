@@ -76,7 +76,8 @@ body {
 .panel-fill {
   position: absolute;
   inset: 0;
-  background: var(--bg);
+  /* tonal flow: the panel's colour at the top, a related tone (--bg-end) at the bottom */
+  background: linear-gradient(180deg, var(--bg), var(--bg-end, var(--bg)));
 }
 .panel-inner {
   position: relative;
@@ -130,6 +131,26 @@ html.deck .panel {
   background: var(--bg);
 }
 html.deck .panel-fill { display: none; }
+/* Desktop: flat colours, with a soft glow that follows the mouse (position from src/scripts/glow.ts) */
+html.deck .panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* soft falloff: a faint centre that fades out gradually over a wide circle */
+  background: radial-gradient(
+    circle 540px at var(--glow-x, 50%) var(--glow-y, 50%),
+    rgb(var(--glow) / var(--glow-a)) 0%,
+    rgb(var(--glow) / calc(var(--glow-a) * 0.6)) 25%,
+    rgb(var(--glow) / calc(var(--glow-a) * 0.25)) 50%,
+    rgb(var(--glow) / calc(var(--glow-a) * 0.07)) 72%,
+    transparent 90%
+  );
+  opacity: var(--glow-on, 0);
+  transition: opacity 0.6s;
+}
+html.deck .panel[data-tone='light'] { --glow: 255 248 236; --glow-a: 0.26; }
+html.deck .panel[data-tone='dark'] { --glow: 215 168 110; --glow-a: 0.11; }
 html.deck .panel-inner,
 html.deck .panel[data-first] .panel-inner {
   height: 100%;

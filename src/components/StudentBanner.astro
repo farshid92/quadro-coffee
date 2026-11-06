@@ -1,5 +1,5 @@
 ---
-// Student discount panel: copper-to-cream background, a rotating "%10" badge, the discounted coffees
+// Student discount panel: light copper background (fading to cream on phones), a rotating "%10" badge, the discounted coffees
 // as floating photo prints, and a countdown. The whole panel disappears after `student.lastDay`
 // (at build time, and in the browser for visitors who load an older build).
 import Panel from './Panel.astro';
@@ -29,8 +29,9 @@ const print = 'w-[clamp(118px,min(12vw,21vh),160px)]';
 {!expired && (
   <Panel
     id="ogrenci"
-    bg="linear-gradient(170deg, var(--color-copper) 0%, var(--color-copper-light) 38%, var(--color-cream) 82%)"
-    prev="var(--color-copper)"
+    bg="var(--color-copper-light)"
+    end="var(--color-cream)"
+    prev="var(--color-copper-light)"
     tone="light"
     label={s.title.replace('\n', ' ')}
     labelledby="student-title"

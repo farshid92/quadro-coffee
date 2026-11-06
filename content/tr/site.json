@@ -62,10 +62,19 @@
   },
   "evenings": {
     "title": "Akşamları Quadro'da",
-    "items": [
-      { "name": "Canlı müzik", "text": "TODO: günler ve saat", "image": null },
-      { "name": "Maç geceleri", "text": "Büyük maçlar ekranda. Sıradaki maç Instagram'da.", "image": null }
-    ]
+    "broadcast": "Canlı yayın",
+    "liveNow": "Şu an canlı",
+    "units": ["Gün", "Saat", "Dakika"],
+    "when": {"live": "Şu an sahnede", "tonight": "Bu akşam", "tomorrow": "Yarın akşam", "next": "Sıradaki canlı müzik"},
+    "programme": "{month} programı",
+    "today": "Bugün",
+    "match": "Maç",
+    "music": "Canlı müzik",
+    "calendarLabel": "{month} etkinlik takvimi",
+    "noMatch": "Yeni maç programı yakında. Instagram'dan takip edin.",
+    "noMusic": "Yeni canlı müzik geceleri yakında.",
+    "matchAlt": "Quadro'da maç gecesi",
+    "musicAlt": "Quadro'da canlı müzik"
   },
   "reviews": {
     "title": "Misafirlerimiz",

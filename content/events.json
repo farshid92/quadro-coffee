@@ -1,0 +1,19 @@
+{
+  "_note": "DEMO schedule (invented dates). Replace with the real programme before launch. Dates are YYYY-MM-DD, times are Lefkoşa time. Text in { tr, en } pairs must be filled in both languages.",
+  "matchPhoto": null,
+  "musicPhoto": null,
+  "matches": [
+    { "date": "2026-11-01", "time": "19:00", "home": "Fenerbahçe", "away": "Samsunspor", "league": "Süper Lig" },
+    { "date": "2026-11-07", "time": "20:00", "home": "Galatasaray", "away": "Beşiktaş", "league": "Süper Lig", "tag": { "tr": "Derbi", "en": "Derby" } },
+    { "date": "2026-11-08", "time": "19:00", "home": "Trabzonspor", "away": "Fenerbahçe", "league": "Süper Lig" },
+    { "date": "2026-11-22", "time": "20:00", "home": "Beşiktaş", "away": "Fenerbahçe", "league": "Süper Lig", "tag": { "tr": "Derbi", "en": "Derby" } },
+    { "date": "2026-11-28", "time": "19:00", "home": "Trabzonspor", "away": "Galatasaray", "league": "Süper Lig" },
+    { "date": "2026-11-29", "time": "20:00", "home": "Galatasaray", "away": "Başakşehir", "league": "Süper Lig" }
+  ],
+  "music": [
+    { "date": "2026-11-13", "time": "20:00", "name": { "tr": "Sidar Karakuş", "en": "Sidar Karakuş" }, "text": { "tr": "Sidar Karakuş ile akustik gece", "en": "An acoustic night with Sidar Karakuş" }, "photo": "sidar-karakus.jpg" },
+    { "date": "2026-11-04", "time": "21:30", "name": { "tr": "Caz & soul", "en": "Jazz & soul" }, "text": { "tr": "Piyano ve vokal", "en": "Piano and vocals" } },
+    { "date": "2026-11-20", "time": "21:30", "name": { "tr": "Akustik gece", "en": "Acoustic night" }, "text": { "tr": "90'lar Türkçe pop", "en": "90s Turkish pop" } },
+    { "date": "2026-11-27", "time": "21:30", "name": { "tr": "Kıbrıs ezgileri", "en": "Cypriot songs" }, "text": { "tr": "Türkçe ve Rumca şarkılar", "en": "Turkish and Greek songs" } }
+  ]
+}
