@@ -1,0 +1,19 @@
+---
+// Floating WhatsApp button, shown on every page (CLAUDE.md rule 3).
+import { getContent, type Lang } from '../lib/i18n';
+import { business } from '../lib/business';
+
+interface Props { lang: Lang; }
+const t = getContent(Astro.props.lang);
+---
+<a
+  href={`https://wa.me/${business.whatsapp}`}
+  aria-label={t.whatsapp}
+  class="fixed bottom-5 right-5 z-50 inline-flex min-h-[52px] items-center gap-2 rounded-full bg-[#1F7A4D] px-5 font-semibold text-white shadow-lg hover:bg-[#17603C]"
+>
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3z"></path>
+  </svg>
+  <span class="hidden sm:inline">WhatsApp</span>
+</a>

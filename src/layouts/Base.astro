@@ -1,0 +1,89 @@
+---
+import '../styles/global.css';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { getContent, homePath, type Lang } from '../lib/i18n';
+import { business } from '../lib/business';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = getContent(lang);
+
+const site = Astro.site ?? new URL('https://quadrocoffee.example');
+const canonical = new URL(homePath(lang), site).href;
+const trUrl = new URL(homePath('tr'), site).href;
+const enUrl = new URL(homePath('en'), site).href;
+// TODO: replace with a real 1200x630 photo in public/og.jpg
+const ogImage = new URL('/og.svg', site).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CafeOrCoffeeShop',
+  name: business.name,
+  url: canonical,
+  telephone: business.phone,
+  image: ogImage,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: business.street,
+    addressLocality: business.city,
+    postalCode: business.postalCode,
+    addressRegion: business.district,
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: business.geo.lat, longitude: business.geo.lng },
+  openingHoursSpecification: business.openingHours.map((h) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: h.days,
+    opens: h.opens,
+    closes: h.closes,
+  })),
+  sameAs: [business.instagram, business.facebook].filter(Boolean),
+};
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Switch to deck mode before the first paint, so a refresh or deep link doesn't flash the hero first.
+         Keep the media query in sync with QUERY in src/scripts/deck.ts. -->
+    <script is:inline>
+      if (matchMedia('(min-width: 1024px) and (min-height: 620px) and (prefers-reduced-motion: no-preference)').matches) {
+        document.documentElement.classList.add('deck', 'deck-booting');
+        // Show the section named in the URL (e.g. #yorumlar) instead of the first one until deck.ts takes over.
+        var id = location.hash.slice(1);
+        try { id = decodeURIComponent(id); } catch (e) {}
+        if (id) {
+          var sel = '#' + CSS.escape(id), css = document.createElement('style');
+          css.textContent = 'html.deck-booting .panel' + sel + ',html.deck-booting .panel:has(' + sel + '){visibility:visible}'
+            + 'html.deck-booting:has(.panel' + sel + ',.panel ' + sel + ') .panel[data-first]{visibility:hidden}';
+          document.head.append(css);
+        }
+      }
+    </script>
+    <title>{t.meta.title}</title>
+    <meta name="description" content={t.meta.description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="tr" href={trUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={trUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={t.meta.title} />
+    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={lang === 'tr' ? 'tr_TR' : 'en_GB'} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2">{t.nav.skip}</a>
+    <slot />
+    <WhatsAppButton lang={lang} />
+  </body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "Quadro Coffee",
+  "colors": {
+    "espresso": "#22170F",
+    "copper": "#C08A55",
+    "copperLight": "#D7A86E",
+    "paper": "#F4F1EC",
+    "cream": "#E6DCCB",
+    "sand": "#D9CFC2",
+    "ink": "#22170F",
+    "muted": "#6E6155"
+  },
+  "colorNotes": "Espresso and copper sampled from the Instagram profile logo (low-res). Confirm against the original logo file.",
+  "fonts": {
+    "display": "Bebas Neue",
+    "sans": "Montserrat",
+    "notes": "Bebas Neue for headings (h1-h3, uppercased in CSS for correct Turkish İ). Montserrat for body text, nav and buttons."
+  },
+  "logo": {
+    "file": "public/images/quadro_coffee 1.png",
+    "web": "src/assets/brand/logo.webp (full logo, wordmark recoloured to cream for dark backgrounds)",
+    "svg": "TODO: ask the owner for a vector (SVG) version; current source is a 1254px PNG",
+    "description": "Dark diamond with copper border, a copper serif Q shaped like a cup, QUADRO wordmark underneath"
+  },
+  "tone": "Warm, short and factual. Turkish first, English second. No slogans the owner wouldn't say."
+}

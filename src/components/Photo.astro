@@ -1,0 +1,37 @@
+---
+// Shows an optimized photo from src/assets/images/<file>, or a labelled
+// placeholder box when the photo isn't there yet.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  file: string | null;
+  alt: string;
+  label?: string;
+  class?: string;
+  width?: number;
+  height?: number;
+  eager?: boolean;
+}
+
+const { file, alt, label = alt, class: className = '', width = 800, height = 600, eager = false } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/*.{jpg,jpeg,png,webp,avif}');
+const key = file ? `/src/assets/images/${file}` : '';
+const src = key && images[key] ? (await images[key]()).default : null;
+---
+{src ? (
+  <Image
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    format="webp"
+    loading={eager ? 'eager' : 'lazy'}
+    class={`object-cover ${className}`}
+  />
+) : (
+  <div role="img" aria-label={alt} class={`flex items-end bg-sand p-3 text-xs text-muted ${className}`}>
+    <span>[{label}]</span>
+  </div>
+)}

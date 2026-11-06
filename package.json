@@ -1,0 +1,16 @@
+{
+  "name": "quadro-coffee",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.4",
+    "tailwindcss": "^4.3.3"
+  },
+  "private": true,
+  "type": "module"
+}

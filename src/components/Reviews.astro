@@ -1,0 +1,33 @@
+---
+// Real Google reviews chosen with the owner (content/*/site.json → reviews.items).
+// Quotes stay in the reviewer's own language (quoteLang); `translation` is shown under them when set.
+import Panel from './Panel.astro';
+import { getContent, type Lang } from '../lib/i18n';
+import { business } from '../lib/business';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = getContent(lang);
+---
+<Panel id="yorumlar" bg="var(--color-paper)" prev="var(--color-espresso)" tone="light" label={t.reviews.title} labelledby="reviews-title" class="mx-auto w-full max-w-[1240px]">
+  <h2 id="reviews-title" data-reveal="spaced" class="spaced mb-2 text-center text-[clamp(40px,4.6vw,64px)] leading-none">{t.reviews.title}</h2>
+  <p data-reveal class="mb-[clamp(14px,3vh,44px)] flex flex-col items-center text-muted">
+    <span class="font-display text-[clamp(60px,10vh,120px)] leading-none text-espresso">{t.reviews.rating}</span>
+    <span><span class="text-copper" aria-hidden="true">★★★★★</span> · {t.reviews.count}</span>
+  </p>
+  <ul class="grid gap-5 md:grid-cols-3">
+    {t.reviews.items.map((r) => (
+      <li data-reveal>
+        <figure class="flex h-full flex-col rounded-xl bg-white p-5 xl:p-6">
+          <p class="mb-2 text-sm tracking-[0.15em] text-copper" aria-label={`${r.stars}/5`}>{'★'.repeat(r.stars)}</p>
+          <blockquote lang={r.quoteLang} class="text-[14px] leading-relaxed xl:text-[15px]">“{r.quote}”</blockquote>
+          {r.translation && <p class="mt-2 text-[12.5px] leading-normal text-muted">{r.translation}</p>}
+          <figcaption class="mt-auto pt-3 text-sm font-semibold">{r.name} <span class="font-normal text-muted">· Google</span></figcaption>
+        </figure>
+      </li>
+    ))}
+  </ul>
+  <p data-reveal class="mt-[clamp(12px,2.5vh,32px)] text-center">
+    <a href={business.mapsUrl} class="font-semibold underline decoration-1 underline-offset-4 hover:no-underline">{t.reviews.allLink} →</a>
+  </p>
+</Panel>

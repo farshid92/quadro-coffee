@@ -1,0 +1,37 @@
+---
+// The whole one-page site; used by both language routes.
+// Each section is a full-screen <Panel>; src/scripts/deck.ts turns them into the
+// curved-wipe deck on desktop and leaves normal scrolling everywhere else.
+import Base from '../layouts/Base.astro';
+import Header from './Header.astro';
+import DeckNav from './DeckNav.astro';
+import Hero from './Hero.astro';
+import Specials from './Specials.astro';
+import StudentBanner from './StudentBanner.astro';
+import Evenings from './Evenings.astro';
+import Reviews from './Reviews.astro';
+import Visit from './Visit.astro';
+import Footer from './Footer.astro';
+import type { Lang } from '../lib/i18n';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+---
+<Base lang={lang}>
+  <Header lang={lang} />
+  <DeckNav lang={lang} />
+  <Hero lang={lang} />
+  <main id="main">
+    <Specials lang={lang} />
+    <StudentBanner lang={lang} />
+    <Evenings lang={lang} />
+    <Reviews lang={lang} />
+    <Visit lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Base>
+
+<script>
+  import { initDeck } from '../scripts/deck';
+  initDeck();
+</script>

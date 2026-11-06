@@ -1,0 +1,50 @@
+---
+// Row of drink categories with line icons; sits inside the menu panel.
+// Hover (mouse only): a small spark of light runs along the icon's lines ("light trace").
+// Each icon is drawn twice: the dark lines, and a light copy on top that shows only the moving dash.
+import { getContent, type Lang } from '../lib/i18n';
+
+interface Props { lang: Lang; }
+const t = getContent(Astro.props.lang);
+
+// Simple stroke icons, same order as content categories.
+// Every line is its own element with pathLength="1", so the spark covers each line at the same pace.
+const icons = [
+  '<path d="M10 20h24v10a10 10 0 0 1-10 10h-4a10 10 0 0 1-10-10z" pathLength="1"/><path d="M34 23h3a5 5 0 0 1 0 10h-3" pathLength="1"/><path d="M17 8c-2 3 2 5 0 8" pathLength="1"/><path d="M24 8c-2 3 2 5 0 8" pathLength="1"/>',
+  '<path d="M13 14h22l-3 28H16z" pathLength="1"/><path d="M11 14h26" pathLength="1"/><path d="M27 14l4-9" pathLength="1"/><path d="M15 24h18" pathLength="1"/>',
+  '<path d="M14 12h20l-3 30H17z" pathLength="1"/><path d="M15 22h18" pathLength="1"/><circle cx="32" cy="12" r="5" pathLength="1"/>',
+  '<path d="M16 6h16v8a8 8 0 0 1-16 0z" pathLength="1"/><path d="M16.5 12h15" pathLength="1"/><path d="M24 22v16" pathLength="1"/><path d="M17 42h14" pathLength="1"/>',
+];
+---
+<ul aria-label={t.nav.menu} class="grid grid-cols-2 gap-x-4 gap-y-5 text-center sm:grid-cols-4">
+  {t.categories.map((label, i) => (
+    <li class="category flex flex-col items-center gap-2 text-[13px] font-semibold">
+      <span class="relative block h-9 w-9">
+        <svg class="absolute inset-0 h-full w-full overflow-visible" set:html={icons[i]} viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" />
+        <svg class="spark absolute inset-0 h-full w-full overflow-visible" set:html={icons[i]} viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" />
+      </span>
+      {label}
+    </li>
+  ))}
+</ul>
+
+<style>
+  .spark {
+    color: #FFF4DE;
+    opacity: 0;
+    pointer-events: none;
+    stroke-dasharray: 0.22 0.78;
+    stroke-dashoffset: 1;
+    filter: drop-shadow(0 0 3px rgb(255 240 210 / 0.95));
+    transition: opacity 0.3s;
+  }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .category:hover .spark {
+      opacity: 1;
+      animation: spark-trace 1.4s linear infinite;
+    }
+  }
+  @keyframes spark-trace {
+    to { stroke-dashoffset: 0; }
+  }
+</style>

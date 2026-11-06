@@ -1,0 +1,151 @@
+---
+// Opening panel. With a hero photo it plays the "diamond window" intro once on page load:
+// the diamond from the logo opens onto the photo, the two title lines appear beside it
+// (above and below it on phones), then the diamond fills the screen and the lines meet in the
+// centre. Skipped for deep links (e.g. /#yorumlar) and for visitors who prefer reduced motion.
+import Panel from './Panel.astro';
+import Photo from './Photo.astro';
+import SteamCup from './SteamCup.astro';
+import { getContent, type Lang } from '../lib/i18n';
+import { business } from '../lib/business';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = getContent(lang);
+const [line1, line2 = ''] = t.hero.title.split('\n');
+const intro = Boolean(t.hero.image);
+---
+<Panel id="top" first bg="var(--color-hero)" tone="dark" label={t.nav.home} labelledby="hero-title" class={`hero items-center text-center ${intro ? 'hero-intro' : ''}`}>
+  {t.hero.image && (
+    <div class="hero-window absolute inset-0 overflow-hidden">
+      <div class="hero-photo absolute inset-0">
+        <Photo file={t.hero.image} alt={t.hero.imageAlt} width={1920} height={1080} eager class="h-full w-full" />
+      </div>
+      <div class="hero-dim absolute inset-0 bg-espresso/60"></div>
+    </div>
+  )}
+  <div class="relative flex flex-col items-center">
+    <p data-reveal class="hero-late mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-copper">{t.hero.eyebrow}</p>
+    <h1 id="hero-title" data-reveal="spaced" class="spaced text-[clamp(44px,6.2vw,92px)] leading-[1.05]">
+      <span class="hero-line hero-line-1 mx-auto block w-fit">{line1}</span>
+      {line2 && <span class="hero-line hero-line-2 mx-auto block w-fit">{line2}</span>}
+    </h1>
+    {!t.hero.image && (
+      <div data-reveal class="my-[clamp(16px,3.5vh,40px)] text-copper">
+        <SteamCup class="float h-[clamp(130px,24vh,230px)] w-auto" />
+      </div>
+    )}
+    <!-- Over a photo, the intro sits on clear glass so it stays readable whatever is behind it -->
+    <p data-reveal class={`hero-late mb-7 max-w-[520px] text-[15px] leading-relaxed text-[#E9E1D6] sm:text-base ${t.hero.image ? 'glass mt-5 rounded-2xl px-5 py-4 text-white sm:px-7' : ''}`}>{t.hero.text}</p>
+    <div data-reveal class="hero-late flex flex-wrap justify-center gap-3">
+      <a href="#menu" class="inline-flex min-h-[46px] items-center rounded-md bg-white px-6 font-semibold text-espresso hover:bg-cream">{t.hero.ctaMenu}</a>
+      <a href={business.mapsUrl} class="inline-flex min-h-[46px] items-center rounded-md border border-white/60 px-6 font-semibold text-white hover:bg-white/10">{t.hero.ctaDirections}</a>
+    </div>
+  </div>
+  <p class="scroll-hint hero-late absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#BFB3A4]" aria-hidden="true">
+    {t.deck.scroll}
+    <span class="block h-8 w-px bg-current"></span>
+  </p>
+</Panel>
+
+{intro && (
+  /* Runs right after the hero is parsed, before the first paint:
+     - skips the intro for deep links and reduced motion
+     - otherwise measures where each title line must start (beside the diamond on wide screens,
+       above and below it on narrow ones) and hands those offsets to the CSS animation. */
+  <script is:inline>
+    (() => {
+      const hero = document.getElementById('top');
+      const inner = hero.querySelector('.hero-intro');
+      const deepLink = location.hash && location.hash !== '#top';
+      if (deepLink || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        inner.classList.remove('hero-intro');
+        return;
+      }
+      const maxStart = 0.5; // lines start at half size, or smaller when the screen is tight
+
+      // Position of an element inside the panel from its layout box. Unlike getBoundingClientRect,
+      // this ignores the animation's transform (the lines are already shrunk while we measure).
+      const layoutBox = (el) => {
+        let x = 0, y = 0;
+        for (let e = el; e && e !== inner; e = e.offsetParent) { x += e.offsetLeft; y += e.offsetTop; }
+        return { cx: x + el.offsetWidth / 2, cy: y + el.offsetHeight / 2, w: el.offsetWidth, h: el.offsetHeight };
+      };
+
+      const place = () => {
+        const W = inner.clientWidth, H = inner.clientHeight;
+        const wide = W >= H;
+        // Diamond half-size, as fractions of the panel (used by the clip-path keyframes below)
+        const dx = wide ? 0.16 : 0.36, dy = wide ? 0.32 : 0.24;
+        const edge = wide ? 112 : 16; // keep clear of the side rails / screen edge
+        inner.style.setProperty('--dx', `${dx * 100}%`);
+        inner.style.setProperty('--dy', `${dy * 100}%`);
+        const lines = [...inner.querySelectorAll('.hero-line')];
+        // Room beside the diamond on each side; both lines share one scale so they match
+        const room = W / 2 - W * dx - 40 - edge;
+        const start = wide ? Math.min(maxStart, ...lines.map((l) => room / l.offsetWidth)) : maxStart;
+        inner.style.setProperty('--from-s', start);
+        lines.forEach((line, i) => {
+          const b = layoutBox(line);
+          const side = i === 0 ? -1 : 1;
+          const halfW = (b.w * start) / 2, halfH = (b.h * start) / 2;
+          let tx = wide ? W / 2 + side * (W * dx + 40 + halfW) : W / 2;
+          tx = Math.min(Math.max(tx, edge + halfW), W - edge - halfW);
+          const ty = wide ? H / 2 : H / 2 + side * (H * dy + 30 + halfH);
+          line.style.setProperty('--from-x', `${tx - b.cx}px`);
+          line.style.setProperty('--from-y', `${ty - b.cy}px`);
+        });
+      };
+
+      place();
+      // The title font (Bebas Neue) may load after this runs and is wider than the fallback,
+      // so measure again once fonts are ready, and on resize.
+      document.fonts?.ready.then(place);
+      addEventListener('resize', place);
+    })();
+  </script>
+)}
+
+<style>
+  /* ---- Diamond window intro (only while .hero-intro is present) ---- */
+  /* .hero-intro sits on the panel's inner box (rendered by Panel.astro), hence :global(). */
+  :global(.panel .hero-intro) .hero-window {
+    animation: hero-window 4.6s cubic-bezier(0.77, 0, 0.18, 1) both;
+  }
+  :global(.panel .hero-intro) .hero-photo { animation: hero-zoom 6s ease-out both; }
+  :global(.panel .hero-intro) .hero-dim { animation: hero-fade 1s 3.2s both; }
+  :global(.panel .hero-intro) .hero-line {
+    animation:
+      hero-line-in 0.9s 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both,
+      hero-line-meet 1.2s 3s cubic-bezier(0.77, 0, 0.18, 1) both;
+  }
+  :global(.panel .hero-intro) .hero-line-2 { animation-delay: 1.1s, 3s; }
+  /* outranks the deck rule that turns reveal animations off */
+  :global(html .panel .hero-intro) .hero-late { animation: hero-late 0.9s 4.1s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+  @keyframes hero-window {
+    0% { clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%); }
+    28%, 62% {
+      clip-path: polygon(50% calc(50% - var(--dy, 32%)), calc(50% + var(--dx, 16%)) 50%, 50% calc(50% + var(--dy, 32%)), calc(50% - var(--dx, 16%)) 50%);
+    }
+    100% { clip-path: polygon(50% -110%, 260% 50%, 50% 210%, -160% 50%); }
+  }
+  @keyframes hero-zoom {
+    from { transform: scale(1.35); }
+    to { transform: scale(1); }
+  }
+  @keyframes hero-fade {
+    from { opacity: 0; }
+  }
+  @keyframes hero-line-in {
+    from { opacity: 0; transform: translate(var(--from-x, 0px), calc(var(--from-y, 0px) + 20px)) scale(var(--from-s, 0.5)); }
+    to { opacity: 1; transform: translate(var(--from-x, 0px), var(--from-y, 0px)) scale(var(--from-s, 0.5)); }
+  }
+  @keyframes hero-line-meet {
+    from { transform: translate(var(--from-x, 0px), var(--from-y, 0px)) scale(var(--from-s, 0.5)); }
+    to { transform: translate(0px, 0px) scale(1); }
+  }
+  @keyframes hero-late {
+    from { opacity: 0; transform: translateY(24px); }
+  }
+</style>

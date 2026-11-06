@@ -1,0 +1,116 @@
+{
+  "lang": "tr",
+  "meta": {
+    "title": "Quadro Coffee | Köşklüçiftlik, Lefkoşa",
+    "description": "Lefkoşa Köşklüçiftlik'te kahve dükkanı. Sıcak ve soğuk kahveler, kahve dışı içecekler, şarap, bira ve viski; teras, canlı müzik ve maç geceleri. Memduh Asaf Sokak 15/C."
+  },
+  "nav": { "home": "Ana sayfa", "menu": "Menü", "events": "Etkinlikler", "contact": "İletişim", "skip": "İçeriğe geç" },
+  "hero": {
+    "eyebrow": "Hoş geldiniz",
+    "title": "Köşklüçiftlik'te\nsizin köşeniz.",
+    "text": "Sabah kahvenden akşam şarabına. Kahveler, bira ve viski; Lefkoşa'nın en eski ve en güzel mahallelerinden Köşklüçiftlik'teki terasımızda.",
+    "ctaMenu": "Menüyü gör",
+    "ctaDirections": "Yol tarifi",
+    "image": "hero-terrace.jpg",
+    "imageAlt": "Bitkiler ve ışık zinciriyle, akşamüstü ışığında bir kafe terası"
+  },
+  "categories": ["Sıcak kahveler", "Soğuk kahveler", "Kahve dışı", "Şarap & bira"],
+  "specials": {
+    "title": "Özel lezzetlerimiz",
+    "subtitle": "En çok sevilenler",
+    "cta": "Menüde gör",
+    "allMenu": "Tüm menüyü gör",
+    "items": [
+      { "name": "Türk Kahvesi", "text": "Geleneksel usulde, bol köpüklü ve yoğun.", "price": 80, "image": "turkish-coffee.jpg",
+        "serve": "hot" },
+      { "name": "Latte", "text": "Espresso ve ipeksi süt, üzerinde latte art ile.", "price": 240, "image": "latte.jpg",
+        "serve": "hot" },
+      { "name": "Iced Latte", "text": "Soğuk süt ve buzun üzerine dökülen espresso.", "price": 240, "image": "iced-latte.jpg",
+        "serve": "iced" },
+      { "name": "Iced V60", "text": "Buzun üzerine elle demlenen filtre kahve; hafif ve ferahlatıcı.", "price": 280, "image": "iced-v60.jpg",
+        "serve": "iced" }
+    ]
+  },
+  "student": {
+    "title": "Öğrencilere seçili\nkahvelerde %10 indirim",
+    "text": "Öğrenci kartını göster, indirimi yakala. 15 Kasım'a kadar geçerli.",
+    "cta": "Bizi bul",
+    "lastDay": "2026-11-15",
+    "badge": "ÖĞRENCİ İNDİRİMİ",
+    "daysLeft": "Kampanyanın bitmesine {n} gün",
+    "oneDayLeft": "Kampanyanın bitmesine 1 gün",
+    "today": "Kampanyanın son günü",
+    "itemsLabel": "İndirimli kahveler",
+    "items": [
+      {
+        "name": "Americano",
+        "image": "americano.jpg"
+      },
+      {
+        "name": "Iced Americano",
+        "image": "iced-americano.jpg"
+      },
+      {
+        "name": "Filtre kahve",
+        "image": "filter-coffee.jpg"
+      },
+      {
+        "name": "V60",
+        "image": "v60.jpg"
+      }
+    ]
+  },
+  "evenings": {
+    "title": "Akşamları Quadro'da",
+    "items": [
+      { "name": "Canlı müzik", "text": "TODO: günler ve saat", "image": null },
+      { "name": "Maç geceleri", "text": "Büyük maçlar ekranda. Sıradaki maç Instagram'da.", "image": null }
+    ]
+  },
+  "reviews": {
+    "title": "Misafirlerimiz",
+    "rating": "4.7",
+    "count": "37 Google yorumu",
+    "items": [
+      {
+        "quote": "A truly elegant and stylish coffeeshop located on a beautiful street, with a lovely terrace and coffees prepared with love!",
+        "quoteLang": "en",
+        "name": "Johannes M.",
+        "stars": 5,
+        "translation": "Güzel bir sokakta, gerçekten zarif ve şık bir kahve dükkânı; hoş bir terası ve sevgiyle hazırlanan kahveleri var!"
+      },
+      {
+        "quote": "Really enjoyed a flat white there. I tried the coffee in few other places but they were either too liquid or too hot or some other issues. They really know what is the difference between latte and flat white and their approach was very friendly.",
+        "quoteLang": "en",
+        "name": "Vahid M.",
+        "stars": 5,
+        "translation": "Oradaki flat white'ı çok beğendim. Başka birkaç yerde de kahve denedim ama ya fazla suluydu ya fazla sıcaktı ya da başka sorunlar vardı. Latte ile flat white arasındaki farkı gerçekten biliyorlar ve çok güler yüzlüler."
+      },
+      {
+        "quote": "First time I've ever written a review for anything, but seriously excellent customer service, cosy and aesthetic atmosphere, the barista was so welcoming and friendly and the coffee was delicious. Will definitely come again. …",
+        "quoteLang": "en",
+        "name": "Melin",
+        "stars": 5,
+        "translation": "Hayatımda ilk kez bir şey için yorum yazıyorum ama gerçekten mükemmel bir hizmet, sıcak ve estetik bir atmosfer; barista çok samimi ve güler yüzlüydü, kahve de çok lezzetliydi. Kesinlikle tekrar geleceğim. …"
+      }
+    ],
+    "allLink": "Tüm yorumları Google'da gör"
+  },
+  "visit": {
+    "title": "Bizi ziyaret edin",
+    "address": ["Memduh Asaf Sokak No 15/C", "Köşklüçiftlik, Lefkoşa"],
+    "hours": [
+      { "days": "Pzt, Sal, Per", "time": "07:30–23:00" },
+      { "days": "Çar, Cum, Cmt", "time": "07:30–23:30" },
+      { "days": "Pazar", "time": "09:00–23:00" }
+    ],
+    "image": "street.jpg",
+    "imageAlt": "Köşklüçiftlik'te ağaçlı bir sokak",
+    "directions": "Yol tarifi",
+    "call": "Ara"
+  },
+  "footer": { "menu": "Menü", "coffee": "Kahveler", "drinks": "Şarap & bira", "visit": "Ziyaret", "follow": "Takip et" },
+  "deck": { "scroll": "Kaydır", "sections": "Bölümler" },
+  "whatsapp": "WhatsApp'tan yaz",
+  "photoPlaceholder": "Fotoğraf"
+}

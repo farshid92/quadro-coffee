@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+/* Values mirror brand.json */
+@theme {
+  --color-espresso: #22170F;
+  --color-copper: #C08A55;
+  --color-copper-light: #D7A86E;
+  --color-paper: #F4F1EC;
+  --color-cream: #E6DCCB;
+  --color-sand: #D9CFC2;
+  --color-muted: #6E6155;
+  --color-hero: #2E241C;
+  --font-sans: "Montserrat", system-ui, sans-serif;
+  --font-display: "Bebas Neue", "Arial Narrow", sans-serif;
+}
+
+/* `deck:` = full-screen panel mode (desktop, set by src/scripts/deck.ts).
+   `tone-light:` = the panel on screen is light, so the fixed header and rails switch to dark ink. */
+@custom-variant deck (&:where(html.deck, html.deck *));
+@custom-variant tone-light (&:where(html[data-tone="light"] *));
+
+/* Bebas Neue has one weight and draws lowercase as capitals.
+   Uppercasing via CSS lets the browser apply Turkish casing (i → İ) from <html lang>. */
+@layer base {
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  /* keep #menu / #iletisim headings clear of the sticky header */
+  scroll-padding-top: 7rem;
+}
+
+body {
+  @apply bg-paper text-espresso font-sans antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-copper);
+  outline-offset: 3px;
+}
+
+/* Wide-tracked display headings (the "GLORIA" look).
+   The negative margin cancels the trailing letter-space so centred text stays centred. */
+.spaced {
+  --ls: 0.08em;
+  letter-spacing: var(--ls);
+  margin-right: calc(-1 * var(--ls));
+}
+@media (min-width: 640px) {
+  .spaced { --ls: 0.16em; }
+}
+
+/* Clear glass panel: barely tinted, no edge; lightly blurs what is behind it so the wood still shows through. */
+.glass {
+  background: rgb(255 255 255 / 0.06);
+  -webkit-backdrop-filter: blur(5px) brightness(1.08);
+  backdrop-filter: blur(5px) brightness(1.08);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+}
+
+/* ---------- Panels ----------
+   Every section is a full-screen panel with its own colour (--bg).
+   Normal scroll (phones, tablets, reduced motion): each panel rises with a curved top edge over the
+   previous colour (--prev), driven by scroll where the browser supports scroll-driven animations.
+   Deck mode (html.deck): panels stack in place and deck.ts plays the curved wipe between them. */
+.panel {
+  position: relative;
+  background: var(--prev, var(--bg));
+}
+.panel-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+}
+.panel-inner {
+  position: relative;
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+  justify-content: center;
+  padding: 72px 24px;
+}
+/* The first panel shares the first screen with the sticky header. */
+.panel[data-first] .panel-inner { min-height: calc(100svh - 128px); }
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* The timeline sits in its own rule (note the ">") so the CSS minifier can't fold it into the
+       `animation` shorthand, which browsers reject. */
+    .panel:not([data-first]) .panel-fill { animation: panel-dome linear both; }
+    .panel:not([data-first]) > .panel-fill {
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+    .panel:not([data-first]) [data-reveal] { animation: panel-rise linear both; }
+    .panel:not([data-first]) > .panel-inner [data-reveal] {
+      animation-timeline: view();
+      animation-range: entry 10% cover 30%;
+    }
+  }
+  .float { animation: float 6s ease-in-out infinite; }
+}
+
+@keyframes panel-dome {
+  from { border-radius: 50% 50% 0 0 / 120px 120px 0 0; }
+  to { border-radius: 0; }
+}
+@keyframes panel-rise {
+  from { opacity: 0; translate: 0 28px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -10px; }
+}
+
+/* Deck mode */
+html.deck,
+html.deck body { height: 100%; overflow: hidden; }
+html.deck .panel {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--i) + 1);
+  background: var(--bg);
+}
+html.deck .panel-fill { display: none; }
+html.deck .panel-inner,
+html.deck .panel[data-first] .panel-inner {
+  height: 100%;
+  min-height: 0;
+  padding: 104px 104px 48px;
+}
+html.deck .panel [data-reveal] { animation: none; } /* must outrank the scroll-reveal rules above */
+/* Until deck.ts has laid the panels out, show only the one in the URL (or the first),
+   and keep the header and rails hidden because their colour depends on that panel. */
+html.deck-booting .panel,
+html.deck-booting [data-deck-chrome] { visibility: hidden; }
+html.deck-booting .panel[data-first] { visibility: visible; } /* the head script in Base.astro swaps this for the URL's section */
+/* The map would swallow wheel steps; in deck mode it is a picture and the Directions button opens Google Maps. */
+html.deck iframe { pointer-events: none; }
+/* "Scroll" hint under the hero, only where there is room for it */
+@media (min-height: 820px) {
+  html.deck .scroll-hint { display: flex; }
+}

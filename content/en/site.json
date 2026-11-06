@@ -1,0 +1,116 @@
+{
+  "lang": "en",
+  "meta": {
+    "title": "Quadro Coffee | Köşklüçiftlik, Nicosia",
+    "description": "Coffee shop in Köşklüçiftlik, Nicosia. Hot and cold coffees, non-coffee drinks, wine, beer and whisky, a terrace, live music and match nights. Memduh Asaf Sokak 15/C."
+  },
+  "nav": { "home": "Home", "menu": "Menu", "events": "Events", "contact": "Contact", "skip": "Skip to content" },
+  "hero": {
+    "eyebrow": "Welcome",
+    "title": "Your corner\nin Köşklüçiftlik.",
+    "text": "From your morning coffee to an evening glass of wine. Coffees, beer and whisky on our terrace in Köşklüçiftlik, one of Nicosia's oldest and most beautiful neighbourhoods.",
+    "ctaMenu": "See the menu",
+    "ctaDirections": "Directions",
+    "image": "hero-terrace.jpg",
+    "imageAlt": "A café terrace with plants and string lights in late-afternoon light"
+  },
+  "categories": ["Hot coffee", "Cold coffee", "Non-coffee", "Wine & beer"],
+  "specials": {
+    "title": "Our specials",
+    "subtitle": "Guest favourites",
+    "cta": "On the menu",
+    "allMenu": "See the full menu",
+    "items": [
+      { "name": "Turkish coffee", "text": "Traditional, rich and topped with thick foam.", "price": 80, "image": "turkish-coffee.jpg",
+        "serve": "hot" },
+      { "name": "Latte", "text": "Espresso and silky steamed milk, finished with latte art.", "price": 240, "image": "latte.jpg",
+        "serve": "hot" },
+      { "name": "Iced Latte", "text": "Espresso poured over cold milk and ice.", "price": 240, "image": "iced-latte.jpg",
+        "serve": "iced" },
+      { "name": "Iced V60", "text": "Hand-poured filter coffee over ice; light and refreshing.", "price": 280, "image": "iced-v60.jpg",
+        "serve": "iced" }
+    ]
+  },
+  "student": {
+    "title": "10% off selected coffees\nfor students",
+    "text": "Show your student card for the discount. Valid until 15 November.",
+    "cta": "Find us",
+    "lastDay": "2026-11-15",
+    "badge": "STUDENT DISCOUNT",
+    "daysLeft": "{n} days left",
+    "oneDayLeft": "1 day left",
+    "today": "Last day of the offer",
+    "itemsLabel": "Discounted coffees",
+    "items": [
+      {
+        "name": "Americano",
+        "image": "americano.jpg"
+      },
+      {
+        "name": "Iced Americano",
+        "image": "iced-americano.jpg"
+      },
+      {
+        "name": "Filter coffee",
+        "image": "filter-coffee.jpg"
+      },
+      {
+        "name": "V60",
+        "image": "v60.jpg"
+      }
+    ]
+  },
+  "evenings": {
+    "title": "Evenings at Quadro",
+    "items": [
+      { "name": "Live music", "text": "TODO: days and time", "image": null },
+      { "name": "Match nights", "text": "Big games on screen. Next match on Instagram.", "image": null }
+    ]
+  },
+  "reviews": {
+    "title": "Our guests",
+    "rating": "4.7",
+    "count": "37 Google reviews",
+    "items": [
+      {
+        "quote": "A truly elegant and stylish coffeeshop located on a beautiful street, with a lovely terrace and coffees prepared with love!",
+        "quoteLang": "en",
+        "name": "Johannes M.",
+        "stars": 5,
+        "translation": ""
+      },
+      {
+        "quote": "Really enjoyed a flat white there. I tried the coffee in few other places but they were either too liquid or too hot or some other issues. They really know what is the difference between latte and flat white and their approach was very friendly.",
+        "quoteLang": "en",
+        "name": "Vahid M.",
+        "stars": 5,
+        "translation": ""
+      },
+      {
+        "quote": "First time I've ever written a review for anything, but seriously excellent customer service, cosy and aesthetic atmosphere, the barista was so welcoming and friendly and the coffee was delicious. Will definitely come again. …",
+        "quoteLang": "en",
+        "name": "Melin",
+        "stars": 5,
+        "translation": ""
+      }
+    ],
+    "allLink": "See all reviews on Google"
+  },
+  "visit": {
+    "title": "Visit us",
+    "address": ["Memduh Asaf Sokak No 15/C", "Köşklüçiftlik, Nicosia"],
+    "hours": [
+      { "days": "Mon, Tue, Thu", "time": "07:30–23:00" },
+      { "days": "Wed, Fri, Sat", "time": "07:30–23:30" },
+      { "days": "Sunday", "time": "09:00–23:00" }
+    ],
+    "image": "street.jpg",
+    "imageAlt": "A tree-lined street in Köşklüçiftlik",
+    "directions": "Directions",
+    "call": "Call"
+  },
+  "footer": { "menu": "Menu", "coffee": "Coffee", "drinks": "Wine & beer", "visit": "Visit", "follow": "Follow" },
+  "deck": { "scroll": "Scroll", "sections": "Sections" },
+  "whatsapp": "Message on WhatsApp",
+  "photoPlaceholder": "Photo"
+}

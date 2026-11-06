@@ -1,0 +1,58 @@
+---
+import Logo from './Logo.astro';
+import { getContent, homePath, type Lang } from '../lib/i18n';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = getContent(lang);
+const home = homePath(lang);
+const link = 'text-[#E9E1D6] hover:text-white tone-light:text-espresso/80 tone-light:hover:text-espresso';
+---
+<!-- Normal scroll: sticky, solid once the page is scrolled.
+     Deck mode: fixed and transparent; ink follows the tone of the panel on screen. -->
+<header id="site-header" data-deck-chrome class="group sticky top-0 z-40 bg-hero text-white transition-[background-color,box-shadow,color] duration-300 data-[scrolled]:bg-espresso/95 data-[scrolled]:shadow-lg deck:fixed deck:inset-x-0 deck:bg-transparent tone-light:text-espresso">
+  <div class="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-4 px-6 py-5 transition-[padding] duration-200 group-data-[scrolled]:py-2 deck:max-w-none deck:px-[104px] deck:py-4">
+    <a href={home} class="logo no-underline" aria-label="Quadro Coffee">
+      <span class="block tone-light:hidden"><Logo /></span>
+      <span class="hidden tone-light:block"><Logo variant="dark" loading="lazy" /></span>
+    </a>
+    <nav aria-label={t.nav.menu} class="flex flex-wrap items-center gap-6 text-sm font-medium deck:gap-8 deck:text-xs deck:uppercase deck:tracking-[0.2em]">
+      <a href="#menu" class={link}>{t.nav.menu}</a>
+      <a href="#aksam" class={link}>{t.nav.events}</a>
+      <a href="#iletisim" class={link}>{t.nav.contact}</a>
+      <span class="text-[13px] font-semibold">
+        <a href={homePath('tr')} hreflang="tr" lang="tr" aria-current={lang === 'tr' ? 'page' : undefined}
+           class={lang === 'tr' ? '' : 'opacity-60 hover:opacity-100'}>TR</a>
+        <span class="opacity-50"> / </span>
+        <a href={homePath('en')} hreflang="en" lang="en" aria-current={lang === 'en' ? 'page' : undefined}
+           class={lang === 'en' ? '' : 'opacity-60 hover:opacity-100'}>EN</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .logo :global(img) { transition: height 0.2s ease; }
+  #site-header[data-scrolled] .logo :global(img),
+  :global(html.deck) #site-header .logo :global(img) { height: 64px; width: auto; }
+</style>
+
+<script>
+  const header = document.getElementById('site-header');
+  const update = () => header?.toggleAttribute('data-scrolled', window.scrollY > 8);
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+
+  // Switching language keeps the visitor on the section they are looking at:
+  // the TR/EN link gets that section's #id (same ids in both languages).
+  document.querySelectorAll<HTMLAnchorElement>('a[hreflang]').forEach((link) => {
+    link.addEventListener('click', () => {
+      let id = location.hash.slice(1); // deck mode keeps the hash in sync with the panel on screen
+      if (!document.documentElement.classList.contains('deck')) {
+        const panels = [...document.querySelectorAll<HTMLElement>('[data-panel]:not([hidden])')];
+        id = panels.filter((p) => p.getBoundingClientRect().top <= innerHeight / 2).pop()?.id ?? '';
+      }
+      link.hash = id && id !== 'top' ? id : '';
+    });
+  });
+</script>

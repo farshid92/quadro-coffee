@@ -1,0 +1,112 @@
+---
+// Student discount panel: copper-to-cream background, a rotating "%10" badge, the discounted coffees
+// as floating photo prints, and a countdown. The whole panel disappears after `student.lastDay`
+// (at build time, and in the browser for visitors who load an older build).
+import Panel from './Panel.astro';
+import Photo from './Photo.astro';
+import { getContent, type Lang } from '../lib/i18n';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = getContent(lang);
+const s = t.student;
+
+// Today's date in Lefkoşa, as YYYY-MM-DD
+const todayInNicosia = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Nicosia' }).format(new Date());
+const expired = todayInNicosia() > s.lastDay;
+
+// The discount figure from the title ("%10" in Turkish, "10%" in English) goes in the badge.
+const figure = s.title.match(/%\d+|\d+%/)?.[0] ?? '';
+const ring = `${s.badge} • ${s.badge} • `;
+const ringId = `badge-ring-${lang}`;
+
+// Photo prints: two on each side of the badge on desktop, a 2×2 grid under it on phones
+const tilts = ['-6deg', '4deg', '-3deg', '7deg'];
+const left = s.items.slice(0, 2).map((item, i) => ({ ...item, tilt: tilts[i], delay: -i * 1.5 }));
+const right = s.items.slice(2, 4).map((item, i) => ({ ...item, tilt: tilts[i + 2], delay: -(i + 2) * 1.5 }));
+const print = 'w-[clamp(118px,min(12vw,21vh),160px)]';
+---
+{!expired && (
+  <Panel
+    id="ogrenci"
+    bg="linear-gradient(170deg, var(--color-copper) 0%, var(--color-copper-light) 38%, var(--color-cream) 82%)"
+    prev="var(--color-copper)"
+    tone="light"
+    label={s.title.replace('\n', ' ')}
+    labelledby="student-title"
+    class="items-center text-center"
+  >
+    <h2 id="student-title" data-reveal="spaced" class="spaced whitespace-pre-line text-[clamp(30px,min(4.2vw,6.4vh),58px)] leading-[1.02]">{s.title}</h2>
+
+    <div data-reveal class="my-[clamp(14px,3.5vh,36px)] grid w-full max-w-[1080px] items-center justify-items-center gap-6 lg:grid-cols-[1fr_auto_1fr] lg:gap-10">
+      <!-- Badge: the discount figure with a slowly turning ring of text -->
+      <div aria-hidden="true" class="relative flex size-[clamp(170px,min(24vw,31vh),250px)] items-center justify-center rounded-full bg-espresso text-copper-light shadow-[0_30px_60px_-30px_rgba(34,23,15,0.75)] lg:order-2">
+        <svg viewBox="0 0 100 100" class="badge-ring absolute inset-0 h-full w-full text-cream">
+          <defs><path id={ringId} d="M50 50m-40 0a40 40 0 1 1 80 0a40 40 0 1 1-80 0" /></defs>
+          <text font-size="6.6" font-weight="600" fill="currentColor"><textPath href={`#${ringId}`} textLength="248" lengthAdjust="spacing">{ring}</textPath></text>
+        </svg>
+        <span class="absolute inset-[18%] rounded-full border border-cream/25"></span>
+        <span class="font-display text-[clamp(60px,min(9vw,11.5vh),100px)] leading-none">{figure}</span>
+      </div>
+
+      {[left, right].map((side, n) => (
+        <ul aria-label={n === 0 ? s.itemsLabel : undefined} class={`flex gap-5 lg:gap-7 ${n === 0 ? 'lg:order-1 lg:justify-self-end' : 'lg:order-3 lg:justify-self-start'}`}>
+          {side.map((item) => (
+            <li class={`print-item float relative ${print}`} style={`animation-delay:${item.delay}s`}>
+              <figure class="print rounded-sm bg-white p-2 pb-1" style={`--tilt:${item.tilt}`}>
+                <Photo file={item.image} alt={item.name} label={t.photoPlaceholder} width={400} height={400} class="aspect-square w-full" />
+                <figcaption class="py-1.5 font-display text-lg leading-none tracking-wide">{item.name}</figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      ))}
+    </div>
+
+    <p data-reveal class="text-[#3D2E22]">{s.text}</p>
+    <p id="student-countdown" data-reveal hidden class="mt-1 font-display text-[22px] tracking-[0.12em] text-espresso"></p>
+    <a data-reveal href="#iletisim" class="mt-5 inline-flex min-h-[44px] items-center rounded-md bg-espresso px-5 text-sm font-semibold text-white hover:bg-black">{s.cta}</a>
+  </Panel>
+)}
+
+{!expired && (
+  /* Runs as soon as the panel is parsed (before the deck script): hides an expired offer
+     and fills in the countdown, both by the date in Lefkoşa. */
+  <script is:inline define:vars={{ lastDay: s.lastDay, daysLeft: s.daysLeft, oneDayLeft: s.oneDayLeft, today: s.today }}>
+    (() => {
+      const panel = document.getElementById('ogrenci');
+      const now = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Nicosia' }).format(new Date());
+      const days = Math.round((Date.parse(lastDay) - Date.parse(now)) / 864e5);
+      if (days < 0) { panel.hidden = true; return; }
+      const el = document.getElementById('student-countdown');
+      el.textContent = days === 0 ? today : days === 1 ? oneDayLeft : daysLeft.replace('{n}', days);
+      el.hidden = false;
+    })();
+  </script>
+)}
+
+<style>
+  /* Photo prints sit at a slight angle; on hover (mouse only) they straighten, rise and come forward. */
+  .print {
+    /* the tilt lives in transform (a separate `rotate` property gets dropped by the CSS minifier) */
+    transform: translateY(0) scale(1) rotate(var(--tilt));
+    box-shadow: 0 18px 30px -16px rgb(34 23 15 / 0.55);
+    transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.45s;
+  }
+  @media (hover: hover) {
+    .print-item:hover { z-index: 1; }
+    .print-item:hover .print {
+      transform: translateY(-14px) scale(1.08) rotate(0.001deg);
+      box-shadow: 0 34px 44px -18px rgb(34 23 15 / 0.65);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .print { transition: none; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .badge-ring { animation: badge-turn 28s linear infinite; }
+  }
+  @keyframes badge-turn {
+    to { rotate: 360deg; }
+  }
+</style>

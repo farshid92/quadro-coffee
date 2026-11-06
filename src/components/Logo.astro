@@ -1,0 +1,14 @@
+---
+// Full logo from the owner's file (public/images/quadro_coffee 1.png).
+//   variant 'light' (default): QUADRO wordmark recoloured to cream, for dark backgrounds
+//   variant 'dark': original espresso wordmark, for light backgrounds
+import { Image } from 'astro:assets';
+import logoLight from '../assets/brand/logo.webp';
+import logoDark from '../assets/brand/logo-dark.webp';
+
+interface Props { size?: number; loading?: 'eager' | 'lazy'; variant?: 'light' | 'dark'; class?: string; }
+const { size = 88, loading = 'eager', variant = 'light', class: className = 'block' } = Astro.props;
+const logo = variant === 'dark' ? logoDark : logoLight;
+const width = Math.round(size * logo.width / logo.height);
+---
+<Image src={logo} alt="Quadro Coffee" width={width} height={size} loading={loading} format="webp" densities={[1, 2]} class={className} />

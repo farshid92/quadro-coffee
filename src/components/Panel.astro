@@ -1,0 +1,35 @@
+---
+// One full-screen section. See the "Panels" block in global.css and src/scripts/deck.ts.
+//   bg / prev: CSS colours of this panel and of the one before it (prev shows behind the curved edge)
+//   tone:      'dark' panels use light text; 'light' panels use espresso text
+//   label:     section name for the progress dots
+//   first:     the opening panel (no curved entrance; shares the first screen with the header)
+interface Props {
+  id?: string;
+  as?: 'section' | 'footer';
+  bg: string;
+  prev?: string;
+  tone: 'dark' | 'light';
+  label: string;
+  labelledby?: string;
+  first?: boolean;
+  class?: string;
+}
+const { id, as: Tag = 'section', bg, prev, tone, label, labelledby, first, class: className = '' } = Astro.props;
+---
+<Tag
+  id={id}
+  class="panel"
+  data-panel
+  data-first={first}
+  data-tone={tone}
+  data-label={label}
+  aria-labelledby={labelledby}
+  aria-label={labelledby ? undefined : label}
+  style={`--bg:${bg};${prev ? `--prev:${prev};` : ''}`}
+>
+  <div class="panel-fill" aria-hidden="true"></div>
+  <div class={`panel-inner ${tone === 'dark' ? 'text-white' : 'text-espresso'} ${className}`}>
+    <slot />
+  </div>
+</Tag>

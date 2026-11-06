@@ -1,0 +1,54 @@
+---
+import Panel from './Panel.astro';
+import Photo from './Photo.astro';
+import { getContent, type Lang } from '../lib/i18n';
+import { business } from '../lib/business';
+
+interface Props { lang: Lang; }
+const t = getContent(Astro.props.lang);
+const { lat, lng } = business.geo;
+const mapSrc = `https://www.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
+// Street photo card and map share one height so the row lines up
+const height = 'min-h-[clamp(320px,52vh,460px)]';
+const card = 'rounded-xl shadow-[0_24px_50px_-28px_rgba(34,23,15,0.6)]';
+---
+<Panel id="iletisim" bg="var(--color-copper-light)" prev="var(--color-paper)" tone="light" label={t.visit.title} labelledby="visit-title" class="mx-auto w-full max-w-[1240px]">
+  <h2 id="visit-title" data-reveal="spaced" class="spaced mb-[clamp(20px,4vh,40px)] text-[clamp(40px,4.6vw,64px)] leading-none">{t.visit.title}</h2>
+  <div class="grid gap-6 md:grid-cols-[minmax(0,0.75fr)_minmax(0,1fr)] lg:gap-10">
+    <!-- Address, hours and buttons written into the sky of the street photo. The top is shaded so the text reads;
+         the bottom stays clear and the photo is anchored to the bottom so the street always shows. -->
+    <div data-reveal class={`relative isolate flex min-w-0 flex-col overflow-hidden bg-espresso text-white ${height} ${card}`}>
+      {t.visit.image && (
+        <Photo file={t.visit.image} alt={t.visit.imageAlt} width={800} height={1000} class="absolute inset-0 -z-10 h-full w-full object-bottom" />
+      )}
+      <div class="absolute inset-0 -z-10 bg-gradient-to-b from-espresso/85 via-espresso/55 via-50% to-transparent to-80%" aria-hidden="true"></div>
+      <div class="p-6 [text-shadow:0_1px_3px_rgba(0,0,0,0.45)] sm:p-8">
+        <address class="mb-2 text-[17px] font-semibold not-italic leading-snug">{t.visit.address[0]}<br />{t.visit.address[1]}</address>
+        <!-- Phone as a text link up here, so the bottom of the photo (the street) stays clear -->
+        <a href={`tel:${business.phone}`} class="mb-5 inline-flex min-h-[44px] items-center gap-2 text-[15px] font-semibold underline decoration-white/40 underline-offset-4 hover:decoration-white">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/></svg>
+          {t.visit.call}: {business.phoneDisplay}
+        </a>
+        <dl class="mb-6 max-w-[300px] text-[15px]">
+          {t.visit.hours.map((h) => (
+            <div class="flex justify-between border-b border-white/25 py-1.5 last:border-0">
+              <dt class="text-white/90">{h.days}</dt>
+              <dd class="font-semibold">{h.time}</dd>
+            </div>
+          ))}
+        </dl>
+        <div class="[text-shadow:none]">
+          <a href={business.mapsUrl} class="inline-flex min-h-[44px] items-center rounded-md bg-white px-5 text-sm font-semibold text-espresso hover:bg-cream">{t.visit.directions}</a>
+        </div>
+      </div>
+    </div>
+    <iframe
+      data-reveal
+      src={mapSrc}
+      title={`${business.name} – Google Maps`}
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      class={`h-full min-w-0 w-full border-0 bg-sand ${height} ${card}`}
+    ></iframe>
+  </div>
+</Panel>
