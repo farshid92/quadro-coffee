@@ -151,6 +151,10 @@ html.deck .panel::before {
 }
 html.deck .panel[data-tone='light'] { --glow: 255 248 236; --glow-a: 0.26; }
 html.deck .panel[data-tone='dark'] { --glow: 215 168 110; --glow-a: 0.11; }
+/* fainter on the menu, events and footer panels */
+html.deck #menu { --glow-a: 0.15; }
+html.deck #aksam,
+html.deck #bilgi { --glow-a: 0.06; }
 html.deck .panel-inner,
 html.deck .panel[data-first] .panel-inner {
   height: 100%;
