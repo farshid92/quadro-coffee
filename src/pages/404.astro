@@ -1,0 +1,22 @@
+---
+// Page shown for a broken or old link. Cloudflare Pages serves dist/404.html automatically.
+// Both languages on one page, since we can't know which one the visitor reads.
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import { homePath } from '../lib/i18n';
+---
+<Base lang="tr" noindex title="Sayfa bulunamadı · Page not found | Quadro Coffee">
+  <main id="main" class="grid min-h-svh place-items-center bg-espresso px-6 py-16 text-center text-[#E9E1D6]">
+    <div class="flex flex-col items-center">
+      <a href={homePath('tr')} aria-label="Quadro Coffee"><Logo size={140} /></a>
+      <p class="mt-8 font-display text-[clamp(72px,14vw,120px)] leading-none text-copper-light">404</p>
+      <h1 class="mt-2 font-display text-[clamp(30px,5vw,44px)] tracking-[0.08em] text-white">Sayfa bulunamadı</h1>
+      <p class="mt-1 text-sm" lang="en">Page not found</p>
+      <p class="mt-5 max-w-[420px] text-[15px] leading-relaxed">Aradığınız sayfa taşınmış ya da hiç var olmamış olabilir. <span lang="en" class="block text-[#BFB3A4]">The page you are looking for may have moved or never existed.</span></p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href={homePath('tr')} class="inline-flex min-h-[46px] items-center rounded-md bg-white px-6 font-semibold text-espresso hover:bg-cream">Ana sayfa</a>
+        <a href={homePath('en')} lang="en" class="inline-flex min-h-[46px] items-center rounded-md border border-white/60 px-6 font-semibold text-white hover:bg-white/10">Home page (English)</a>
+      </div>
+    </div>
+  </main>
+</Base>

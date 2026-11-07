@@ -1,6 +1,8 @@
 ---
 // Shows an optimized photo from src/assets/images/<file>, or a labelled
 // placeholder box when the photo isn't there yet.
+// `width`/`height` are the size the photo is shown at; a 2x copy is made for sharp screens
+// (or pass `widths` + `sizes` for photos that change size a lot, like the hero).
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
@@ -12,9 +14,14 @@ interface Props {
   width?: number;
   height?: number;
   eager?: boolean;
+  /** Responsive widths (with `sizes`) for photos whose display size changes a lot, e.g. a full-screen hero */
+  widths?: number[];
+  sizes?: string;
+  /** WebP quality, 1–100 (Astro's default is 80) */
+  quality?: number;
 }
 
-const { file, alt, label = alt, class: className = '', width = 800, height = 600, eager = false } = Astro.props;
+const { file, alt, label = alt, class: className = '', width = 800, height = 600, eager = false, widths, sizes, quality } = Astro.props;
 
 const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/*.{jpg,jpeg,png,webp,avif}');
 const key = file ? `/src/assets/images/${file}` : '';
@@ -27,7 +34,10 @@ const src = key && images[key] ? (await images[key]()).default : null;
     width={width}
     height={height}
     format="webp"
+    quality={quality}
+    {...(widths ? { widths, sizes } : { densities: [1, 2] })}
     loading={eager ? 'eager' : 'lazy'}
+    fetchpriority={eager ? 'high' : undefined}
     class={`object-cover ${className}`}
   />
 ) : (

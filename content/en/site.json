@@ -116,10 +116,13 @@
     "image": "street.jpg",
     "imageAlt": "A tree-lined street in Köşklüçiftlik",
     "directions": "Directions",
-    "call": "Call"
+    "call": "Call",
+    "showMap": "Show map",
+    "mapNote": "Opens Google Maps on this page"
   },
   "footer": { "menu": "Menu", "coffee": "Coffee", "drinks": "Wine & beer", "visit": "Visit", "follow": "Follow" },
-  "deck": { "scroll": "Scroll", "sections": "Sections" },
+  "deck": {
+    "shortcuts": "Shortcuts", "scroll": "Scroll", "sections": "Sections" },
   "whatsapp": "Message on WhatsApp",
   "photoPlaceholder": "Photo"
 }

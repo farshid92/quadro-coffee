@@ -40,5 +40,6 @@ Single page, Turkish at `/`, English at `/en/`. Sections: Hero · Categories · 
 - [ ] 3 real Google reviews the owner is happy to feature
   - Picked from Google (4 Nov 2026): Johannes M., Vahid M., Melin (all 5★, English; Turkish translations added on the TR page). Waiting for the owner's OK; Turkish translations need a native check
 - [ ] Confirm opening hours
-- [ ] Domain name
+- [ ] Domain name (then set `site` in `astro.config.mjs`; canonical, hreflang, sitemap, robots.txt and preview links all follow it)
+- [ ] Link-preview image `public/og.jpg` (1200×630) is made from the placeholder hero photo: regenerate it from a real photo of Quadro before launch
 - [ ] Owner check of Turkish copy; native check of English copy

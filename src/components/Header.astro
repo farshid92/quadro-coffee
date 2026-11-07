@@ -6,7 +6,7 @@ interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = getContent(lang);
 const home = homePath(lang);
-const link = 'text-[#E9E1D6] hover:text-white tone-light:text-espresso/80 tone-light:hover:text-espresso';
+const link = 'inline-flex min-h-[32px] items-center text-[#E9E1D6] hover:text-white tone-light:text-espresso/80 tone-light:hover:text-espresso';
 ---
 <!-- Normal scroll: sticky, solid once the page is scrolled.
      Deck mode: fixed and transparent; ink follows the tone of the panel on screen. -->
@@ -16,16 +16,16 @@ const link = 'text-[#E9E1D6] hover:text-white tone-light:text-espresso/80 tone-l
       <span class="block tone-light:hidden"><Logo /></span>
       <span class="hidden tone-light:block"><Logo variant="dark" loading="lazy" /></span>
     </a>
-    <nav aria-label={t.nav.menu} class="flex flex-wrap items-center gap-6 text-sm font-medium deck:gap-8 deck:text-xs deck:uppercase deck:tracking-[0.2em]">
+    <nav aria-label={t.nav.menu} class="flex flex-wrap items-center gap-x-6 gap-y-1 text-sm font-medium deck:gap-8 deck:text-xs deck:uppercase deck:tracking-[0.2em]">
       <a href="#menu" class={link}>{t.nav.menu}</a>
       <a href="#aksam" class={link}>{t.nav.events}</a>
       <a href="#iletisim" class={link}>{t.nav.contact}</a>
-      <span class="text-[13px] font-semibold">
+      <span class="inline-flex items-center text-[13px] font-semibold">
         <a href={homePath('tr')} hreflang="tr" lang="tr" aria-current={lang === 'tr' ? 'page' : undefined}
-           class={lang === 'tr' ? '' : 'opacity-60 hover:opacity-100'}>TR</a>
+           class={`inline-flex min-h-[32px] min-w-[24px] items-center justify-center ${lang === 'tr' ? '' : 'opacity-60 hover:opacity-100'}`}>TR</a>
         <span class="opacity-50"> / </span>
         <a href={homePath('en')} hreflang="en" lang="en" aria-current={lang === 'en' ? 'page' : undefined}
-           class={lang === 'en' ? '' : 'opacity-60 hover:opacity-100'}>EN</a>
+           class={`inline-flex min-h-[32px] min-w-[24px] items-center justify-center ${lang === 'en' ? '' : 'opacity-60 hover:opacity-100'}`}>EN</a>
       </span>
     </nav>
   </div>
@@ -35,6 +35,10 @@ const link = 'text-[#E9E1D6] hover:text-white tone-light:text-espresso/80 tone-l
   .logo :global(img) { transition: height 0.2s ease; }
   #site-header[data-scrolled] .logo :global(img),
   :global(html.deck) #site-header .logo :global(img) { height: 64px; width: auto; }
+  /* Phones: once scrolled, a smaller logo keeps the sticky header from covering too much of the screen */
+  @media (max-width: 639px) {
+    #site-header[data-scrolled] .logo :global(img) { height: 40px; }
+  }
 </style>
 
 <script>

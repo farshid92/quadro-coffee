@@ -116,10 +116,13 @@
     "image": "street.jpg",
     "imageAlt": "Köşklüçiftlik'te ağaçlı bir sokak",
     "directions": "Yol tarifi",
-    "call": "Ara"
+    "call": "Ara",
+    "showMap": "Haritayı göster",
+    "mapNote": "Google Haritalar bu sayfada açılır"
   },
   "footer": { "menu": "Menü", "coffee": "Kahveler", "drinks": "Şarap & bira", "visit": "Ziyaret", "follow": "Takip et" },
-  "deck": { "scroll": "Kaydır", "sections": "Bölümler" },
+  "deck": {
+    "shortcuts": "Kısayollar", "scroll": "Kaydır", "sections": "Bölümler" },
   "whatsapp": "WhatsApp'tan yaz",
   "photoPlaceholder": "Fotoğraf"
 }

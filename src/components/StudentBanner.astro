@@ -55,7 +55,7 @@ const print = 'w-[clamp(118px,min(12vw,21vh),160px)]';
           {side.map((item) => (
             <li class={`print-item float relative ${print}`} style={`animation-delay:${item.delay}s`}>
               <figure class="print rounded-sm bg-white p-2 pb-1" style={`--tilt:${item.tilt}`}>
-                <Photo file={item.image} alt={item.name} label={t.photoPlaceholder} width={400} height={400} class="aspect-square w-full" />
+                <Photo file={item.image} alt="" label={t.photoPlaceholder} width={160} height={160} class="aspect-square w-full" />
                 <figcaption class="py-1.5 font-display text-lg leading-none tracking-wide">{item.name}</figcaption>
               </figure>
             </li>

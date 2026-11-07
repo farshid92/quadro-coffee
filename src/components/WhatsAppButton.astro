@@ -6,6 +6,7 @@ import { business } from '../lib/business';
 interface Props { lang: Lang; }
 const t = getContent(Astro.props.lang);
 ---
+<aside aria-label="WhatsApp">
 <a
   href={`https://wa.me/${business.whatsapp}`}
   aria-label={t.whatsapp}
@@ -17,3 +18,4 @@ const t = getContent(Astro.props.lang);
   </svg>
   <span class="hidden sm:inline">WhatsApp</span>
 </a>
+</aside>

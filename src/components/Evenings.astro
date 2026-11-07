@@ -77,9 +77,9 @@ const icon = 'h-3.5 w-3.5 fill-none stroke-current stroke-[1.8] [stroke-linecap:
             ? (
               <div class="relative aspect-[2/5] h-[clamp(300px,92vw,380px)] shrink-0 overflow-hidden bg-[#140b1c] sm:aspect-auto sm:h-auto sm:w-[50%]">
                 {/* larger screens: a blurred, darkened copy fills the frame behind the full photo */}
-                <Photo file={e.photo ?? musicPhoto} alt="" width={360} height={900} class="absolute inset-0 hidden h-full w-full scale-125 blur-2xl brightness-50 sm:block" />
+                <Photo file={e.photo ?? musicPhoto} alt="" width={120} height={300} class="absolute inset-0 hidden h-full w-full scale-125 blur-2xl brightness-50 sm:block" />
                 <span class="absolute inset-0 hidden bg-[radial-gradient(ellipse_at_center,transparent_35%,rgb(20_11_28/0.85))] sm:block" aria-hidden="true"></span>
-                <Photo file={e.photo ?? musicPhoto} alt={`${t.musicAlt}: ${e.name[lang]}`} width={360} height={900} class="photo-fade absolute inset-0 h-full w-full object-top sm:inset-auto sm:top-0 sm:left-1/2 sm:w-auto sm:max-w-none sm:-translate-x-1/2" />
+                <Photo file={e.photo ?? musicPhoto} alt={`${t.musicAlt}: ${e.name[lang]}`} width={180} height={450} class="photo-fade absolute inset-0 h-full w-full object-top sm:inset-auto sm:top-0 sm:left-1/2 sm:w-auto sm:max-w-none sm:-translate-x-1/2" />
               </div>
             )
             : <div class="spotlight w-[38%] shrink-0" aria-hidden="true"></div>}
@@ -103,7 +103,7 @@ const icon = 'h-3.5 w-3.5 fill-none stroke-current stroke-[1.8] [stroke-linecap:
         <div data-month={ym} hidden={ym !== now.month} class="strip grid items-center gap-4 rounded-2xl bg-hero p-4 lg:grid-cols-[auto_1fr_auto]">
           <p class="font-display text-[30px] leading-none tracking-[0.14em] text-copper-light">{t.programme.replace('{month}', name)}</p>
           <div>
-            <p class="mb-1.5 grid grid-cols-7 gap-[3px] text-center text-[10px] font-semibold uppercase text-[#8a7d70] lg:hidden" aria-hidden="true">
+            <p class="mb-1.5 grid grid-cols-7 gap-[3px] text-center text-[10px] font-semibold uppercase text-[#BFB3A4] lg:hidden" aria-hidden="true">
               {weekdays.map((w) => <span>{w}</span>)}
             </p>
             <ol class="days grid gap-[3px]" style={`--n:${days.length};--start:${days[0].weekday + 1}`} aria-label={t.calendarLabel.replace('{month}', name)}>

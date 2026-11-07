@@ -19,7 +19,7 @@ const card = 'rounded-xl shadow-[0_24px_50px_-28px_rgba(34,23,15,0.6)]';
          the bottom stays clear and the photo is anchored to the bottom so the street always shows. -->
     <div data-reveal class={`relative isolate flex min-w-0 flex-col overflow-hidden bg-espresso text-white ${height} ${card}`}>
       {t.visit.image && (
-        <Photo file={t.visit.image} alt={t.visit.imageAlt} width={800} height={1000} class="absolute inset-0 -z-10 h-full w-full object-bottom" />
+        <Photo file={t.visit.image} alt={t.visit.imageAlt} width={480} height={600} class="absolute inset-0 -z-10 h-full w-full object-bottom" />
       )}
       <div class="absolute inset-0 -z-10 bg-gradient-to-b from-espresso/85 via-espresso/55 via-50% to-transparent to-80%" aria-hidden="true"></div>
       <div class="p-6 [text-shadow:0_1px_3px_rgba(0,0,0,0.45)] sm:p-8">
@@ -42,13 +42,41 @@ const card = 'rounded-xl shadow-[0_24px_50px_-28px_rgba(34,23,15,0.6)]';
         </div>
       </div>
     </div>
-    <iframe
-      data-reveal
-      src={mapSrc}
-      title={`${business.name} – Google Maps`}
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      class={`h-full min-w-0 w-full border-0 bg-sand ${height} ${card}`}
-    ></iframe>
+    <!-- The Google map loads only when the visitor asks for it: faster page, and no Google cookies before that -->
+    <div data-reveal data-map={mapSrc} data-map-title={`${business.name} – Google Maps`}
+         class={`map relative grid min-w-0 place-items-center overflow-hidden bg-sand ${height} ${card}`}>
+      <button type="button" class="relative z-10 flex flex-col items-center gap-3 rounded-xl px-6 py-5 text-espresso">
+        <svg viewBox="0 0 24 24" class="h-10 w-10 fill-none stroke-current stroke-[1.6]" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+        <span class="inline-flex min-h-[44px] items-center rounded-md bg-espresso px-5 text-sm font-semibold text-white">{t.visit.showMap}</span>
+        <span class="text-xs text-[#4A3D32]">{t.visit.mapNote}</span>
+      </button>
+    </div>
   </div>
 </Panel>
+
+<script>
+  // Swap the map placeholder for the real Google map on click
+  document.querySelectorAll<HTMLElement>('[data-map]').forEach((box) => {
+    box.querySelector('button')?.addEventListener('click', () => {
+      const frame = document.createElement('iframe');
+      frame.src = box.dataset.map!;
+      frame.title = box.dataset.mapTitle!;
+      frame.referrerPolicy = 'no-referrer-when-downgrade';
+      frame.className = 'absolute inset-0 h-full w-full border-0';
+      box.replaceChildren(frame);
+      frame.focus();
+    });
+  });
+</script>
+
+<style>
+  /* placeholder: a faint street-grid pattern behind the button */
+  .map {
+    background-image:
+      linear-gradient(rgb(34 23 15 / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(34 23 15 / 0.06) 1px, transparent 1px),
+      linear-gradient(35deg, transparent 48%, rgb(255 255 255 / 0.5) 48% 52%, transparent 52%);
+    background-size: 28px 28px, 28px 28px, 100% 100%;
+  }
+  .map button:hover span:nth-of-type(1) { background: #000; }
+</style>

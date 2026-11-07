@@ -16,7 +16,7 @@ const t = getContent(lang);
     {t.specials.items.map((item) => (
       <li data-reveal class="special flex flex-col gap-2 rounded-xl bg-paper p-3 pb-4">
         <div class="relative overflow-hidden rounded-md">
-          <Photo file={item.image} alt={item.name} width={600} height={440} class="h-[clamp(120px,19vh,200px)] w-full" />
+          <Photo file={item.image} alt={item.name} width={300} height={220} class="h-[clamp(120px,19vh,200px)] w-full" />
           {/* Hover effect: steam over hot drinks, sparkles on iced ones */}
           <span class={item.serve === 'iced' ? 'glint' : 'steam'} aria-hidden="true"><i></i><i></i><i></i></span>
         </div>

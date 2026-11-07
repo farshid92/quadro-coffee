@@ -12,20 +12,20 @@ const t = getContent(Astro.props.lang);
     <div class="float drop-shadow-[0_30px_40px_rgba(0,0,0,0.45)]"><Logo size={240} loading="lazy" class="block h-[clamp(160px,30vh,240px)] w-auto" /></div>
   </div>
   <div data-reveal class="flex flex-wrap justify-center gap-x-14 gap-y-8 text-[#E9E1D6]">
-    <div class="flex flex-col gap-1.5">
+    <div class="flex flex-col gap-0.5">
       <span class="font-semibold text-white">{t.footer.menu}</span>
-      <a href="#menu" class="text-[#BFB3A4] hover:text-white">{t.footer.coffee}</a>
-      <a href="#menu" class="text-[#BFB3A4] hover:text-white">{t.footer.drinks}</a>
+      <a href="#menu" class="inline-flex min-h-[28px] items-center justify-center text-[#BFB3A4] hover:text-white">{t.footer.coffee}</a>
+      <a href="#menu" class="inline-flex min-h-[28px] items-center justify-center text-[#BFB3A4] hover:text-white">{t.footer.drinks}</a>
     </div>
-    <div class="flex flex-col gap-1.5">
+    <div class="flex flex-col gap-0.5">
       <span class="font-semibold text-white">{t.footer.visit}</span>
       <span class="text-[#BFB3A4]">{business.district}, {business.city}</span>
-      <a href={`tel:${business.phone}`} class="text-[#BFB3A4] hover:text-white">{business.phoneDisplay}</a>
+      <a href={`tel:${business.phone}`} class="inline-flex min-h-[28px] items-center justify-center text-[#BFB3A4] hover:text-white">{business.phoneDisplay}</a>
     </div>
-    <div class="flex flex-col gap-1.5">
+    <div class="flex flex-col gap-0.5">
       <span class="font-semibold text-white">{t.footer.follow}</span>
-      <a href={business.instagram} class="text-[#BFB3A4] hover:text-white">Instagram</a>
-      {business.facebook && <a href={business.facebook} class="text-[#BFB3A4] hover:text-white">Facebook</a>}
+      <a href={business.instagram} class="inline-flex min-h-[28px] items-center justify-center text-[#BFB3A4] hover:text-white">Instagram</a>
+      {business.facebook && <a href={business.facebook} class="inline-flex min-h-[28px] items-center justify-center text-[#BFB3A4] hover:text-white">Facebook</a>}
     </div>
   </div>
 </Panel>

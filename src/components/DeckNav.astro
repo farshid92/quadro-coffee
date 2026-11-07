@@ -8,7 +8,7 @@ interface Props { lang: Lang; }
 const t = getContent(Astro.props.lang);
 const rail = 'flex h-10 w-10 items-center justify-center rounded-full opacity-70 transition-opacity hover:opacity-100';
 ---
-<div data-deck-chrome class="pointer-events-none fixed inset-y-0 left-0 z-30 hidden w-[104px] flex-col items-center justify-center gap-3 text-[#E9E1D6] transition-colors duration-500 deck:flex tone-light:text-espresso">
+<aside aria-label={t.deck.shortcuts} data-deck-chrome class="pointer-events-none fixed inset-y-0 left-0 z-30 hidden w-[104px] flex-col items-center justify-center gap-3 text-[#E9E1D6] transition-colors duration-500 deck:flex tone-light:text-espresso">
   <span class="mb-2 h-16 w-px bg-current opacity-40"></span>
   <a href={business.instagram} aria-label="Instagram" class={`pointer-events-auto ${rail}`}>
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>
@@ -20,7 +20,7 @@ const rail = 'flex h-10 w-10 items-center justify-center rounded-full opacity-70
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
   </a>
   <span class="mt-2 h-16 w-px bg-current opacity-40"></span>
-</div>
+</aside>
 
 <nav id="deck-dots" data-deck-chrome aria-label={t.deck.sections} class="fixed inset-y-0 right-0 z-30 hidden w-[104px] flex-col items-center justify-center gap-5 text-[#E9E1D6] transition-colors duration-500 deck:flex tone-light:text-espresso">
   <p class="font-display text-2xl leading-none tracking-[0.1em]" aria-hidden="true"><span data-deck-count>01</span><span class="opacity-40"> / <span data-deck-total></span></span></p>

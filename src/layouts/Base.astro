@@ -4,16 +4,22 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 import { getContent, homePath, type Lang } from '../lib/i18n';
 import { business } from '../lib/business';
 
-interface Props { lang: Lang; }
-const { lang } = Astro.props;
+interface Props {
+  lang: Lang;
+  /** Pages that should not appear in search results (the 404 page) */
+  noindex?: boolean;
+  title?: string;
+}
+const { lang, noindex = false, title } = Astro.props;
 const t = getContent(lang);
 
 const site = Astro.site ?? new URL('https://quadrocoffee.example');
 const canonical = new URL(homePath(lang), site).href;
 const trUrl = new URL(homePath('tr'), site).href;
 const enUrl = new URL(homePath('en'), site).href;
-// TODO: replace with a real 1200x630 photo in public/og.jpg
-const ogImage = new URL('/og.svg', site).href;
+// Link-preview image for WhatsApp, Instagram, Facebook etc. (1200×630). It uses the placeholder hero photo:
+// regenerate it once there is a real photo of Quadro (see brief.md).
+const ogImage = new URL('/og.jpg', site).href;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -60,7 +66,8 @@ const jsonLd = {
         }
       }
     </script>
-    <title>{t.meta.title}</title>
+    <title>{title ?? t.meta.title}</title>
+    {noindex && <meta name="robots" content="noindex" />}
     <meta name="description" content={t.meta.description} />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="tr" href={trUrl} />
@@ -73,11 +80,21 @@ const jsonLd = {
     <meta property="og:description" content={t.meta.description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t.meta.title} />
+    <meta property="og:site_name" content={business.name} />
     <meta property="og:locale" content={lang === 'tr' ? 'tr_TR' : 'en_GB'} />
+    <meta property="og:locale:alternate" content={lang === 'tr' ? 'en_GB' : 'tr_TR'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={t.meta.title} />
+    <meta name="twitter:description" content={t.meta.description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="theme-color" content="#22170F" />
+    <link rel="sitemap" href="/sitemap.xml" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Fonts are served from this site (src/styles/fonts.css); preload the title font, used above the fold -->
+    <link rel="preload" href="/fonts/bebas-neue-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
