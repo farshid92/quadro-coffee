@@ -42,21 +42,11 @@ const link = 'inline-flex min-h-[32px] items-center text-[#E9E1D6] hover:text-wh
 </style>
 
 <script>
+  import '../scripts/lang-switch';
+
   const header = document.getElementById('site-header');
   const update = () => header?.toggleAttribute('data-scrolled', window.scrollY > 8);
   update();
   window.addEventListener('scroll', update, { passive: true });
 
-  // Switching language keeps the visitor on the section they are looking at:
-  // the TR/EN link gets that section's #id (same ids in both languages).
-  document.querySelectorAll<HTMLAnchorElement>('a[hreflang]').forEach((link) => {
-    link.addEventListener('click', () => {
-      let id = location.hash.slice(1); // deck mode keeps the hash in sync with the panel on screen
-      if (!document.documentElement.classList.contains('deck')) {
-        const panels = [...document.querySelectorAll<HTMLElement>('[data-panel]:not([hidden])')];
-        id = panels.filter((p) => p.getBoundingClientRect().top <= innerHeight / 2).pop()?.id ?? '';
-      }
-      link.hash = id && id !== 'top' ? id : '';
-    });
-  });
 </script>

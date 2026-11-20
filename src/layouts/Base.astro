@@ -74,6 +74,17 @@ const jsonLd = {
         }
       }
     </script>}
+    <!-- After a language switch on a scrolling page, stay hidden for a moment until
+         src/scripts/lang-switch.ts has jumped back to the visitor's spot (no flash of the top) -->
+    <script is:inline>
+      try {
+        var spot = JSON.parse(sessionStorage.getItem('qc-lang-switch') || 'null');
+        if (spot && spot.id && spot.to === location.pathname && !document.documentElement.classList.contains('deck')) {
+          document.documentElement.classList.add('lang-restore');
+          setTimeout(function () { document.documentElement.classList.remove('lang-restore'); }, 1200);
+        }
+      } catch (e) {}
+    </script>
     <title>{pageTitle}</title>
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="description" content={pageDescription} />

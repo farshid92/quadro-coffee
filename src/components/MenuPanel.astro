@@ -85,8 +85,10 @@ const icon = (name: string, cls: string) =>
       t.tabIndex = on ? 0 : -1;
       document.getElementById(t.getAttribute('aria-controls')!)!.hidden = !on;
     }
-    if (focus) tab.focus();
-    tab.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    if (focus) tab.focus({ preventScroll: true });
+    // Phones: slide the tab row so the chosen tab is centred (without scrolling the page)
+    const list = tab.parentElement!, lr = list.getBoundingClientRect(), tr = tab.getBoundingClientRect();
+    list.scrollTo({ left: list.scrollLeft + tr.left - lr.left - (lr.width - tr.width) / 2, behavior: 'smooth' });
   };
   tabs.forEach((tab, i) => {
     tab.addEventListener('click', () => select(tab));

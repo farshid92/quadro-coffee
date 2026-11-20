@@ -31,6 +31,9 @@
   }
 }
 
+/* see the language-switch script in Base.astro */
+html.lang-restore body { visibility: hidden; }
+
 html {
   scroll-behavior: smooth;
   /* keep #menu / #iletisim headings clear of the sticky header */
