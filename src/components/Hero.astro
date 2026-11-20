@@ -35,11 +35,18 @@ const intro = Boolean(t.hero.image);
         <SteamCup class="float h-[clamp(130px,24vh,230px)] w-auto" />
       </div>
     )}
-    <!-- Over a photo, the intro sits on clear glass so it stays readable whatever is behind it -->
-    <p data-reveal class={`hero-late mb-7 max-w-[520px] text-[15px] leading-relaxed text-[#E9E1D6] sm:text-base ${t.hero.image ? 'glass mt-5 rounded-2xl px-5 py-4 text-white sm:px-7' : ''}`}>{t.hero.text}</p>
-    <div data-reveal class="hero-late flex flex-wrap justify-center gap-3">
-      <a href="#menu" class="inline-flex min-h-[46px] items-center rounded-md bg-white px-6 font-semibold text-espresso hover:bg-cream">{t.hero.ctaMenu}</a>
-      <a href={business.mapsUrl} class="inline-flex min-h-[46px] items-center rounded-md border border-white/60 px-6 font-semibold text-white hover:bg-white/10">{t.hero.ctaDirections}</a>
+    <p data-reveal class="hero-late mt-5 whitespace-nowrap font-display text-[clamp(19px,2.2vw,28px)] leading-none tracking-[clamp(0.14em,1vw,0.32em)] text-[#D9A86C]">{t.hero.tagline}</p>
+    <!-- Open now / closed, worked out in the visitor's browser from the opening hours in business.ts
+         (Cyprus time). Hidden until the script below has filled it in. -->
+    <p data-reveal class="hero-late mt-[18px]">
+      <span id="open-status" hidden data-hours={JSON.stringify(business.openingHours)} data-text={JSON.stringify(t.hero.status)}
+            class="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-espresso/55 px-4 py-2 text-sm font-semibold text-[#F4F1EC]">
+        <i class="dot size-[9px] rounded-full" aria-hidden="true"></i><span></span>
+      </span>
+    </p>
+    <div data-reveal class="hero-late mt-6 flex flex-wrap justify-center gap-3">
+      <a href="#menu" class="inline-flex min-h-[46px] items-center rounded-full bg-white px-6 font-semibold text-espresso hover:bg-cream">{t.hero.ctaMenu}</a>
+      <a href={business.mapsUrl} class="inline-flex min-h-[46px] items-center rounded-full border border-white/60 px-6 font-semibold text-white hover:bg-white/10">{t.hero.ctaDirections}</a>
     </div>
   </div>
   <p class="scroll-hint hero-late absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#BFB3A4]" aria-hidden="true">
@@ -106,7 +113,42 @@ const intro = Boolean(t.hero.image);
   </script>
 )}
 
+<script>
+  // "Open now · until 23:30" / "Closed now · opens at 07:30", in Cyprus time, refreshed every minute
+  const badge = document.getElementById('open-status');
+  if (badge) {
+    const hours: { days: string[]; opens: string; closes: string }[] = JSON.parse(badge.dataset.hours!);
+    const text: Record<'open' | 'opensToday' | 'opensTomorrow', string> = JSON.parse(badge.dataset.text!);
+    const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const mins = (hhmm: string) => +hhmm.slice(0, 2) * 60 + +hhmm.slice(3);
+    const dayHours = (day: string) => hours.find((h) => h.days.includes(day));
+    const update = () => {
+      const parts = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Nicosia', weekday: 'long', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date());
+      const get = (type: string) => parts.find((p) => p.type === type)!.value;
+      const day = get('weekday'), now = +get('hour') * 60 + +get('minute');
+      const today = dayHours(day);
+      let key: keyof typeof text, time: string;
+      if (today && now >= mins(today.opens) && now < mins(today.closes)) [key, time] = ['open', today.closes];
+      else if (today && now < mins(today.opens)) [key, time] = ['opensToday', today.opens];
+      else {
+        const next = dayHours(week[(week.indexOf(day) + 1) % 7]);
+        if (!next) { badge.hidden = true; return; }
+        [key, time] = ['opensTomorrow', next.opens];
+      }
+      badge.dataset.state = key === 'open' ? 'open' : 'closed';
+      badge.lastElementChild!.textContent = text[key].replace('{time}', time);
+      badge.hidden = false;
+    };
+    update();
+    setInterval(update, 60_000);
+  }
+</script>
+
 <style>
+  /* Open/closed badge dot: green with a soft ring when open, copper when closed */
+  #open-status .dot { background: #C9925B; }
+  #open-status[data-state='open'] .dot { background: #3DD68C; box-shadow: 0 0 0 4px rgb(61 214 140 / 0.22); }
+
   /* ---- Diamond window intro (only while .hero-intro is present) ---- */
   /* .hero-intro sits on the panel's inner box (rendered by Panel.astro), hence :global(). */
   :global(.panel .hero-intro) .hero-window {

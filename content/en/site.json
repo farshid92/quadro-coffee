@@ -13,6 +13,12 @@
   },
   "hero": {
     "eyebrow": "Welcome",
+    "tagline": "Coffee · Beer · Whisky · Wine",
+    "status": {
+      "open": "Open now · until {time}",
+      "opensToday": "Closed now · opens at {time}",
+      "opensTomorrow": "Closed now · opens tomorrow at {time}"
+    },
     "title": "Your corner\nin Köşklüçiftlik.",
     "text": "From your morning coffee to an evening glass of wine. Coffees, beer and whisky on our terrace in Köşklüçiftlik, one of Nicosia's oldest and most beautiful neighbourhoods.",
     "ctaMenu": "See the menu",

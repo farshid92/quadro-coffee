@@ -7,6 +7,8 @@
   "nav": { "home": "Ana sayfa", "menu": "Menü", "events": "Etkinlikler", "contact": "İletişim", "skip": "İçeriğe geç" },
   "hero": {
     "eyebrow": "Hoş geldiniz",
+    "tagline": "Kahve · Bira · Viski · Şarap",
+    "status": {"open": "Şu an açık · kapanış {time}", "opensToday": "Şu an kapalı · açılış {time}", "opensTomorrow": "Şu an kapalı · yarın açılış {time}"},
     "title": "Köşklüçiftlik'te\nsizin köşeniz.",
     "text": "Sabah kahvenden akşam şarabına. Kahveler, bira ve viski; Lefkoşa'nın en eski ve en güzel mahallelerinden Köşklüçiftlik'teki terasımızda.",
     "ctaMenu": "Menüyü gör",
