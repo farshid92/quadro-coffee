@@ -36,8 +36,8 @@ html.lang-restore body { visibility: hidden; }
 
 html {
   scroll-behavior: smooth;
-  /* keep #menu / #iletisim headings clear of the sticky header */
-  scroll-padding-top: 7rem;
+  /* keep #menu / #iletisim headings clear of the fixed header */
+  scroll-padding-top: 4rem;
 }
 
 body {
@@ -91,8 +91,9 @@ body {
   justify-content: center;
   padding: 72px 24px;
 }
-/* The first panel shares the first screen with the sticky header. */
-.panel[data-first] .panel-inner { min-height: calc(100svh - 128px); }
+/* The first panel fills the first screen; the header floats over its top (src/components/Header.astro). */
+.panel[data-first] .panel-inner { padding-top: 116px; }
+@media (min-width: 640px) { .panel[data-first] .panel-inner { padding-top: 140px; } }
 
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
