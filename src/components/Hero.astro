@@ -24,7 +24,8 @@ const intro = Boolean(t.hero.image);
       <div class="hero-dim absolute inset-0 bg-espresso/60"></div>
     </div>
   )}
-  <div class="relative flex flex-col items-center">
+  <!-- pt: keeps the text below the Quadro sign in the hero photo -->
+  <div class="relative flex flex-col items-center pt-[clamp(20px,7vh,72px)]">
     <p data-reveal class="hero-late mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-copper">{t.hero.eyebrow}</p>
     <h1 id="hero-title" data-reveal="spaced" class="spaced text-[clamp(44px,6.2vw,92px)] leading-[1.05]">
       <span class="hero-line hero-line-1 mx-auto block w-fit">{line1}</span>
@@ -145,6 +146,9 @@ const intro = Boolean(t.hero.image);
 </script>
 
 <style>
+  /* Hero photo: shifted a little to the left so the Quadro sign sits in the middle on phones */
+  .hero-photo :global(img) { object-position: 40% 50%; }
+
   /* Open/closed badge dot: green with a soft ring when open, copper when closed */
   #open-status .dot { background: #C9925B; }
   #open-status[data-state='open'] .dot { background: #3DD68C; box-shadow: 0 0 0 4px rgb(61 214 140 / 0.22); }
