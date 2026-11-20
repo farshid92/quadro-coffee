@@ -1,11 +1,10 @@
 # Photos
 
-Drop photos here (jpg, png, webp or avif), then put the file name in `content/tr/site.json` and `content/en/site.json`, for example `"image": "hero.jpg"`.
+Astro converts these to WebP, sizes them and lazy-loads them automatically. A file name that doesn't exist shows a labelled placeholder box instead.
 
-Astro converts them to WebP, sizes them and lazy-loads them automatically. Until a file is set, the site shows a labelled placeholder box.
+- `hero-terrace-night.jpg`: the home page's first screen (the terrace in the evening), set in `content/tr|en/site.json` → `hero.image`
+- `street.jpg`: background of the contact section (`visit.image`)
+- `sidar-karakus.jpg`: live music evening (`content/events.json`)
+- `menu/`: one photo per drink, about 960px wide, named after the item's `id` in `content/menu.json`. The menu, the menu page and the student discount section all use these.
 
-Wanted:
-- `hero.jpg`: wide, 1600px+, latte art, coffee on the terrace, or an evening drink
-- 4 specials (square-ish): Turkish coffee, iced latte and two more coffees (TODO: owner's menu)
-- `student.jpg`: coffee beans or a cup
-- `live-music.jpg`, `match-night.jpg`
+To add a drink photo: save it as `menu/<item-id>.jpg` and set `"photo": "menu/<item-id>.jpg"` on the item in `content/menu.json`.

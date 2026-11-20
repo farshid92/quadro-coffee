@@ -16,49 +16,31 @@
     "image": "hero-terrace-night.jpg",
     "imageAlt": "Akşam ışıklarıyla Quadro'nun terası: ısıtıcılar, fenerler, bitkiler ve Quadro tabelası"
   },
-  "categories": ["Sıcak kahveler", "Soğuk kahveler", "Kahve dışı", "Şarap & bira"],
-  "specials": {
-    "title": "Özel lezzetlerimiz",
-    "subtitle": "En çok sevilenler",
-    "cta": "Menüde gör",
-    "allMenu": "Tüm menüyü gör",
-    "items": [
-      { "name": "Türk Kahvesi", "menu": "turkish-coffee", "text": "Geleneksel usulde, bol köpüklü ve yoğun.", "price": 80, "image": "turkish-coffee.jpg",
-        "serve": "hot" },
-      { "name": "Latte", "menu": "latte", "text": "Espresso ve ipeksi süt, üzerinde latte art ile.", "price": 240, "image": "latte.jpg",
-        "serve": "hot" },
-      { "name": "Iced Latte", "menu": "iced-latte", "text": "Soğuk süt ve buzun üzerine dökülen espresso.", "price": 240, "image": "iced-latte.jpg",
-        "serve": "iced" },
-      { "name": "Iced V60", "menu": "iced-v60", "text": "Buzun üzerine elle demlenen filtre kahve; hafif ve ferahlatıcı.", "price": 280, "image": "iced-v60.jpg",
-        "serve": "iced" }
-    ]
-  },
   "student": {
     "title": "Öğrencilere seçili\nkahvelerde %10 indirim",
-    "text": "Öğrenci kartını göster, indirimi yakala. 15 Kasım'a kadar geçerli.",
+    "text": "Öğrenci kartını göster, indirimi yakala.",
     "cta": "Bizi bul",
-    "lastDay": "2026-11-15",
     "badge": "ÖĞRENCİ İNDİRİMİ",
-    "daysLeft": "Kampanyanın bitmesine {n} gün",
-    "oneDayLeft": "Kampanyanın bitmesine 1 gün",
-    "today": "Kampanyanın son günü",
     "itemsLabel": "İndirimli kahveler",
     "items": [
       {
         "name": "Americano",
-        "image": "americano.jpg"
+        "lang": "en",
+        "image": "menu/americano.jpg"
       },
       {
         "name": "Iced Americano",
-        "image": "iced-americano.jpg"
+        "lang": "en",
+        "image": "menu/iced-americano.jpg"
       },
       {
-        "name": "Filtre kahve",
-        "image": "filter-coffee.jpg"
+        "name": "Latte",
+        "image": "menu/latte.jpg"
       },
       {
-        "name": "V60",
-        "image": "v60.jpg"
+        "name": "Iced Latte",
+        "lang": "en",
+        "image": "menu/iced-latte.jpg"
       }
     ]
   },
