@@ -10,3 +10,6 @@ export const getContent = (lang: Lang): Content => content[lang];
 
 /** Path of the home page in a given language. */
 export const homePath = (lang: Lang) => (lang === 'tr' ? '/' : '/en/');
+
+/** Path of the full menu page in a given language. */
+export const menuPath = (lang: Lang) => (lang === 'tr' ? '/menu/' : '/en/menu/');

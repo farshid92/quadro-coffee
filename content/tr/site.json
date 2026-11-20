@@ -21,13 +21,13 @@
     "cta": "Menüde gör",
     "allMenu": "Tüm menüyü gör",
     "items": [
-      { "name": "Türk Kahvesi", "text": "Geleneksel usulde, bol köpüklü ve yoğun.", "price": 80, "image": "turkish-coffee.jpg",
+      { "name": "Türk Kahvesi", "menu": "turkish-coffee", "text": "Geleneksel usulde, bol köpüklü ve yoğun.", "price": 80, "image": "turkish-coffee.jpg",
         "serve": "hot" },
-      { "name": "Latte", "text": "Espresso ve ipeksi süt, üzerinde latte art ile.", "price": 240, "image": "latte.jpg",
+      { "name": "Latte", "menu": "latte", "text": "Espresso ve ipeksi süt, üzerinde latte art ile.", "price": 240, "image": "latte.jpg",
         "serve": "hot" },
-      { "name": "Iced Latte", "text": "Soğuk süt ve buzun üzerine dökülen espresso.", "price": 240, "image": "iced-latte.jpg",
+      { "name": "Iced Latte", "menu": "iced-latte", "text": "Soğuk süt ve buzun üzerine dökülen espresso.", "price": 240, "image": "iced-latte.jpg",
         "serve": "iced" },
-      { "name": "Iced V60", "text": "Buzun üzerine elle demlenen filtre kahve; hafif ve ferahlatıcı.", "price": 280, "image": "iced-v60.jpg",
+      { "name": "Iced V60", "menu": "iced-v60", "text": "Buzun üzerine elle demlenen filtre kahve; hafif ve ferahlatıcı.", "price": 280, "image": "iced-v60.jpg",
         "serve": "iced" }
     ]
   },
@@ -75,6 +75,22 @@
     "noMusic": "Yeni canlı müzik geceleri yakında.",
     "matchAlt": "Quadro'da maç gecesi",
     "musicAlt": "Quadro'da canlı müzik"
+  },
+  "menuPage": {
+    "title": "Menü | Quadro Coffee, Köşklüçiftlik",
+    "description": "Quadro Coffee'nin tüm menüsü ve fiyatları: sıcak ve soğuk kahveler, sıcak içecekler, frappe ve shake'ler, soğuk içecekler ve alkollü içecekler.",
+    "eyebrow": "Quadro Coffee · Köşklüçiftlik",
+    "heading": "Menü",
+    "back": "Ana sayfa",
+    "search": "Menüde ara",
+    "searchHint": "Menüde ara: latte, çay, shake…",
+    "empty": "Aradığınız ürün bulunamadı.",
+    "count": "{n} ürün",
+    "categories": "Kategoriler",
+    "top": "Yukarı",
+    "photoSoon": "Fotoğraf yakında",
+    "priceNote": "Fiyatlar Türk lirasıdır.",
+    "open": "Bizi ziyaret edin"
   },
   "reviews": {
     "title": "Misafirlerimiz",

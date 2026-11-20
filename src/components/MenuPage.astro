@@ -1,0 +1,232 @@
+---
+// Full menu page (/menu/ and /en/menu/). All items and prices come from content/menu.json.
+//   Phones: a grid of category tiles, then each category as a list of rows (photo left, name and price right).
+//   Larger screens: each category as a grid of photo cards.
+// A sticky bar of category chips follows the reader, and the search box filters items in both languages.
+// Items without a photo show a placeholder tile with the category's icon. The alcohol menu is a text list.
+import Base from '../layouts/Base.astro';
+import Logo from './Logo.astro';
+import Photo from './Photo.astro';
+import { getContent, homePath, menuPath, type Lang } from '../lib/i18n';
+import { business } from '../lib/business';
+import { sections, alcohol, itemName, formatPrice, searchText, icons } from '../lib/menu';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = getContent(lang).menuPage;
+const categories = [...sections, alcohol];
+const count = (n: number) => t.count.replace('{n}', String(n));
+const alcoholCount = alcohol.groups.reduce((n, g) => n + g.items.length, 0);
+const icon = (name: string, cls: string) =>
+  `<svg viewBox="0 0 24 24" class="${cls}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name]}</svg>`;
+---
+<Base lang={lang} title={t.title} description={t.description} paths={{ tr: menuPath('tr'), en: menuPath('en') }}>
+  <header class="mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-4 pt-4 sm:px-6">
+    <a href={homePath(lang)} aria-label={t.back}><Logo size={56} variant="dark" class="block h-12 w-auto sm:h-14" /></a>
+    <div class="flex items-center gap-5 text-sm font-semibold">
+      <a href={homePath(lang)} class="inline-flex min-h-[32px] items-center underline decoration-1 underline-offset-4 hover:no-underline">← {t.back}</a>
+      <span class="flex items-center gap-1" aria-label="Language">
+        <a href={menuPath('tr')} hreflang="tr" lang="tr" aria-current={lang === 'tr' ? 'page' : undefined}
+           class={`inline-flex min-h-[32px] min-w-[28px] items-center justify-center ${lang === 'tr' ? '' : 'text-muted hover:text-espresso'}`}>TR</a>
+        <span aria-hidden="true" class="opacity-40">/</span>
+        <a href={menuPath('en')} hreflang="en" lang="en" aria-current={lang === 'en' ? 'page' : undefined}
+           class={`inline-flex min-h-[32px] min-w-[28px] items-center justify-center ${lang === 'en' ? '' : 'text-muted hover:text-espresso'}`}>EN</a>
+      </span>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="px-4 pb-5 pt-2 text-center sm:px-6">
+      <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8A5A2B]">{t.eyebrow}</p>
+      <h1 class="spaced text-[clamp(52px,8vw,80px)] leading-none">{t.heading}</h1>
+      <label class="search mx-auto mt-4 flex max-w-[440px] items-center gap-2 rounded-full bg-white px-4 shadow-[0_10px_24px_-18px_rgba(34,23,15,0.7)]">
+        <svg viewBox="0 0 24 24" class="h-[18px] w-[18px] shrink-0 text-muted" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <span class="sr-only">{t.search}</span>
+        <input id="menu-search" type="search" placeholder={t.searchHint} autocomplete="off"
+               class="min-h-[46px] flex-1 bg-transparent text-sm font-medium outline-none placeholder:text-muted" />
+      </label>
+    </div>
+
+    <!-- Phones: category tiles -->
+    <nav aria-label={t.categories} class="cats mx-auto grid max-w-[560px] grid-cols-3 gap-2.5 px-4 pb-2 md:hidden">
+      {categories.map((c) => (
+        <a href={`#${c.id}`} class="flex flex-col items-center gap-1.5 rounded-2xl bg-white px-1.5 pb-3 pt-3.5 text-center shadow-[0_12px_24px_-20px_rgba(34,23,15,0.8)]">
+          <Fragment set:html={icon(c.icon, 'h-9 w-9 text-copper')} />
+          <b class="text-xs font-semibold leading-tight">{c.title[lang]}</b>
+          <small class="text-[10px] text-muted">{count('items' in c ? c.items.length : alcoholCount)}</small>
+        </a>
+      ))}
+    </nav>
+
+    <!-- Sticky category chips -->
+    <div class="bar sticky top-0 z-30 border-b border-espresso/10 bg-paper/95 backdrop-blur">
+      <nav aria-label={`${t.heading}: ${t.categories}`} class="chips mx-auto flex max-w-[1240px] gap-2 overflow-x-auto px-4 py-2.5 sm:px-6 md:justify-center">
+        {categories.map((c) => (
+          <a href={`#${c.id}`} data-chip={c.id} class="flex min-h-[38px] shrink-0 items-center gap-1.5 rounded-full bg-cream px-3.5 text-[13px] font-semibold">
+            <Fragment set:html={icon(c.icon, 'h-[17px] w-[17px]')} />{c.title[lang]}
+          </a>
+        ))}
+      </nav>
+    </div>
+
+    <div class="mx-auto max-w-[1240px] px-4 pb-16 sm:px-6">
+      {sections.map((s) => (
+        <section id={s.id} data-section aria-labelledby={`${s.id}-title`} class="pt-7">
+          <h2 id={`${s.id}-title`} class="mb-3.5 flex items-center gap-2.5 font-display text-[30px] leading-none tracking-[0.06em] sm:text-[34px]">
+            <Fragment set:html={icon(s.icon, 'h-7 w-7 text-copper')} />{s.title[lang]}
+            <small class="font-sans text-xs font-medium tracking-normal text-muted">{count(s.items.length)}</small>
+          </h2>
+          <ul class="items grid gap-2.5 md:grid-cols-[repeat(auto-fill,minmax(210px,1fr))] md:gap-4">
+            {s.items.map((item) => (
+              <li id={item.id} data-item data-search={searchText(item)} class="item flex overflow-hidden rounded-xl bg-white shadow-[0_16px_30px_-24px_rgba(34,23,15,0.7)] md:flex-col">
+                <div class="ph relative w-[92px] shrink-0 bg-cream md:aspect-[4/3] md:w-full">
+                  {item.photo
+                    ? <Photo file={item.photo} alt={itemName(item, lang)} width={300} height={225} class="absolute inset-0 h-full w-full" />
+                    : (
+                      <div class="noph absolute inset-0 flex flex-col items-center justify-center gap-1.5 text-copper">
+                        <Fragment set:html={icon(s.icon, 'h-9 w-9 opacity-80 md:h-11 md:w-11')} />
+                        <span class="hidden text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8A5A2B] md:block">{t.photoSoon}</span>
+                      </div>
+                    )}
+                </div>
+                <div class="flex min-h-[84px] flex-1 flex-col justify-between gap-2 px-3.5 py-3 md:min-h-0">
+                  {/* Board names are English: mark them so the title font doesn't use the Turkish dotted İ on the Turkish page */}
+                  <h3 lang={lang === 'tr' && item.tr ? undefined : 'en'} class="font-display text-[22px] font-normal leading-[1.05] tracking-[0.04em] md:text-2xl">{itemName(item, lang)}</h3>
+                  <p class="font-bold">{formatPrice(item.price)}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          {s.extras && (
+            <div data-item data-search={s.extras.items.map(searchText).join(' ')} class="mt-4 rounded-xl border border-espresso/10 bg-cream/60 px-4 py-3">
+              <h3 class="mb-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-[#8A5A2B]">{s.extras.title[lang]}</h3>
+              <ul class="flex flex-wrap gap-x-6 gap-y-1 text-sm">
+                {s.extras.items.map((x) => <li>{itemName(x, lang)} <b class="ml-1">{formatPrice(x.price)}</b></li>)}
+              </ul>
+            </div>
+          )}
+        </section>
+      ))}
+
+      <!-- Alcohol: grouped text lists, no photos -->
+      <section id={alcohol.id} data-section aria-labelledby={`${alcohol.id}-title`} class="pt-7">
+        <h2 id={`${alcohol.id}-title`} class="mb-3.5 flex items-center gap-2.5 font-display text-[30px] leading-none tracking-[0.06em] sm:text-[34px]">
+          <Fragment set:html={icon(alcohol.icon, 'h-7 w-7 text-copper')} />{alcohol.title[lang]}
+          <small class="font-sans text-xs font-medium tracking-normal text-muted">{count(alcoholCount)}</small>
+        </h2>
+        <div class="groups gap-4 sm:columns-2 lg:columns-3">
+          {alcohol.groups.map((g) => (
+            <div data-group class="mb-4 break-inside-avoid rounded-xl bg-white px-4 py-3.5 shadow-[0_16px_30px_-24px_rgba(34,23,15,0.7)]">
+              <h3 class="mb-1 border-b border-espresso pb-1.5 font-display text-2xl font-normal tracking-[0.06em]">{g.title[lang]}</h3>
+              <ul>
+                {g.items.map((x) => (
+                  <li data-item data-search={searchText(x)} class="row flex items-baseline gap-2 py-1.5 text-sm">
+                    <span class="font-medium">{itemName(x, lang)}{x.size && <small class="ml-1.5 text-xs text-muted">{x.size}</small>}</span>
+                    <i class="dots flex-1" aria-hidden="true"></i>
+                    <b class="whitespace-nowrap">{formatPrice(x.price)}</b>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <p id="menu-empty" hidden class="py-12 text-center text-muted">{t.empty}</p>
+      <p class="mt-8 text-center text-xs text-muted">{t.priceNote}</p>
+    </div>
+  </main>
+
+  <footer class="bg-espresso px-4 py-8 text-center text-sm text-[#E9E1D6]">
+    <p class="font-display text-2xl tracking-[0.1em] text-copper-light">{t.open}</p>
+    <p class="mt-1">{business.street}, {business.district}, {business.city}</p>
+    <p class="mt-2 flex flex-wrap justify-center gap-x-6">
+      <a href={`tel:${business.phone}`} class="inline-flex min-h-[32px] items-center hover:text-white">{business.phoneDisplay}</a>
+      <a href={business.mapsUrl} class="inline-flex min-h-[32px] items-center hover:text-white">Google Maps</a>
+      <a href={business.instagram} class="inline-flex min-h-[32px] items-center hover:text-white">Instagram</a>
+      <a href={homePath(lang)} class="inline-flex min-h-[32px] items-center hover:text-white">{t.back}</a>
+    </p>
+  </footer>
+
+  <button id="menu-top" type="button" aria-label={t.top}
+          class="fixed bottom-[88px] right-5 z-40 grid h-12 w-12 place-items-center rounded-full bg-espresso text-xl text-copper-light shadow-lg">↑</button>
+</Base>
+
+<script>
+  import { normalize } from '../lib/menu';
+
+  const chips = [...document.querySelectorAll<HTMLAnchorElement>('[data-chip]')];
+  const sectionEls = [...document.querySelectorAll<HTMLElement>('[data-section]')];
+  const top = document.getElementById('menu-top')!;
+  let current = '';
+  let clicked = 0; // time of the last chip click
+
+  const setActive = (id: string) => {
+    if (id !== current) {
+      current = id;
+      for (const c of chips) {
+        const on = c.dataset.chip === id;
+        c.classList.toggle('on', on);
+        if (on) c.parentElement!.scrollTo({ left: c.offsetLeft - c.parentElement!.clientWidth / 2 + c.offsetWidth / 2, behavior: 'smooth' });
+      }
+    }
+  };
+
+  // Highlight the chip of the category being read, and keep it in view in the chip bar
+  const onScroll = () => {
+    top.classList.toggle('show', scrollY > 700);
+    if (performance.now() - clicked < 1200) return; // let a clicked chip stay lit while the page scrolls to it
+    const visible = sectionEls.filter((s) => !s.hidden);
+    let id = visible[0]?.id ?? '';
+    for (const s of visible) if (s.getBoundingClientRect().top < 140) id = s.id;
+    // At the very bottom the last categories can't scroll up to the top, so light the last one
+    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) id = visible.at(-1)?.id ?? id;
+    setActive(id);
+  };
+  // A clicked chip lights up right away (short last categories never reach the top of the screen)
+  chips.forEach((c) => c.addEventListener('click', () => { clicked = performance.now(); setActive(c.dataset.chip!); }));
+  document.querySelectorAll<HTMLAnchorElement>('.cats a').forEach((a) => a.addEventListener('click', () => { clicked = performance.now(); setActive(a.hash.slice(1)); }));
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  top.addEventListener('click', () => scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
+
+  // Search: hide items (and then whole groups and categories) that don't match
+  const input = document.getElementById('menu-search') as HTMLInputElement;
+  const empty = document.getElementById('menu-empty')!;
+  input.addEventListener('input', () => {
+    const q = normalize(input.value.trim());
+    let any = false;
+    document.querySelectorAll<HTMLElement>('[data-item]').forEach((el) => { el.hidden = !!q && !el.dataset.search!.includes(q); });
+    document.querySelectorAll<HTMLElement>('[data-group]').forEach((g) => { g.hidden = !g.querySelector('[data-item]:not([hidden])'); });
+    sectionEls.forEach((s) => {
+      const has = !!s.querySelector('[data-item]:not([hidden])');
+      s.hidden = !has;
+      any ||= has;
+    });
+    empty.hidden = any;
+    onScroll();
+  });
+</script>
+
+<style>
+  :global(html) { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { :global(html) { scroll-behavior: auto; } }
+  :global(body) { background: var(--color-paper); }
+  [data-section] { scroll-margin-top: 64px; }
+  .item { scroll-margin-top: 80px; transition: transform 0.3s, box-shadow 0.3s; }
+  .item:target { box-shadow: 0 0 0 3px var(--color-copper), 0 16px 30px -24px rgb(34 23 15 / 0.7); }
+  .noph { background: radial-gradient(circle at 50% 40%, #f2e8d8, var(--color-cream)); }
+  .chips { scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chips a { transition: background 0.25s, color 0.25s; }
+  .chips a.on { background: var(--color-espresso); color: var(--color-copper-light); }
+  .search input:focus-visible { outline: none; }
+  .search:focus-within { box-shadow: 0 0 0 2px var(--color-copper), 0 10px 24px -18px rgb(34 23 15 / 0.7); }
+  .dots { border-bottom: 1.5px dotted rgb(34 23 15 / 0.3); transform: translateY(-4px); }
+  #menu-top { opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity 0.3s, transform 0.3s; }
+  #menu-top:global(.show) { opacity: 1; transform: none; pointer-events: auto; }
+  [hidden] { display: none !important; }
+  @media (hover: hover) and (min-width: 768px) {
+    .item:hover { transform: translateY(-6px); box-shadow: 0 26px 36px -24px rgb(34 23 15 / 0.7); }
+  }
+</style>

@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
-import { getContent, homePath, type Lang } from '../lib/i18n';
+import { getContent, homePath, menuPath, type Lang } from '../lib/i18n';
 import { business } from '../lib/business';
 
 interface Props {
@@ -9,14 +9,21 @@ interface Props {
   /** Pages that should not appear in search results (the 404 page) */
   noindex?: boolean;
   title?: string;
+  description?: string;
+  /** This page's path in each language (for canonical and hreflang); defaults to the home page */
+  paths?: Record<Lang, string>;
+  /** The home page's full-screen panel deck (desktop) */
+  deck?: boolean;
 }
-const { lang, noindex = false, title } = Astro.props;
+const { lang, noindex = false, title, description, paths = { tr: homePath('tr'), en: homePath('en') }, deck = false } = Astro.props;
 const t = getContent(lang);
 
 const site = Astro.site ?? new URL('https://quadrocoffee.example');
-const canonical = new URL(homePath(lang), site).href;
-const trUrl = new URL(homePath('tr'), site).href;
-const enUrl = new URL(homePath('en'), site).href;
+const canonical = new URL(paths[lang], site).href;
+const trUrl = new URL(paths.tr, site).href;
+const enUrl = new URL(paths.en, site).href;
+const pageTitle = title ?? t.meta.title;
+const pageDescription = description ?? t.meta.description;
 // Link-preview image for WhatsApp, Instagram, Facebook etc. (1200×630). It uses the placeholder hero photo:
 // regenerate it once there is a real photo of Quadro (see brief.md).
 const ogImage = new URL('/og.jpg', site).href;
@@ -25,7 +32,8 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CafeOrCoffeeShop',
   name: business.name,
-  url: canonical,
+  url: new URL(homePath(lang), site).href,
+  hasMenu: new URL(menuPath(lang), site).href,
   telephone: business.phone,
   image: ogImage,
   address: {
@@ -52,7 +60,7 @@ const jsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Switch to deck mode before the first paint, so a refresh or deep link doesn't flash the hero first.
          Keep the media query in sync with QUERY in src/scripts/deck.ts. -->
-    <script is:inline>
+    {deck && <script is:inline>
       if (matchMedia('(min-width: 1024px) and (min-height: 620px) and (prefers-reduced-motion: no-preference)').matches) {
         document.documentElement.classList.add('deck', 'deck-booting');
         // Show the section named in the URL (e.g. #yorumlar) instead of the first one until deck.ts takes over.
@@ -65,10 +73,10 @@ const jsonLd = {
           document.head.append(css);
         }
       }
-    </script>
-    <title>{title ?? t.meta.title}</title>
+    </script>}
+    <title>{pageTitle}</title>
     {noindex && <meta name="robots" content="noindex" />}
-    <meta name="description" content={t.meta.description} />
+    <meta name="description" content={pageDescription} />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="tr" href={trUrl} />
     <link rel="alternate" hreflang="en" href={enUrl} />
@@ -76,19 +84,19 @@ const jsonLd = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={t.meta.title} />
-    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={t.meta.title} />
+    <meta property="og:image:alt" content={pageTitle} />
     <meta property="og:site_name" content={business.name} />
     <meta property="og:locale" content={lang === 'tr' ? 'tr_TR' : 'en_GB'} />
     <meta property="og:locale:alternate" content={lang === 'tr' ? 'en_GB' : 'tr_TR'} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={t.meta.title} />
-    <meta name="twitter:description" content={t.meta.description} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={ogImage} />
     <meta name="theme-color" content="#22170F" />
     <link rel="sitemap" href="/sitemap.xml" />

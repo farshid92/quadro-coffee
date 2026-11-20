@@ -2,7 +2,7 @@
 import Panel from './Panel.astro';
 import Photo from './Photo.astro';
 import Categories from './Categories.astro';
-import { getContent, type Lang } from '../lib/i18n';
+import { getContent, menuPath, type Lang } from '../lib/i18n';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
@@ -24,12 +24,12 @@ const t = getContent(lang);
         <p class="mx-1 text-[13px] text-muted">{item.text}</p>
         <div class="mx-1 mt-auto flex items-center justify-between pt-1">
           <span class="font-bold">{item.price ? `₺${item.price}` : '₺ TODO'}</span>
-          <a href="#menu" class="inline-flex min-h-[36px] items-center rounded-md bg-espresso px-3.5 text-[13px] font-semibold text-white hover:bg-black">{t.specials.cta}</a>
+          <a href={`${menuPath(lang)}#${item.menu}`} class="inline-flex min-h-[36px] items-center rounded-md bg-espresso px-3.5 text-[13px] font-semibold text-white hover:bg-black">{t.specials.cta}</a>
         </div>
       </li>
     ))}
   </ul>
-  <p data-reveal class="mt-[clamp(16px,3vh,28px)] text-center"><a href="#menu" class="font-semibold underline decoration-1 underline-offset-4 hover:no-underline">{t.specials.allMenu} →</a></p>
+  <p data-reveal class="mt-[clamp(16px,3vh,28px)] text-center"><a href={menuPath(lang)} class="font-semibold underline decoration-1 underline-offset-4 hover:no-underline">{t.specials.allMenu} →</a></p>
 </Panel>
 
 <style>
