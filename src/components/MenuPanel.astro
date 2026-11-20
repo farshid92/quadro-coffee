@@ -1,0 +1,135 @@
+---
+// Menu panel on the home page (replaces the old "specials" panel).
+// Category tabs on top; only the chosen category's items show, sized so each category fits on one
+// screen in the desktop deck.
+// Items, prices and photos come from content/menu.json (the same file as the /menu/ page).
+import Panel from './Panel.astro';
+import Photo from './Photo.astro';
+import { getContent, type Lang } from '../lib/i18n';
+import { sections, alcohol, itemName, formatPrice, icons } from '../lib/menu';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = getContent(lang).menuPage;
+const tabs = [...sections, alcohol];
+// Columns per category so no category needs more than three rows
+const cols = (n: number) => (n <= 8 ? 4 : n <= 10 ? 5 : n <= 12 ? 6 : 7);
+const icon = (name: string, cls: string) =>
+  `<svg viewBox="0 0 24 24" class="${cls}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name]}</svg>`;
+---
+<Panel id="menu" bg="var(--color-copper)" end="var(--color-copper-light)" prev="var(--color-hero)" tone="light" label={t.heading} labelledby="menu-title" class="mx-auto w-full max-w-[1240px]">
+  <h2 id="menu-title" data-reveal="spaced" class="spaced mb-[clamp(10px,2vh,20px)] shrink-0 text-center text-[clamp(40px,4.6vw,64px)] leading-none">{t.heading}</h2>
+
+  <div data-reveal role="tablist" aria-label={t.categories}
+       class="tabs mx-auto mb-[clamp(12px,2.6vh,26px)] flex max-w-full shrink-0 gap-2 overflow-x-auto pb-1 lg:flex-wrap lg:justify-center">
+    {tabs.map((c, i) => (
+      <button type="button" role="tab" id={`tab-${c.id}`} aria-controls={`pane-${c.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}
+              class="tab flex min-h-[40px] shrink-0 items-center gap-1.5 rounded-full px-4 text-[13px] font-semibold">
+        <Fragment set:html={icon(c.icon, 'h-[18px] w-[18px]')} />{c.title[lang]}
+      </button>
+    ))}
+  </div>
+
+  {sections.map((s, i) => (
+    <div role="tabpanel" id={`pane-${s.id}`} aria-labelledby={`tab-${s.id}`} hidden={i !== 0}
+         class="pane w-full" data-rows={Math.ceil(s.items.length / cols(s.items.length))} style={`--cols:${cols(s.items.length)}`}>
+      <ul class="grid">
+        {s.items.map((item) => (
+          <li class="card flex flex-col overflow-hidden rounded-lg bg-paper">
+            <div class="ph relative overflow-hidden">
+              <Photo file={item.photo ?? null} alt={itemName(item, lang)} width={240} height={180} class="absolute inset-0 h-full w-full" />
+            </div>
+            <div class="flex flex-1 flex-col justify-between gap-0.5 px-2.5 pb-2 pt-1.5">
+              <h3 lang={lang === 'tr' && item.tr ? undefined : 'en'} class="font-display text-[clamp(16px,1.35vw,20px)] font-normal leading-[1.05] tracking-[0.03em]">{itemName(item, lang)}</h3>
+              <p class="text-[13px] font-bold">{formatPrice(item.price)}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      {s.extras && (
+        <p class="mt-3 text-center text-[13px]">
+          <b class="mr-2 uppercase tracking-[0.14em]">{s.extras.title[lang]}:</b>
+          {s.extras.items.map((x, k) => <span class="whitespace-nowrap">{k > 0 && ' · '}{itemName(x, lang)} {formatPrice(x.price)}</span>)}
+        </p>
+      )}
+    </div>
+  ))}
+
+  <div role="tabpanel" id={`pane-${alcohol.id}`} aria-labelledby={`tab-${alcohol.id}`} hidden class="pane w-full">
+    <div class="drinks gap-3 sm:columns-2 lg:columns-4">
+      {alcohol.groups.map((g) => (
+        <div class="mb-3 break-inside-avoid rounded-lg bg-paper px-3.5 py-2.5">
+          <h3 class="mb-0.5 border-b border-espresso pb-1 font-display text-xl font-normal tracking-[0.06em]">{g.title[lang]}</h3>
+          <ul>
+            {g.items.map((x) => (
+              <li class="flex items-baseline gap-1.5 py-[3px] text-[13px]">
+                <span class="font-medium">{itemName(x, lang)}{x.size && <small class="ml-1 text-[11px] text-muted">{x.size}</small>}</span>
+                <i class="dots flex-1" aria-hidden="true"></i>
+                <b class="whitespace-nowrap">{formatPrice(x.price)}</b>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</Panel>
+
+<script>
+  // Tabs: show the chosen category; arrow keys move between tabs (WAI-ARIA tabs pattern)
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>('#menu [role=tab]')];
+  const select = (tab: HTMLButtonElement, focus = false) => {
+    for (const t of tabs) {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')!)!.hidden = !on;
+    }
+    if (focus) tab.focus();
+    tab.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  };
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => select(tab));
+    tab.addEventListener('keydown', (e) => {
+      const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!step) return;
+      e.preventDefault();
+      select(tabs[(i + step + tabs.length) % tabs.length], true);
+    });
+  });
+</script>
+
+<style>
+  .tabs { scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { background: rgb(244 241 236 / 0.55); color: var(--color-espresso); transition: background 0.25s, color 0.25s; }
+  .tab:hover { background: rgb(244 241 236 / 0.85); }
+  .tab[aria-selected='true'] { background: var(--color-espresso); color: var(--color-copper-light); }
+  .pane:not([hidden]) { animation: pane-in 0.35s ease-out; }
+  @keyframes pane-in { from { opacity: 0; transform: translateY(8px); } }
+
+  /* Phones: two columns. Larger screens: the category's column count, photos sized to fit one screen */
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .ph { aspect-ratio: 4 / 3; }
+  @media (min-width: 1024px) {
+    .grid { grid-template-columns: repeat(var(--cols), 1fr); gap: clamp(8px, 1.4vh, 14px); }
+    .ph { aspect-ratio: auto; height: clamp(90px, 18vh, 190px); }
+    /* Three-row categories: the photos share what is left of the screen height */
+    [data-rows='3'] .ph { height: clamp(60px, calc((100svh - 230px) / 3 - 86px), 125px); }
+  }
+  /* Desktop deck on shorter screens (laptops): the heading moves up into the header strip, between
+     the logo and the links, and the photos get that room */
+  @media (min-width: 1200px) and (max-height: 860px) {
+    :global(html.deck #menu .panel-inner) { justify-content: flex-start; padding-top: 18px; padding-bottom: 32px; }
+    :global(html.deck #menu [data-rows='3'] .ph) { height: clamp(60px, calc((100svh - 184px) / 3 - 80px), 140px); }
+    :global(html.deck #menu [data-rows='2'] .ph) { height: clamp(90px, calc((100svh - 184px) / 2 - 80px), 190px); }
+  }
+  .dots { border-bottom: 1.5px dotted rgb(34 23 15 / 0.3); transform: translateY(-3px); }
+
+  /* Hover (mouse only): the card lifts a little */
+  .card { box-shadow: 0 14px 30px -22px rgb(34 23 15 / 0.6); transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s; }
+  @media (hover: hover) {
+    .card:hover { transform: translateY(-6px); box-shadow: 0 24px 34px -20px rgb(34 23 15 / 0.7); }
+  }
+  @media (prefers-reduced-motion: reduce) { .card, .pane:not([hidden]) { transition: none; animation: none; } }
+</style>

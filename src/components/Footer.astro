@@ -5,7 +5,8 @@ import { getContent, type Lang } from '../lib/i18n';
 import { business } from '../lib/business';
 
 interface Props { lang: Lang; }
-const t = getContent(Astro.props.lang);
+const { lang } = Astro.props;
+const t = getContent(lang);
 ---
 <Panel id="bilgi" as="footer" bg="var(--color-espresso)" prev="var(--color-cream)" tone="dark" label="Quadro Coffee" class="items-center text-center text-sm">
   <div data-reveal class="mb-[clamp(24px,6vh,56px)]">

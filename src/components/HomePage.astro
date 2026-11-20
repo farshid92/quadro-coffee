@@ -6,7 +6,7 @@ import Base from '../layouts/Base.astro';
 import Header from './Header.astro';
 import DeckNav from './DeckNav.astro';
 import Hero from './Hero.astro';
-import Specials from './Specials.astro';
+import MenuPanel from './MenuPanel.astro';
 import StudentBanner from './StudentBanner.astro';
 import Evenings from './Evenings.astro';
 import Reviews from './Reviews.astro';
@@ -22,7 +22,7 @@ const { lang } = Astro.props;
   <DeckNav lang={lang} />
   <Hero lang={lang} />
   <main id="main">
-    <Specials lang={lang} />
+    <MenuPanel lang={lang} />
     <StudentBanner lang={lang} />
     <Evenings lang={lang} />
     <Reviews lang={lang} />
