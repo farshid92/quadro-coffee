@@ -98,6 +98,8 @@ export function initDeck() {
     // treat it as a deep link and start keyboard focus there, skipping the header.
     const id = i === 0 ? '' : panels[i].id;
     history.replaceState(null, '', id ? `#${id}` : location.pathname + location.search);
+    // Lets sections react when they come on screen (e.g. the map in Visit.astro loads then)
+    dispatchEvent(new CustomEvent('panelchange', { detail: { index: i } }));
   }
 
   function contentOut(panel: HTMLElement, direction: number) {

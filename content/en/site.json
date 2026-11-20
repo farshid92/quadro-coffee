@@ -188,9 +188,7 @@
     "image": "street.jpg",
     "imageAlt": "A tree-lined street in Köşklüçiftlik",
     "directions": "Directions",
-    "call": "Call",
-    "showMap": "Show map",
-    "mapNote": "Opens Google Maps on this page"
+    "call": "Call"
   },
   "footer": {
     "menu": "Menu",
