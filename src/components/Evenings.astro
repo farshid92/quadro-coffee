@@ -6,7 +6,7 @@
 import Panel from './Panel.astro';
 import Photo from './Photo.astro';
 import { getContent, type Lang } from '../lib/i18n';
-import { matches, music, months, matchPhoto, musicPhoto, crest, pick, startOf, longDate, shortDate, monthName, weekdayNames } from '../lib/events';
+import { matches, music, months, matchPhoto, musicPhoto, crest, pick, startOf, tx, longDate, shortDate, monthName, weekdayNames } from '../lib/events';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
@@ -35,7 +35,7 @@ const icon = 'h-3.5 w-3.5 fill-none stroke-current stroke-[1.8] [stroke-linecap:
             <Photo file={m.photo ?? matchPhoto} alt={t.matchAlt} width={760} height={420} class="absolute inset-0 -z-10 h-full w-full opacity-25" />
           )}
           <p class="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#FFB547]">
-            {[m.league, m.tag?.[lang], t.broadcast].filter(Boolean).join(' · ')}
+            {[m.league, m.derby && t.derby, t.broadcast].filter(Boolean).join(' · ')}
           </p>
           <h3 class="my-4 grid grid-cols-[1fr_auto_1fr] items-center gap-3 font-display font-normal">
             {[m.home, m.away].map((team, side) => (
@@ -79,15 +79,15 @@ const icon = 'h-3.5 w-3.5 fill-none stroke-current stroke-[1.8] [stroke-linecap:
                 {/* larger screens: a blurred, darkened copy fills the frame behind the full photo */}
                 <Photo file={e.photo ?? musicPhoto} alt="" width={120} height={300} class="absolute inset-0 hidden h-full w-full scale-125 blur-2xl brightness-50 sm:block" />
                 <span class="absolute inset-0 hidden bg-[radial-gradient(ellipse_at_center,transparent_35%,rgb(20_11_28/0.85))] sm:block" aria-hidden="true"></span>
-                <Photo file={e.photo ?? musicPhoto} alt={`${t.musicAlt}: ${e.name[lang]}`} width={180} height={450} class="photo-fade absolute inset-0 h-full w-full object-top sm:inset-auto sm:top-0 sm:left-1/2 sm:w-auto sm:max-w-none sm:-translate-x-1/2" />
+                <Photo file={e.photo ?? musicPhoto} alt={`${t.musicAlt}: ${tx(e.title, lang)}`} width={180} height={450} class="photo-fade absolute inset-0 h-full w-full object-top sm:inset-auto sm:top-0 sm:left-1/2 sm:w-auto sm:max-w-none sm:-translate-x-1/2" />
               </div>
             )
             : <div class="spotlight w-[38%] shrink-0" aria-hidden="true"></div>}
           <div class="@container flex min-w-0 flex-1 flex-col justify-center px-4 py-5 sm:px-6">
             <p class="text-[11px] font-semibold uppercase tracking-[0.24em]"><span class="live-dot" aria-hidden="true"></span><span data-when-text>{t.when[i === now.music ? now.musicWhen : 'next']}</span></p>
-            <h3 class="my-2.5 font-display text-[clamp(40px,29cqi,76px)] font-normal leading-[0.86]">{e.name[lang]}</h3>
+            <h3 class="my-2.5 font-display text-[clamp(40px,29cqi,76px)] font-normal leading-[0.86]">{tx(e.title, lang)}</h3>
             <p class="font-display text-[clamp(18px,1.75vw,24px)] tracking-[0.06em]">{longDate(lang, e.date)} · <span class="whitespace-nowrap">{e.time}</span></p>
-            <p class="mt-1 text-[13px]">{e.text[lang]}</p>
+            {tx(e.text, lang) && <p class="mt-1 text-[13px]">{tx(e.text, lang)}</p>}
           </div>
         </article>
       ))}
@@ -127,7 +127,7 @@ const icon = 'h-3.5 w-3.5 fill-none stroke-current stroke-[1.8] [stroke-linecap:
                       <span class="pop" role="tooltip">
                         <b class="today-tag">{t.today} · </b>{shortDate(lang, d.iso)}
                         {d.matches.map((m) => <span class="block">{m.time} · {m.home} – {m.away}</span>)}
-                        {d.music.map((e) => <span class="block">{e.time} · {e.name[lang]}</span>)}
+                        {d.music.map((e) => <span class="block">{e.time} · {tx(e.title, lang)}</span>)}
                       </span>
                     )}
                   </li>

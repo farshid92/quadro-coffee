@@ -9,13 +9,21 @@ const HOUR = 36e5;
 const MATCH_LENGTH = 2 * HOUR; // a match stays "live" for this long after kick-off
 const MUSIC_LENGTH = 3 * HOUR; // a music night stays "on stage" for this long
 
-export type Text = { tr: string; en: string };
-export interface Match { date: string; time: string; home: string; away: string; league: string; tag?: Text; photo?: string | null }
-export interface Music { date: string; time: string; name: Text; text: Text; photo?: string | null }
+/** Text in both languages; the English one may be left empty in the editor, then the Turkish one is shown. */
+export type Text = { tr: string; en?: string };
+export const tx = (text: Text | undefined, lang: Lang) => (text?.[lang] || text?.tr || '').trim();
+export interface Match { date: string; time: string; home: string; away: string; league: string; derby?: boolean; photo?: string | null }
+export interface Music { date: string; time: string; title: Text; text?: Text; photo?: string | null }
 
 const byDate = <T extends { date: string; time: string }>(a: T, b: T) => (a.date + a.time).localeCompare(b.date + b.time);
-export const matches = ([...data.matches] as Match[]).sort(byDate);
-export const music = ([...data.music] as Music[]).sort(byDate);
+// Times typed in the editor as "20:00", "20.00" or "9:00" all become "HH:MM"; events without a date are skipped
+const tidy = <T extends { date: string; time: string }>(e: T): T => {
+  const m = String(e.time ?? '').match(/(\d{1,2})[:.](\d{2})/);
+  return { ...e, time: m ? `${m[1].padStart(2, '0')}:${m[2]}` : '20:00' };
+};
+const valid = (e: { date?: string }) => /^\d{4}-\d{2}-\d{2}$/.test(e.date ?? '');
+export const matches = (data.matches as Match[]).filter(valid).map(tidy).sort(byDate);
+export const music = (data.music as Music[]).filter(valid).map(tidy).sort(byDate);
 export const matchPhoto = data.matchPhoto as string | null;
 export const musicPhoto = data.musicPhoto as string | null;
 
