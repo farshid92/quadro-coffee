@@ -3,7 +3,7 @@ import data from '../../content/menu.json';
 import type { Lang } from './i18n';
 
 export type Text = { tr: string; en: string };
-export interface MenuItem { id?: string; name: string; tr?: string; en?: string; size?: string; price: string; photo?: string | null }
+export interface MenuItem { id?: string; name: string; tr?: string; en?: string; size?: string; price: string; photo?: string | null; hidden?: boolean }
 export interface MenuSection {
   id: string;
   icon: string;
@@ -13,11 +13,21 @@ export interface MenuSection {
 }
 export interface AlcoholMenu { id: string; icon: string; title: Text; groups: { title: Text; items: MenuItem[] }[] }
 
-export const sections = data.sections as MenuSection[];
-export const alcohol = data.alcohol as AlcoholMenu;
+// Items ticked "hide on the website" in the editor (e.g. no photo yet, or sold out) are left out everywhere
+const visible = (items: MenuItem[]) => items.filter((item) => !item.hidden);
+export const sections = (data.sections as MenuSection[]).map((s) => ({
+  ...s,
+  items: visible(s.items),
+  extras: s.extras && { ...s.extras, items: visible(s.extras.items) },
+}));
+const alcoholData = data.alcohol as AlcoholMenu;
+export const alcohol: AlcoholMenu = {
+  ...alcoholData,
+  groups: alcoholData.groups.map((g) => ({ ...g, items: visible(g.items) })).filter((g) => g.items.length),
+};
 
 /** The item's name in a language: its own "tr"/"en" name if set, otherwise the board name. */
-export const itemName = (item: MenuItem, lang: Lang) => item[lang] ?? item.name;
+export const itemName = (item: MenuItem, lang: Lang) => item[lang] || item.name; // an empty name in the editor means "same as the board"
 
 /** "₺240", or "₺50 / 80" for two sizes. */
 export const formatPrice = (price: string) => `₺${price}`;
