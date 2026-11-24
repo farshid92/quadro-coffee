@@ -127,13 +127,19 @@ const intro = Boolean(t.hero.image);
       const parts = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Nicosia', weekday: 'long', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date());
       const get = (type: string) => parts.find((p) => p.type === type)!.value;
       const day = get('weekday'), now = +get('hour') * 60 + +get('minute');
-      const today = dayHours(day);
+      const i = week.indexOf(day);
+      // A closing time at or before the opening time means after midnight (e.g. 09:00–01:00)
+      const span = (h?: { opens: string; closes: string }) =>
+        h && { opens: mins(h.opens), closes: mins(h.closes) + (mins(h.closes) <= mins(h.opens) ? 1440 : 0), h };
+      const today = span(dayHours(day));
+      const yesterday = span(dayHours(week[(i + 6) % 7]));
       let key: keyof typeof text, time: string;
-      if (today && now >= mins(today.opens) && now < mins(today.closes)) [key, time] = ['open', today.closes];
-      else if (today && now < mins(today.opens)) [key, time] = ['opensToday', today.opens];
+      if (yesterday && now < yesterday.closes - 1440) [key, time] = ['open', yesterday.h.closes];
+      else if (today && now >= today.opens && now < today.closes) [key, time] = ['open', today.h.closes];
+      else if (today && now < today.opens) [key, time] = ['opensToday', today.h.opens];
       else {
-        const next = dayHours(week[(week.indexOf(day) + 1) % 7]);
-        if (!next) { badge.hidden = true; return; }
+        const next = dayHours(week[(i + 1) % 7]);
+        if (!next) { badge.hidden = true; return; } // closed tomorrow too: show nothing rather than guess
         [key, time] = ['opensTomorrow', next.opens];
       }
       badge.dataset.state = key === 'open' ? 'open' : 'closed';

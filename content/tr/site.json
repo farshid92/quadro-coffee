@@ -57,6 +57,7 @@
     "calendarLabel": "{month} etkinlik takvimi",
     "noMatch": "Yeni maç programı yakında. Instagram'dan takip edin.",
     "noMusic": "Yeni canlı müzik geceleri yakında.",
+    "derby": "Derbi",
     "matchAlt": "Quadro'da maç gecesi",
     "musicAlt": "Quadro'da canlı müzik"
   },
@@ -107,16 +108,11 @@
   },
   "visit": {
     "title": "Bizi ziyaret edin",
-    "address": ["Memduh Asaf Sokak No 15/C", "Köşklüçiftlik, Lefkoşa"],
-    "hours": [
-      { "days": "Pzt, Sal, Per", "time": "07:30–23:00" },
-      { "days": "Çar, Cum, Cmt", "time": "07:30–23:30" },
-      { "days": "Pazar", "time": "09:00–23:00" }
-    ],
     "image": "street.jpg",
     "imageAlt": "Köşklüçiftlik'te ağaçlı bir sokak",
     "directions": "Yol tarifi",
-    "call": "Ara"
+    "call": "Ara",
+    "closed": "Kapalı"
   },
   "footer": { "menu": "Menü", "coffee": "Kahveler", "drinks": "Şarap & bira", "visit": "Ziyaret", "follow": "Takip et" },
   "deck": {
