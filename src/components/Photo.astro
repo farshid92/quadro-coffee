@@ -24,7 +24,8 @@ interface Props {
 const { file, alt, label = alt, class: className = '', width = 800, height = 600, eager = false, widths, sizes, quality } = Astro.props;
 
 const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/**/*.{jpg,jpeg,png,webp,avif}');
-const key = file ? `/src/assets/images/${file}` : '';
+// The content editor may save paths with a leading slash ("/menu/latte.webp"); both forms work
+const key = file ? `/src/assets/images/${file.replace(/^\/+/, '')}` : '';
 const src = key && images[key] ? (await images[key]()).default : null;
 ---
 {src ? (

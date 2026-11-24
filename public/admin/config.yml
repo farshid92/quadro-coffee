@@ -1,0 +1,278 @@
+# Content editor for the café owner, at /admin/ (Sveltia CMS: https://sveltiacms.app/en/docs).
+# The owner signs in with his GitHub account; every "Save" is a commit to the repository, and
+# Cloudflare Pages rebuilds the site automatically (about 1–2 minutes).
+#
+# Only content is editable here, never the layout. Labels are Turkish for the owner;
+# comments are English for the developer. Setup steps: docs/cms-setup.md
+
+backend:
+  name: github
+  repo: farshid92/quadro-coffee
+  branch: main
+  # TODO: the URL of the sign-in helper (Cloudflare Worker), see docs/cms-setup.md step 2
+  base_url: https://sveltia-cms-auth.CHANGE-ME.workers.dev
+  commit_messages:
+    update: "İçerik: {{path}} güncellendi"
+    uploadMedia: "Fotoğraf yüklendi: {{path}}"
+    deleteMedia: "Fotoğraf silindi: {{path}}"
+
+app_title: Quadro Coffee · İçerik
+logo:
+  src: /favicon.svg
+
+# Uploaded photos are shrunk and converted to WebP in the browser before they are saved,
+# so a 5 MB phone photo becomes ~200 KB in the repository.
+media_folder: src/assets/images
+media_libraries:
+  default:
+    config:
+      slugify_filename: true
+      max_file_size: 25000000
+      transformations:
+        raster_image:
+          format: webp
+          quality: 82
+          width: 1600
+
+i18n:
+  structure: multiple_files
+  locales: [tr, en]
+  default_locale: tr
+
+singletons:
+  # ---------------------------------------------------------------- Events (content/events.json)
+  - name: etkinlikler
+    label: Etkinlikler
+    icon: event
+    file: content/events.json
+    editor: { preview: false }
+    fields:
+      - name: matches
+        label: Maç yayınları
+        label_singular: Maç
+        widget: list
+        required: false
+        collapsed: true
+        summary: "{{date}} · {{time}} · {{home}} – {{away}}"
+        hint: Geçmiş maçları silmenize gerek yok; sitede her zaman sıradaki maç gösterilir.
+        fields:
+          - { name: date, label: Tarih, widget: datetime, type: date, format: YYYY-MM-DD }
+          - { name: time, label: Saat, widget: string, default: "20:00", pattern: ['^\d{1,2}[:.]\d{2}$', 'Saati 20:00 gibi yazın'], hint: "Örn. 20:00" }
+          - { name: home, label: Ev sahibi takım, widget: string }
+          - { name: away, label: Deplasman takımı, widget: string }
+          - { name: league, label: Lig / turnuva, widget: string, default: Süper Lig }
+          - { name: derby, label: Derbi, widget: boolean, default: false, required: false }
+      - name: music
+        label: Canlı müzik geceleri
+        label_singular: Canlı müzik gecesi
+        widget: list
+        required: false
+        collapsed: true
+        summary: "{{date}} · {{time}} · {{title.tr}}"
+        hint: Geçmiş geceleri silmenize gerek yok; sitede her zaman sıradaki gece gösterilir.
+        fields:
+          - { name: date, label: Tarih, widget: datetime, type: date, format: YYYY-MM-DD }
+          - { name: time, label: Saat, widget: string, default: "21:30", pattern: ['^\d{1,2}[:.]\d{2}$', 'Saati 20:00 gibi yazın'], hint: "Örn. 21:30" }
+          - name: title
+            label: Sanatçı / gecenin adı
+            widget: object
+            fields:
+              - { name: tr, label: Türkçe, widget: string }
+              - { name: en, label: İngilizce, widget: string, required: false, hint: Boş bırakırsanız Türkçesi gösterilir. }
+          - name: text
+            label: Kısa açıklama
+            widget: object
+            fields:
+              - { name: tr, label: Türkçe, widget: string, required: false, hint: "Örn. Akustik gece, 90'lar Türkçe pop" }
+              - { name: en, label: İngilizce, widget: string, required: false, hint: Boş bırakırsanız Türkçesi gösterilir. }
+          - name: photo
+            label: Fotoğraf
+            widget: image
+            required: false
+            choose_url: false
+            media_folder: /src/assets/images/events
+            public_folder: events
+            hint: Dikey (portre) bir fotoğraf en iyi görünür. Fotoğraf yoksa sahne ışığı görseli kullanılır.
+      - name: matchPhoto
+        label: Maç geceleri için genel fotoğraf
+        widget: image
+        required: false
+        choose_url: false
+        media_folder: /src/assets/images/events
+        public_folder: events
+        hint: İsteğe bağlı. Maç kartının arkasında soluk olarak görünür.
+      - name: musicPhoto
+        label: Canlı müzik için genel fotoğraf
+        widget: image
+        required: false
+        choose_url: false
+        media_folder: /src/assets/images/events
+        public_folder: events
+        hint: İsteğe bağlı. Fotoğrafı olmayan müzik geceleri bunu kullanır.
+
+  # ---------------------------------------------------------------- Menu (content/menu.json)
+  # Sections are fixed (no adding, removing or reordering) so the layout can't break.
+  - name: menu
+    label: Menü ve fiyatlar
+    icon: restaurant_menu
+    file: content/menu.json
+    editor: { preview: false }
+    fields:
+      - name: sections
+        label: Menü bölümleri
+        widget: list
+        allow_add: false
+        allow_remove: false
+        allow_reorder: false
+        collapsed: true
+        summary: "{{title.tr}}"
+        fields:
+          - { name: id, widget: hidden }
+          - { name: icon, widget: hidden }
+          - name: title
+            label: Bölüm adı
+            widget: object
+            collapsed: true
+            fields:
+              - { name: tr, label: Türkçe, widget: string }
+              - { name: en, label: İngilizce, widget: string }
+          - name: items
+            label: Ürünler
+            label_singular: Ürün
+            widget: list
+            collapsed: true
+            summary: "{{name}} · ₺{{price}}"
+            fields:
+              - { name: id, widget: hidden }
+              - { name: name, label: Ürün adı, widget: string, hint: Menü tahtasındaki gibi. }
+              - { name: tr, label: Türkçe adı, widget: string, required: false, hint: Sadece farklıysa doldurun (örn. Hot Chocolate → Sıcak Çikolata). }
+              - name: price
+                label: Fiyat (₺)
+                widget: string
+                pattern: ['^\d+( / \d+)?$', 'Sadece rakam yazın, örn. 240. İki boy için: 190 / 210']
+              - name: photo
+                label: Fotoğraf
+                widget: image
+                required: false
+                choose_url: false
+                media_folder: /src/assets/images/menu
+                public_folder: menu
+                hint: Telefonla çekilmiş fotoğraf olur; otomatik küçültülür.
+              - { name: hidden, label: Sitede gizle, widget: boolean, default: false, required: false, hint: Örn. fotoğrafı yoksa veya şu an servis edilmiyorsa. }
+          - name: extras
+            label: Ekstralar
+            widget: object
+            required: false
+            collapsed: true
+            hint: Sadece sıcak içeceklerin altında gösterilir.
+            fields:
+              - { name: title, widget: hidden }
+              - name: items
+                label: Ekstralar
+                label_singular: Ekstra
+                widget: list
+                summary: "{{name}} · ₺{{price}}"
+                fields:
+                  - { name: name, label: Ürün adı, widget: string, hint: Menü tahtasındaki gibi. }
+                  - { name: tr, label: Türkçe adı, widget: string, required: false, hint: Sadece farklıysa doldurun (örn. Hot Chocolate → Sıcak Çikolata). }
+                  - name: price
+                    label: Fiyat (₺)
+                    widget: string
+                    pattern: ['^\d+( / \d+)?$', 'Sadece rakam yazın, örn. 240. İki boy için: 190 / 210']
+                  - { name: hidden, label: Sitede gizle, widget: boolean, default: false, required: false, hint: Örn. fotoğrafı yoksa veya şu an servis edilmiyorsa. }
+      - name: alcohol
+        label: Alkollü içecekler
+        widget: object
+        collapsed: true
+        fields:
+          - { name: id, widget: hidden }
+          - { name: icon, widget: hidden }
+          - { name: title, widget: hidden }
+          - name: groups
+            label: Gruplar
+            label_singular: Grup
+            widget: list
+            collapsed: true
+            summary: "{{title.tr}}"
+            fields:
+              - name: title
+                label: Grup adı
+                widget: object
+                fields:
+                  - { name: tr, label: Türkçe, widget: string }
+                  - { name: en, label: İngilizce, widget: string }
+              - name: items
+                label: İçecekler
+                label_singular: İçecek
+                widget: list
+                collapsed: true
+                summary: "{{name}} · ₺{{price}}"
+                fields:
+                  - { name: name, label: Ad, widget: string }
+                  - { name: tr, label: Türkçe adı, widget: string, required: false, hint: Sadece farklıysa. }
+                  - { name: size, label: Boyut, widget: string, required: false, hint: "Örn. 33 / 50 cl" }
+                  - name: price
+                    label: Fiyat (₺)
+                    widget: string
+                    pattern: ['^\d+( / \d+)?$', 'Sadece rakam yazın, örn. 240. İki boy için: 190 / 210']
+                  - { name: hidden, label: Sitede gizle, widget: boolean, default: false, required: false }
+
+  # ---------------------------------------------------------------- Hours and contact (content/business.json)
+  - name: isletme
+    label: Çalışma saatleri ve iletişim
+    icon: schedule
+    file: content/business.json
+    editor: { preview: false }
+    fields:
+      - { name: name, widget: hidden }
+      - name: hours
+        label: Çalışma saatleri
+        widget: object
+        hint: "Her gün için örn. 07:30-23:00 yazın. Kapalı günler için: Kapalı. Gece yarısından sonra kapanıyorsanız örn. 09:00-01:00."
+        fields:
+          - { name: monday, label: Pazartesi, widget: string, pattern: ['^(\d{1,2}[:.]\d{2} ?[-–] ?\d{1,2}[:.]\d{2}|[Kk]apalı)$', 'Saatleri 07:30-23:00 gibi yazın, kapalı günler için: Kapalı'] }
+          - { name: tuesday, label: Salı, widget: string, pattern: ['^(\d{1,2}[:.]\d{2} ?[-–] ?\d{1,2}[:.]\d{2}|[Kk]apalı)$', 'Saatleri 07:30-23:00 gibi yazın, kapalı günler için: Kapalı'] }
+          - { name: wednesday, label: Çarşamba, widget: string, pattern: ['^(\d{1,2}[:.]\d{2} ?[-–] ?\d{1,2}[:.]\d{2}|[Kk]apalı)$', 'Saatleri 07:30-23:00 gibi yazın, kapalı günler için: Kapalı'] }
+          - { name: thursday, label: Perşembe, widget: string, pattern: ['^(\d{1,2}[:.]\d{2} ?[-–] ?\d{1,2}[:.]\d{2}|[Kk]apalı)$', 'Saatleri 07:30-23:00 gibi yazın, kapalı günler için: Kapalı'] }
+          - { name: friday, label: Cuma, widget: string, pattern: ['^(\d{1,2}[:.]\d{2} ?[-–] ?\d{1,2}[:.]\d{2}|[Kk]apalı)$', 'Saatleri 07:30-23:00 gibi yazın, kapalı günler için: Kapalı'] }
+          - { name: saturday, label: Cumartesi, widget: string, pattern: ['^(\d{1,2}[:.]\d{2} ?[-–] ?\d{1,2}[:.]\d{2}|[Kk]apalı)$', 'Saatleri 07:30-23:00 gibi yazın, kapalı günler için: Kapalı'] }
+          - { name: sunday, label: Pazar, widget: string, pattern: ['^(\d{1,2}[:.]\d{2} ?[-–] ?\d{1,2}[:.]\d{2}|[Kk]apalı)$', 'Saatleri 07:30-23:00 gibi yazın, kapalı günler için: Kapalı'] }
+      - { name: phone, label: Telefon, widget: string, hint: "Örn. 0548 889 73 21" }
+      - { name: whatsapp, label: WhatsApp numarası, widget: string, required: false, hint: Boş bırakırsanız telefon numarası kullanılır. }
+      - { name: instagram, label: Instagram adresi, widget: string, required: false }
+      - { name: facebook, label: Facebook adresi, widget: string, required: false }
+      - name: address
+        label: Adres
+        widget: object
+        collapsed: true
+        fields:
+          - { name: street, label: Sokak ve numara, widget: string }
+          - { name: district, label: Semt, widget: string }
+          - { name: city, label: Şehir, widget: string }
+          - { name: postalCode, label: Posta kodu, widget: string, required: false }
+      - { name: mapsUrl, label: Google Maps bağlantısı, widget: string, hint: Google Maps'te "Paylaş" ile alınan bağlantı. }
+      - { name: geo, widget: hidden }
+
+  # ---------------------------------------------------------------- Home page texts (content/tr|en/site.json)
+  - name: yazilar
+    label: Ana sayfa yazıları
+    icon: edit_note
+    file: content/{{locale}}/site.json
+    editor: { preview: false }
+    i18n: true
+    fields:
+      - name: hero
+        label: İlk ekran
+        widget: object
+        i18n: true
+        fields:
+          - { name: eyebrow, label: Üst satır, widget: string, i18n: true }
+          - { name: title, label: Başlık, widget: string, i18n: true }
+          - { name: tagline, label: Alt satır, widget: string, i18n: true, hint: "Örn. Kahve · Bira · Viski · Şarap" }
+      - name: student
+        label: Öğrenci indirimi
+        widget: object
+        i18n: true
+        fields:
+          - { name: title, label: Başlık, widget: text, i18n: true, hint: İkinci satır için Enter'a basın. }
+          - { name: text, label: Açıklama, widget: string, i18n: true }

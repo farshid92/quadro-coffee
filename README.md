@@ -29,24 +29,31 @@ npm run preview   # serve the built site locally
 | What | Where |
 |---|---|
 | All visible text (Turkish / English) | `content/tr/site.json`, `content/en/site.json` |
-| Phone, address, opening hours, links | `src/lib/business.ts` |
+| Phone, address, opening hours, links | `content/business.json` (read by `src/lib/business.ts`) |
 | Menu items, prices and photo names (both pages read it) | `content/menu.json` |
 | Evening programme (match screenings, live music) | `content/events.json` |
 | Brand colours and fonts | `brand.json`, mirrored in `src/styles/global.css` |
-| Photos | `src/assets/images/` (referenced by file name from the content files); drink photos in `src/assets/images/menu/` |
+| Photos | `src/assets/images/` (referenced by file name from the content files); drink photos in `menu/`, event photos in `events/` |
+| Content editor for the owner | `public/admin/` (Sveltia CMS), set-up in `docs/cms-setup.md` |
 | Page sections | `src/components/` (each section is a `Panel`; the menu section is `MenuPanel.astro`, the menu page `MenuPage.astro`) |
 | Desktop panel navigation and curved wipe | `src/scripts/deck.ts` |
 | Project brief and open items | `brief.md` |
 
 Every text change has to be made in both language files.
 
-### Changing the menu
+### Content editor (for the owner)
+
+The owner edits events, menu and prices, opening hours, contact details and the home page texts himself at **`/admin/`**, in Turkish, without touching code. Each save is a commit to this repository and Cloudflare Pages rebuilds the site in about 1–2 minutes. The layout can't be changed from there. Set-up steps and the owner's short guide: [`docs/cms-setup.md`](docs/cms-setup.md).
+
+To use the editor locally: run `npm run dev`, open `http://localhost:4321/admin/` in Chrome or Edge, choose **Yerel Repo ile Çalış** and pick the project folder. It edits the files on disk directly.
+
+### Changing the menu by hand
 
 Everything is in `content/menu.json`:
 
 - **Price:** change `price` (numbers only, the ₺ is added automatically; two sizes are written `"50 / 80"`).
-- **New item:** add `{ "id": "my-drink", "name": "My Drink", "price": "250", "photo": "menu/my-drink.jpg" }` to its section, and put the photo (about 960px wide) in `src/assets/images/menu/`. Add `"tr": "…"` when the Turkish name differs.
-- **Remove an item:** delete its line (or move it to `_removed` to keep it for later).
+- **New item:** add `{ "name": "My Drink", "price": "250", "photo": "menu/my-drink.jpg" }` to its section, and put the photo (about 960px wide) in `src/assets/images/menu/`. Add `"tr": "…"` when the Turkish name differs.
+- **Hide an item:** add `"hidden": true` (it stays in the file for later).
 
 Both the home page menu and the menu page update from this one file.
 
@@ -56,4 +63,4 @@ The build output is a static folder, so any static host works. On Cloudflare Pag
 
 ## Status
 
-Accepted by the café; being finished for launch. Menu prices are taken from the café's menu boards. Several photos are temporary (some AI-generated, including the drink photos) and will be replaced with real photos of the café before launch. See the open items in `brief.md`.
+Accepted by the café; being finished for launch. Menu prices are taken from the café's menu boards. Several photos are temporary (some AI-generated, including the drink photos) and will be replaced with real photos of the café before launch. The evening programme in `content/events.json` is a demo with invented dates; the owner replaces it in the content editor. See the open items in `brief.md`.
