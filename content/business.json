@@ -1,5 +1,14 @@
 {
   "name": "Quadro Coffee",
+  "hours": {
+    "monday": "08:00-23:00",
+    "tuesday": "08:00-23:00",
+    "wednesday": "08:00-23:00",
+    "thursday": "08:00-23:00",
+    "friday": "08:00-23:00",
+    "saturday": "08:00-23:00",
+    "sunday": "09:00-23:00"
+  },
   "phone": "0548 889 73 21",
   "whatsapp": "",
   "instagram": "https://www.instagram.com/quadrocyprus/",
@@ -14,14 +23,5 @@
   "geo": {
     "lat": 35.1819074,
     "lng": 33.3553297
-  },
-  "hours": {
-    "monday": "07:30-23:00",
-    "tuesday": "07:30-23:00",
-    "wednesday": "07:30-23:30",
-    "thursday": "07:30-23:00",
-    "friday": "07:30-23:30",
-    "saturday": "07:30-23:30",
-    "sunday": "09:00-23:00"
   }
 }
