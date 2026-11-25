@@ -3,103 +3,157 @@
   "musicPhoto": null,
   "matches": [
     {
-      "date": "2026-11-01",
-      "time": "19:00",
+      "date": "2026-11-25",
+      "time": "22:00",
+      "home": "Shakhtar Donetsk",
+      "away": "Fenerbahçe",
+      "league": "Şampiyonlar Ligi",
+      "derby": false
+    },
+    {
+      "date": "2026-11-26",
+      "time": "19:45",
+      "home": "Beşiktaş",
+      "away": "Hapoel Beer Sheva",
+      "league": "Avrupa Ligi",
+      "derby": false
+    },
+    {
+      "date": "2026-11-29",
+      "time": "18:00",
       "home": "Fenerbahçe",
+      "away": "Erzurumspor",
+      "league": "Süper Lig",
+      "derby": false
+    },
+    {
+      "date": "2026-11-30",
+      "time": "18:00",
+      "home": "Göztepe",
+      "away": "Trabzonspor",
+      "league": "Süper Lig",
+      "derby": false
+    },
+    {
+      "date": "2026-11-30",
+      "time": "20:00",
+      "home": "Beşiktaş",
+      "away": "Galatasaray",
+      "league": "Süper Lig",
+      "derby": true
+    },
+    {
+      "date": "2026-12-04",
+      "time": "19:00",
+      "home": "Galatasaray",
+      "away": "Rizespor",
+      "league": "Süper Lig",
+      "derby": false
+    },
+    {
+      "date": "2026-12-05",
+      "time": "18:00",
+      "home": "Başakşehir",
+      "away": "Fenerbahçe",
+      "league": "Süper Lig",
+      "derby": false
+    },
+    {
+      "date": "2026-12-06",
+      "time": "15:00",
+      "home": "Beşiktaş",
       "away": "Samsunspor",
       "league": "Süper Lig",
       "derby": false
     },
     {
-      "date": "2026-11-07",
-      "time": "20:00",
-      "home": "Galatasaray",
-      "away": "Beşiktaş",
-      "league": "Süper Lig",
-      "derby": true
-    },
-    {
-      "date": "2026-11-08",
-      "time": "19:00",
+      "date": "2026-12-06",
+      "time": "18:00",
       "home": "Trabzonspor",
-      "away": "Fenerbahçe",
+      "away": "Çorum FK",
       "league": "Süper Lig",
       "derby": false
     },
     {
-      "date": "2026-11-22",
-      "time": "20:00",
-      "home": "Beşiktaş",
-      "away": "Fenerbahçe",
-      "league": "Süper Lig",
-      "derby": true
+      "date": "2026-12-08",
+      "time": "22:00",
+      "home": "AEK",
+      "away": "Galatasaray",
+      "league": "Şampiyonlar Ligi",
+      "derby": false
     },
     {
-      "date": "2026-11-28",
-      "time": "19:00",
-      "home": "Trabzonspor",
+      "date": "2026-12-09",
+      "time": "22:00",
+      "home": "LASK",
+      "away": "Fenerbahçe",
+      "league": "Şampiyonlar Ligi",
+      "derby": false
+    },
+    {
+      "date": "2026-12-10",
+      "time": "22:00",
+      "home": "Bayer Leverkusen",
+      "away": "Beşiktaş",
+      "league": "Avrupa Ligi",
+      "derby": false
+    },
+    {
+      "date": "2026-12-12",
+      "time": "18:00",
+      "home": "Eyüpspor",
       "away": "Galatasaray",
       "league": "Süper Lig",
       "derby": false
     },
     {
-      "date": "2026-11-29",
-      "time": "20:00",
+      "date": "2026-12-13",
+      "time": "18:00",
+      "home": "Fenerbahçe",
+      "away": "Trabzonspor",
+      "league": "Süper Lig",
+      "derby": true
+    },
+    {
+      "date": "2026-12-14",
+      "time": "19:00",
+      "home": "Gaziantep FK",
+      "away": "Beşiktaş",
+      "league": "Süper Lig",
+      "derby": false
+    },
+    {
+      "date": "2026-12-18",
+      "time": "19:00",
+      "home": "Kasımpaşa",
+      "away": "Fenerbahçe",
+      "league": "Süper Lig",
+      "derby": false
+    },
+    {
+      "date": "2026-12-19",
+      "time": "18:00",
       "home": "Galatasaray",
-      "away": "Başakşehir",
+      "away": "Alanyaspor",
+      "league": "Süper Lig",
+      "derby": false
+    },
+    {
+      "date": "2026-12-21",
+      "time": "19:00",
+      "home": "Trabzonspor",
+      "away": "Kocaelispor",
+      "league": "Süper Lig",
+      "derby": false
+    },
+    {
+      "date": "2026-12-29",
+      "time": "18:00",
+      "home": "Beşiktaş",
+      "away": "Rizespor",
       "league": "Süper Lig",
       "derby": false
     }
   ],
-  "music": [
-    {
-      "date": "2026-11-13",
-      "time": "20:00",
-      "title": {
-        "tr": "Sidar Karakuş",
-        "en": "Sidar Karakuş"
-      },
-      "text": {
-        "tr": "Sidar Karakuş ile akustik gece",
-        "en": "An acoustic night with Sidar Karakuş"
-      },
-      "photo": "events/sidar-karakus.jpg"
-    },
-    {
-      "date": "2026-11-04",
-      "time": "21:30",
-      "title": {
-        "tr": "Caz & soul",
-        "en": "Jazz & soul"
-      },
-      "text": {
-        "tr": "Piyano ve vokal",
-        "en": "Piano and vocals"
-      }
-    },
-    {
-      "date": "2026-11-20",
-      "time": "21:30",
-      "title": {
-        "tr": "Akustik gece",
-        "en": "Acoustic night"
-      },
-      "text": {
-        "tr": "90'lar Türkçe pop",
-        "en": "90s Turkish pop"
-      }
-    },
-    {
-      "date": "2026-11-27",
-      "time": "21:30",
-      "title": {
-        "tr": "Kıbrıs ezgileri",
-        "en": "Cypriot songs"
-      },
-      "text": {
-        "tr": "Türkçe ve Rumca şarkılar",
-        "en": "Turkish and Greek songs"
-      }
-    }
-  ]
+  "music": []
 }

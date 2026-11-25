@@ -6,7 +6,8 @@
 import Panel from './Panel.astro';
 import Photo from './Photo.astro';
 import { getContent, type Lang } from '../lib/i18n';
-import { matches, music, months, matchPhoto, musicPhoto, crest, pick, startOf, tx, longDate, shortDate, monthName, weekdayNames } from '../lib/events';
+import { business } from '../lib/business';
+import { matches, music, months, matchPhoto, musicPhoto, crest, leagueName, pick, startOf, tx, longDate, shortDate, monthName, weekdayNames } from '../lib/events';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
@@ -35,7 +36,7 @@ const icon = 'h-3.5 w-3.5 fill-none stroke-current stroke-[1.8] [stroke-linecap:
             <Photo file={m.photo ?? matchPhoto} alt={t.matchAlt} width={760} height={420} class="absolute inset-0 -z-10 h-full w-full opacity-25" />
           )}
           <p class="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#FFB547]">
-            {[m.league, m.derby && t.derby, t.broadcast].filter(Boolean).join(' · ')}
+            {[leagueName(m.league, lang), m.derby && t.derby, t.broadcast].filter(Boolean).join(' · ')}
           </p>
           <h3 class="my-4 grid grid-cols-[1fr_auto_1fr] items-center gap-3 font-display font-normal">
             {[m.home, m.away].map((team, side) => (
@@ -91,7 +92,23 @@ const icon = 'h-3.5 w-3.5 fill-none stroke-current stroke-[1.8] [stroke-linecap:
           </div>
         </article>
       ))}
-      <p data-music-none hidden={now.music >= 0} class="grid place-items-center rounded-2xl bg-copper-light p-8 text-center text-espresso">{t.noMusic}</p>
+      <!-- No music night announced: a "coming soon" poster in the same style, pointing to Instagram -->
+      <article data-music-none hidden={now.music >= 0}
+               class="flex overflow-hidden rounded-2xl bg-copper-light text-espresso shadow-[0_30px_50px_-30px_#000] lg:min-h-[clamp(280px,46vh,420px)]">
+        <div class="spotlight w-[26%] shrink-0 sm:w-[38%]" aria-hidden="true"></div>
+        <div class="@container flex min-w-0 flex-1 flex-col justify-center px-4 py-5 sm:px-6">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.24em]">{t.musicSoon.label}</p>
+          <!-- sized to the card's width so the longest word ("HAZIRLANIYOR") always fits -->
+          <h3 class="my-2.5 font-display text-[clamp(30px,18cqi,64px)] font-normal leading-[0.9]">{t.musicSoon.title}</h3>
+          <p class="text-[13px] leading-relaxed">{t.musicSoon.text}</p>
+          {business.instagram && (
+            <a href={business.instagram} class="mt-4 inline-flex min-h-[44px] w-fit items-center gap-2 whitespace-nowrap rounded-full bg-espresso px-4 text-[13px] font-semibold text-copper-light hover:bg-black sm:px-5 sm:text-sm">
+              <svg viewBox="0 0 24 24" class="h-[18px] w-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" /></svg>
+              {t.musicSoon.cta}
+            </a>
+          )}
+        </div>
+      </article>
     </div>
   </div>
 

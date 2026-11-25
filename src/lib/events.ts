@@ -35,7 +35,32 @@ const clubs: Record<string, { colors: [string, string]; stripes?: boolean }> = {
   'Trabzonspor': { colors: ['#6C1D45', '#5FB4E5'], stripes: true },
   'Samsunspor': { colors: ['#D81E2C', '#FFFFFF'] },
   'Başakşehir': { colors: ['#F26522', '#0E2D5E'] },
+  'Göztepe': { colors: ['#FFD400', '#D01F2E'] },
+  'Rizespor': { colors: ['#00843D', '#0055A4'] },
+  'Eyüpspor': { colors: ['#6A2C91', '#F5D300'] },
+  'Kasımpaşa': { colors: ['#1C3F94', '#FFFFFF'] },
+  'Kocaelispor': { colors: ['#00843D', '#111111'], stripes: true },
+  'Gaziantep FK': { colors: ['#D7182A', '#111111'] },
+  'Alanyaspor': { colors: ['#F47920', '#00843D'] },
+  'Erzurumspor': { colors: ['#0055A4', '#FFFFFF'] },
+  'Çorum FK': { colors: ['#D7182A', '#111111'] },
+  'Shakhtar Donetsk': { colors: ['#F26522', '#111111'] },
+  'Hapoel Beer Sheva': { colors: ['#D7182A', '#FFFFFF'] },
+  'AEK': { colors: ['#F5D300', '#111111'] },
+  'LASK': { colors: ['#111111', '#FFFFFF'], stripes: true },
+  'Bayer Leverkusen': { colors: ['#E32221', '#111111'] },
 };
+
+/** Competition names as typed in the editor (Turkish); the English page gets the English name when known. */
+const leaguesEn: Record<string, string> = {
+  'Şampiyonlar Ligi': 'Champions League',
+  'Avrupa Ligi': 'Europa League',
+  'Konferans Ligi': 'Conference League',
+  'Türkiye Kupası': 'Turkish Cup',
+  'Dünya Kupası': 'World Cup',
+  'Milli maç': 'National team',
+};
+export const leagueName = (league: string, lang: Lang) => (lang === 'en' && leaguesEn[league.trim()]) || league;
 export const crest = (team: string) => {
   const c = clubs[team];
   if (!c) return 'var(--color-copper)';

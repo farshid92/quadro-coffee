@@ -71,10 +71,15 @@
     "music": "Live music",
     "calendarLabel": "{month} events calendar",
     "noMatch": "New match schedule coming soon. Follow us on Instagram.",
-    "noMusic": "New live music nights coming soon.",
     "matchAlt": "Match night at Quadro",
     "musicAlt": "Live music at Quadro",
-    "derby": "Derby"
+    "derby": "Derby",
+    "musicSoon": {
+      "label": "Live music",
+      "title": "Setting the stage",
+      "text": "We'll announce our next live music nights very soon. Follow us on Instagram to be the first to hear.",
+      "cta": "Follow on Instagram"
+    }
   },
   "menuPage": {
     "title": "Menu | Quadro Coffee, Köşklüçiftlik",

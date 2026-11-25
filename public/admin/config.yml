@@ -60,7 +60,7 @@ singletons:
           - { name: time, label: Saat, widget: string, default: "20:00", pattern: ['^\d{1,2}[:.]\d{2}$', 'Saati 20:00 gibi yazın'], hint: "Örn. 20:00" }
           - { name: home, label: Ev sahibi takım, widget: string }
           - { name: away, label: Deplasman takımı, widget: string }
-          - { name: league, label: Lig / turnuva, widget: string, default: Süper Lig }
+          - { name: league, label: Lig / turnuva, widget: string, default: Süper Lig, hint: "Örn. Süper Lig, Şampiyonlar Ligi, Avrupa Ligi, Konferans Ligi, Türkiye Kupası (İngilizce sayfada otomatik çevrilir)" }
           - { name: derby, label: Derbi, widget: boolean, default: false, required: false }
       - name: music
         label: Canlı müzik geceleri

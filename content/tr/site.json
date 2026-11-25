@@ -55,7 +55,7 @@
     "music": "Canlı müzik",
     "calendarLabel": "{month} etkinlik takvimi",
     "noMatch": "Yeni maç programı yakında. Instagram'dan takip edin.",
-    "noMusic": "Yeni canlı müzik geceleri yakında.",
+    "musicSoon": {"label": "Canlı müzik", "title": "Sahne hazırlanıyor", "text": "Yeni canlı müzik gecelerimizi çok yakında duyuracağız. İlk duyanlardan olmak için bizi Instagram'da takip edin.", "cta": "Instagram’da takip et"},
     "derby": "Derbi",
     "matchAlt": "Quadro'da maç gecesi",
     "musicAlt": "Quadro'da canlı müzik"
