@@ -11,120 +11,157 @@
         {
           "id": "espresso",
           "name": "Espresso",
+          "tr": "",
           "price": "95",
-          "photo": "menu/espresso.jpg"
+          "photo": "menu/espresso.jpg",
+          "hidden": false
         },
         {
           "id": "americano",
           "name": "Americano",
+          "tr": "",
           "price": "210",
-          "photo": "menu/americano.jpg"
+          "photo": "menu/americano.jpg",
+          "hidden": false
         },
         {
           "id": "cortado",
           "name": "Cortado",
+          "tr": "",
           "price": "230",
-          "photo": "menu/cortado.jpg"
+          "photo": "menu/cortado.jpg",
+          "hidden": false
         },
         {
           "id": "flat-white",
           "name": "Flat White",
+          "tr": "",
           "price": "230",
-          "photo": "menu/flat-white.jpg"
+          "photo": "menu/flat-white.jpg",
+          "hidden": false
         },
         {
           "id": "cappuccino",
           "name": "Cappuccino",
+          "tr": "",
           "price": "240",
-          "photo": "menu/cappuccino.jpg"
+          "photo": "menu/cappuccino.jpg",
+          "hidden": false
         },
         {
           "id": "macchiato",
           "name": "Macchiato",
+          "tr": "",
           "price": "180",
-          "photo": "menu/macchiato.jpg"
+          "photo": "menu/macchiato.jpg",
+          "hidden": false
         },
         {
           "id": "latte",
           "name": "Latte",
+          "tr": "",
           "price": "240",
-          "photo": "menu/latte.jpg"
+          "photo": "menu/latte.jpg",
+          "hidden": false
         },
         {
           "id": "matcha-espresso-latte",
           "name": "Matcha Espresso Latte",
+          "tr": "",
           "price": "280",
-          "photo": "menu/matcha-espresso-latte.jpg"
+          "photo": "menu/matcha-espresso-latte.jpg",
+          "hidden": false
         },
         {
           "id": "chai-tea-espresso-latte",
           "name": "Chai Tea Espresso Latte",
+          "tr": "",
           "price": "270",
-          "photo": "menu/chai-tea-espresso-latte.jpg"
+          "photo": "menu/chai-tea-espresso-latte.jpg",
+          "hidden": false
         },
         {
           "id": "v60",
           "name": "V60",
+          "tr": "",
           "price": "280",
-          "photo": "menu/v60.jpg"
+          "photo": "menu/v60.jpg",
+          "hidden": false
         },
         {
           "id": "filter-coffee",
           "name": "Fresh Filter Coffee",
           "tr": "Taze Filtre Kahve",
           "price": "250",
-          "photo": "menu/filter-coffee.jpg"
+          "photo": "menu/filter-coffee.jpg",
+          "hidden": false
         },
         {
           "id": "turkish-coffee",
           "name": "Turkish Coffee",
           "tr": "Türk Kahvesi",
           "price": "130",
-          "photo": "menu/turkish-coffee.jpg"
+          "photo": "menu/turkish-coffee.jpg",
+          "hidden": false
         },
         {
           "id": "caramel-latte",
           "name": "Caramel Latte",
+          "tr": "",
           "price": "260",
-          "photo": "menu/caramel-latte.jpg"
+          "photo": "menu/caramel-latte.jpg",
+          "hidden": false
         },
         {
           "id": "vanilla-latte",
           "name": "Vanilla Latte",
+          "tr": "",
           "price": "260",
-          "photo": "menu/vanilla-latte.jpg"
+          "photo": "menu/vanilla-latte.jpg",
+          "hidden": false
         },
         {
           "id": "spanish-latte",
           "name": "Spanish Latte",
+          "tr": "",
           "price": "260",
-          "photo": "menu/spanish-latte.jpg"
+          "photo": "menu/spanish-latte.jpg",
+          "hidden": false
         },
         {
           "id": "pistachio-latte",
           "name": "Pistachio Latte",
+          "tr": "",
           "price": "290",
-          "photo": "menu/pistachio-latte.jpg"
+          "photo": "menu/pistachio-latte.jpg",
+          "hidden": false
         },
         {
           "id": "honey-latte",
           "name": "Honey Latte",
+          "tr": "",
           "price": "260",
-          "photo": "menu/honey-latte.jpg"
+          "photo": "menu/honey-latte.jpg",
+          "hidden": false
         },
         {
           "id": "mocha",
           "name": "Mocha",
+          "tr": "",
           "price": "260",
-          "photo": "menu/mocha.jpg"
+          "photo": "menu/mocha.jpg",
+          "hidden": false
         },
         {
           "id": "white-mocha",
           "name": "White Mocha",
+          "tr": "",
           "price": "260",
-          "photo": "menu/white-mocha.jpg"
+          "photo": "menu/white-mocha.jpg",
+          "hidden": false
         }
-      ]
+      ],
+      "extras": null
     },
     {
       "id": "hot-drinks",
@@ -137,59 +174,73 @@
         {
           "id": "chai-tea-latte",
           "name": "Chai Tea Latte",
+          "tr": "",
           "price": "240",
-          "photo": "menu/chai-tea-latte.jpg"
+          "photo": "menu/chai-tea-latte.jpg",
+          "hidden": false
         },
         {
           "id": "matcha",
           "name": "Matcha",
+          "tr": "",
           "price": "260",
-          "photo": "menu/matcha.jpg"
+          "photo": "menu/matcha.jpg",
+          "hidden": false
         },
         {
           "id": "hot-chocolate",
           "name": "Hot Chocolate",
           "tr": "Sıcak Çikolata",
           "price": "270",
-          "photo": "menu/hot-chocolate.jpg"
+          "photo": "menu/hot-chocolate.jpg",
+          "hidden": false
         },
         {
           "id": "white-hot-chocolate",
           "name": "White Hot Chocolate",
           "tr": "Beyaz Sıcak Çikolata",
           "price": "270",
-          "photo": "menu/white-hot-chocolate.jpg"
+          "photo": "menu/white-hot-chocolate.jpg",
+          "hidden": false
         },
         {
           "id": "chocolate-chai-tea-latte",
           "name": "Chocolate Chai Tea Latte",
+          "tr": "",
           "price": "270",
-          "photo": "menu/chocolate-chai-tea-latte.jpg"
+          "photo": "menu/chocolate-chai-tea-latte.jpg",
+          "hidden": false
         },
         {
           "id": "sahlep",
           "name": "Sahlep",
+          "tr": "",
           "price": "250",
-          "photo": "menu/sahlep.jpg"
+          "photo": "menu/sahlep.jpg",
+          "hidden": false
         },
         {
           "id": "london-fog-latte",
           "name": "London Fog Latte",
+          "tr": "",
           "price": "180",
-          "photo": "menu/london-fog-latte.jpg"
+          "photo": "menu/london-fog-latte.jpg",
+          "hidden": false
         },
         {
           "id": "tea",
           "name": "Tea",
           "tr": "Çay",
           "price": "150",
-          "photo": "menu/tea.jpg"
+          "photo": "menu/tea.jpg",
+          "hidden": false
         },
         {
           "id": "hibiscus-tea",
           "name": "Hibiscus Tea",
           "tr": "Hibiskus Çayı",
           "price": "190",
+          "photo": "",
           "hidden": true
         }
       ],
@@ -202,22 +253,26 @@
           {
             "name": "Syrup",
             "tr": "Şurup",
-            "price": "60"
+            "price": "60",
+            "hidden": false
           },
           {
             "name": "Powder",
             "tr": "Toz aroma",
-            "price": "60"
+            "price": "60",
+            "hidden": false
           },
           {
             "name": "Milk",
             "tr": "Süt",
-            "price": "60"
+            "price": "60",
+            "hidden": false
           },
           {
             "name": "Shot",
             "tr": "Ekstra shot",
-            "price": "60"
+            "price": "60",
+            "hidden": false
           }
         ]
       }
@@ -233,112 +288,149 @@
         {
           "id": "affogato",
           "name": "Affogato",
+          "tr": "",
           "price": "250",
-          "photo": "menu/affogato.jpg"
+          "photo": "menu/affogato.jpg",
+          "hidden": false
         },
         {
           "id": "freddo-espresso",
           "name": "Freddo Espresso",
-          "price": "230",
-          "photo": "menu/freddo-espresso.jpg"
+          "tr": "",
+          "price": "130",
+          "photo": "menu/freddo-espresso.jpg",
+          "hidden": false
         },
         {
           "id": "iced-americano",
           "name": "Iced Americano",
+          "tr": "",
           "price": "210",
-          "photo": "menu/iced-americano.jpg"
+          "photo": "menu/iced-americano.jpg",
+          "hidden": false
         },
         {
           "id": "iced-cappuccino",
           "name": "Iced Cappuccino",
+          "tr": "",
           "price": "240",
-          "photo": "menu/iced-cappuccino.jpg"
+          "photo": "menu/iced-cappuccino.jpg",
+          "hidden": false
         },
         {
           "id": "iced-latte",
           "name": "Iced Latte",
+          "tr": "",
           "price": "240",
-          "photo": "menu/iced-latte.jpg"
+          "photo": "menu/iced-latte.jpg",
+          "hidden": false
         },
         {
           "id": "iced-caramel-latte",
           "name": "Iced Caramel Latte",
+          "tr": "",
           "price": "260",
-          "photo": "menu/iced-caramel-latte.jpg"
+          "photo": "menu/iced-caramel-latte.jpg",
+          "hidden": false
         },
         {
           "id": "iced-vanilla-latte",
           "name": "Iced Vanilla Latte",
+          "tr": "",
           "price": "260",
-          "photo": "menu/iced-vanilla-latte.jpg"
+          "photo": "menu/iced-vanilla-latte.jpg",
+          "hidden": false
         },
         {
           "id": "iced-pistachio-latte",
           "name": "Iced Pistachio Latte",
+          "tr": "",
           "price": "290",
-          "photo": "menu/iced-pistachio-latte.jpg"
+          "photo": "menu/iced-pistachio-latte.jpg",
+          "hidden": false
         },
         {
           "id": "iced-berry-latte",
           "name": "Iced Berry Latte",
+          "tr": "",
           "price": "290",
-          "photo": "menu/iced-berry-latte.jpg"
+          "photo": "menu/iced-berry-latte.jpg",
+          "hidden": false
         },
         {
           "id": "iced-spanish-latte",
           "name": "Iced Spanish Latte",
+          "tr": "",
           "price": "260",
-          "photo": "menu/iced-spanish-latte.jpg"
+          "photo": "menu/iced-spanish-latte.jpg",
+          "hidden": false
         },
         {
           "id": "iced-chai-tea-espresso-latte",
           "name": "Iced Chai Tea Espresso Latte",
+          "tr": "",
           "price": "270",
-          "photo": "menu/iced-chai-tea-espresso-latte.jpg"
+          "photo": "menu/iced-chai-tea-espresso-latte.jpg",
+          "hidden": false
         },
         {
           "id": "iced-matcha-espresso-latte",
           "name": "Iced Matcha Espresso Latte",
+          "tr": "",
           "price": "280",
-          "photo": "menu/iced-matcha-espresso-latte.jpg"
+          "photo": "menu/iced-matcha-espresso-latte.jpg",
+          "hidden": false
         },
         {
           "id": "iced-alaras-special",
           "name": "Iced Alara's Special (Lotus)",
+          "tr": "",
           "price": "270",
-          "photo": "menu/iced-alaras-special.jpg"
+          "photo": "menu/iced-alaras-special.jpg",
+          "hidden": false
         },
         {
           "id": "iced-mocha",
           "name": "Iced Mocha",
+          "tr": "",
           "price": "260",
-          "photo": "menu/iced-mocha.jpg"
+          "photo": "menu/iced-mocha.jpg",
+          "hidden": false
         },
         {
           "id": "iced-white-mocha",
           "name": "Iced White Mocha",
+          "tr": "",
           "price": "260",
-          "photo": "menu/iced-white-mocha.jpg"
+          "photo": "menu/iced-white-mocha.jpg",
+          "hidden": false
         },
         {
           "id": "iced-kitkatte",
           "name": "Iced Kitkatte",
+          "tr": "",
           "price": "280",
-          "photo": "menu/iced-kitkatte.jpg"
+          "photo": "menu/iced-kitkatte.jpg",
+          "hidden": false
         },
         {
           "id": "iced-v60",
           "name": "Iced V60",
+          "tr": "",
           "price": "280",
-          "photo": "menu/iced-v60.jpg"
+          "photo": "menu/iced-v60.jpg",
+          "hidden": false
         },
         {
           "id": "ocean-latte",
           "name": "Ocean Latte",
+          "tr": "",
           "price": "280",
+          "photo": "",
           "hidden": true
         }
-      ]
+      ],
+      "extras": null
     },
     {
       "id": "cold-drinks",
@@ -353,81 +445,103 @@
           "name": "Orange Juice",
           "tr": "Portakal Suyu",
           "price": "250",
-          "photo": "menu/orange-juice.jpg"
+          "photo": "menu/orange-juice.jpg",
+          "hidden": false
         },
         {
           "id": "ocean-chill",
           "name": "Ocean Chill",
+          "tr": "",
           "price": "280",
-          "photo": "menu/ocean-chill.jpg"
+          "photo": "menu/ocean-chill.jpg",
+          "hidden": false
         },
         {
           "id": "iced-chai-tea-latte",
           "name": "Iced Chai Tea Latte",
+          "tr": "",
           "price": "240",
-          "photo": "menu/iced-chai-tea-latte.jpg"
+          "photo": "menu/iced-chai-tea-latte.jpg",
+          "hidden": false
         },
         {
           "id": "iced-matcha",
           "name": "Iced Matcha",
+          "tr": "",
           "price": "260",
-          "photo": "menu/iced-matcha.jpg"
+          "photo": "menu/iced-matcha.jpg",
+          "hidden": false
         },
         {
           "id": "iced-matcha-mango-berry",
           "name": "Iced Matcha Mango/Berry",
+          "tr": "",
           "price": "300",
-          "photo": "menu/iced-matcha-mango-berry.jpg"
+          "photo": "menu/iced-matcha-mango-berry.jpg",
+          "hidden": false
         },
         {
           "id": "italian-soda",
           "name": "Italian Soda",
+          "tr": "",
           "price": "250",
-          "photo": "menu/italian-soda.jpg"
+          "photo": "menu/italian-soda.jpg",
+          "hidden": false
         },
         {
           "id": "churchill",
           "name": "Churchill",
+          "tr": "",
           "price": "220",
-          "photo": "menu/churchill.jpg"
+          "photo": "menu/churchill.jpg",
+          "hidden": false
         },
         {
           "id": "home-made-lemonade",
           "name": "Home Made Lemonade",
           "tr": "Ev Yapımı Limonata",
           "price": "230",
-          "photo": "menu/home-made-lemonade.jpg"
+          "photo": "menu/home-made-lemonade.jpg",
+          "hidden": false
         },
         {
           "id": "orange-lemonade",
           "name": "Orange Lemonade",
           "tr": "Portakallı Limonata",
           "price": "260",
-          "photo": "menu/orange-lemonade.jpg"
+          "photo": "menu/orange-lemonade.jpg",
+          "hidden": false
         },
         {
           "id": "hibiscus-lemonade",
           "name": "Hibiscus Lemonade",
           "tr": "Hibiskuslu Limonata",
           "price": "250",
-          "photo": "menu/hibiscus-lemonade.jpg"
+          "photo": "menu/hibiscus-lemonade.jpg",
+          "hidden": false
         },
         {
           "id": "nadya-komanaci",
           "name": "Nadya Komanaçi",
+          "tr": "",
           "price": "320",
+          "photo": "",
           "hidden": true
         },
         {
           "id": "powerade-redbull",
           "name": "Powerade / Red Bull",
+          "tr": "",
           "price": "200",
+          "photo": "",
           "hidden": true
         },
         {
           "id": "iced-tea",
           "name": "Iced Tea",
+          "tr": "",
           "price": "180",
+          "photo": "",
           "hidden": true
         },
         {
@@ -435,12 +549,15 @@
           "name": "Cola",
           "tr": "Kola",
           "price": "120",
+          "photo": "",
           "hidden": true
         },
         {
           "id": "soda",
           "name": "Soda",
+          "tr": "",
           "price": "100",
+          "photo": "",
           "hidden": true
         },
         {
@@ -448,9 +565,11 @@
           "name": "Water / Bottled water",
           "tr": "Su / Şişe su",
           "price": "50 / 80",
+          "photo": "",
           "hidden": true
         }
-      ]
+      ],
+      "extras": null
     },
     {
       "id": "shakes",
@@ -463,90 +582,117 @@
         {
           "id": "frappe-espresso",
           "name": "Frappe Espresso",
+          "tr": "",
           "price": "240",
-          "photo": "menu/frappe-espresso.jpg"
+          "photo": "menu/frappe-espresso.jpg",
+          "hidden": false
         },
         {
           "id": "mango-frappe-espresso",
           "name": "Mango Frappe Espresso",
+          "tr": "",
           "price": "280",
-          "photo": "menu/mango-frappe-espresso.jpg"
+          "photo": "menu/mango-frappe-espresso.jpg",
+          "hidden": false
         },
         {
           "id": "pistachio-frappe-espresso",
           "name": "Pistachio Frappe Espresso",
+          "tr": "",
           "price": "280",
-          "photo": "menu/pistachio-frappe-espresso.jpg"
+          "photo": "menu/pistachio-frappe-espresso.jpg",
+          "hidden": false
         },
         {
           "id": "strawberry-frappe-espresso",
           "name": "Strawberry Frappe Espresso",
+          "tr": "",
           "price": "280",
-          "photo": "menu/strawberry-frappe-espresso.jpg"
+          "photo": "menu/strawberry-frappe-espresso.jpg",
+          "hidden": false
         },
         {
           "id": "milkshake-strawberry",
           "name": "Milkshake Strawberry",
           "tr": "Çilekli Milkshake",
           "price": "360",
-          "photo": "menu/milkshake-strawberry.jpg"
+          "photo": "menu/milkshake-strawberry.jpg",
+          "hidden": false
         },
         {
           "id": "milkshake-pistachio",
           "name": "Milkshake Pistachio",
           "tr": "Fıstıklı Milkshake",
           "price": "320",
-          "photo": "menu/milkshake-pistachio.jpg"
+          "photo": "menu/milkshake-pistachio.jpg",
+          "hidden": false
         },
         {
           "id": "milkshake-choco-milk",
           "name": "Milkshake (Choco-Milk)",
+          "tr": "",
           "price": "330",
-          "photo": "menu/milkshake-choco-milk.jpg"
+          "photo": "menu/milkshake-choco-milk.jpg",
+          "hidden": false
         },
         {
           "id": "milkshake-lemon-vanilla",
           "name": "Milkshake (Lemon-Vanilla)",
+          "tr": "",
           "price": "330",
-          "photo": "menu/milkshake-lemon-vanilla.jpg"
+          "photo": "menu/milkshake-lemon-vanilla.jpg",
+          "hidden": false
         },
         {
           "id": "snickers-shake",
           "name": "Snickers Shake",
+          "tr": "",
           "price": "330",
-          "photo": "menu/snickers-shake.jpg"
+          "photo": "menu/snickers-shake.jpg",
+          "hidden": false
         },
         {
           "id": "oreo-shake",
           "name": "Oreo Shake",
+          "tr": "",
           "price": "320",
-          "photo": "menu/oreo-shake.jpg"
+          "photo": "menu/oreo-shake.jpg",
+          "hidden": false
         },
         {
           "id": "lotus-shake",
           "name": "Lotus Shake",
+          "tr": "",
           "price": "300",
-          "photo": "menu/lotus-shake.jpg"
+          "photo": "menu/lotus-shake.jpg",
+          "hidden": false
         },
         {
           "id": "blueberry-shake",
           "name": "Blueberry Shake",
+          "tr": "",
           "price": "320",
-          "photo": "menu/blueberry-shake.jpg"
+          "photo": "menu/blueberry-shake.jpg",
+          "hidden": false
         },
         {
           "id": "frozen",
           "name": "Frozen",
+          "tr": "",
           "price": "250",
+          "photo": "",
           "hidden": true
         },
         {
           "id": "beckenbauer",
           "name": "Beckenbauer",
+          "tr": "",
           "price": "380",
+          "photo": "",
           "hidden": true
         }
-      ]
+      ],
+      "extras": null
     }
   ],
   "alcohol": {
@@ -565,46 +711,73 @@
         "items": [
           {
             "name": "Amsterdam",
-            "price": "230"
+            "tr": "",
+            "size": "",
+            "price": "230",
+            "hidden": false
           },
           {
             "name": "Carlsberg",
+            "tr": "",
             "size": "33 / 50 cl",
-            "price": "190 / 210"
+            "price": "190 / 210",
+            "hidden": false
           },
           {
             "name": "Tuborg",
+            "tr": "",
             "size": "33 / 50 cl",
-            "price": "190 / 210"
+            "price": "190 / 210",
+            "hidden": false
           },
           {
             "name": "Efes",
+            "tr": "",
             "size": "33 / 50 cl",
-            "price": "190 / 210"
+            "price": "190 / 210",
+            "hidden": false
           },
           {
             "name": "Corona",
-            "price": "240"
+            "tr": "",
+            "size": "",
+            "price": "240",
+            "hidden": false
           },
           {
             "name": "Bud",
-            "price": "220"
+            "tr": "",
+            "size": "",
+            "price": "220",
+            "hidden": false
           },
           {
             "name": "Miller",
-            "price": "230"
+            "tr": "",
+            "size": "",
+            "price": "230",
+            "hidden": false
           },
           {
             "name": "Bomonti",
-            "price": "230"
+            "tr": "",
+            "size": "",
+            "price": "230",
+            "hidden": false
           },
           {
             "name": "Heineken",
-            "price": "210"
+            "tr": "",
+            "size": "",
+            "price": "210",
+            "hidden": false
           },
           {
             "name": "Mexican Tequila",
-            "price": "250"
+            "tr": "",
+            "size": "",
+            "price": "250",
+            "hidden": false
           }
         ]
       },
@@ -616,27 +789,45 @@
         "items": [
           {
             "name": "Kuzu Kulağı",
-            "price": "450"
+            "tr": "",
+            "size": "",
+            "price": "450",
+            "hidden": false
           },
           {
             "name": "Whiskey Sour",
-            "price": "380"
+            "tr": "",
+            "size": "",
+            "price": "380",
+            "hidden": false
           },
           {
             "name": "Espresso Martini",
-            "price": "390"
+            "tr": "",
+            "size": "",
+            "price": "390",
+            "hidden": false
           },
           {
             "name": "Tom Collins",
-            "price": "320"
+            "tr": "",
+            "size": "",
+            "price": "320",
+            "hidden": false
           },
           {
             "name": "White Russian",
-            "price": "350"
+            "tr": "",
+            "size": "",
+            "price": "350",
+            "hidden": false
           },
           {
             "name": "Cucumber Gin Fizz",
-            "price": "370"
+            "tr": "",
+            "size": "",
+            "price": "370",
+            "hidden": false
           }
         ]
       },
@@ -648,11 +839,17 @@
         "items": [
           {
             "name": "Gin Soda",
-            "price": "250"
+            "tr": "",
+            "size": "",
+            "price": "250",
+            "hidden": false
           },
           {
             "name": "Gin & Juice",
-            "price": "260"
+            "tr": "",
+            "size": "",
+            "price": "260",
+            "hidden": false
           }
         ]
       },
@@ -664,23 +861,38 @@
         "items": [
           {
             "name": "Chivas 12",
-            "price": "350"
+            "tr": "",
+            "size": "",
+            "price": "350",
+            "hidden": false
           },
           {
             "name": "Johnnie Walker",
-            "price": "350"
+            "tr": "",
+            "size": "",
+            "price": "350",
+            "hidden": false
           },
           {
             "name": "Scotch",
-            "price": "350"
+            "tr": "",
+            "size": "",
+            "price": "350",
+            "hidden": false
           },
           {
             "name": "Jack Daniel's",
-            "price": "350"
+            "tr": "",
+            "size": "",
+            "price": "350",
+            "hidden": false
           },
           {
             "name": "Jameson",
-            "price": "300"
+            "tr": "",
+            "size": "",
+            "price": "300",
+            "hidden": false
           }
         ]
       },
@@ -693,17 +905,23 @@
           {
             "name": "Vodka Juice",
             "tr": "Votka Juice",
-            "price": "290"
+            "size": "",
+            "price": "290",
+            "hidden": false
           },
           {
             "name": "Vodka Red Bull",
             "tr": "Votka Red Bull",
-            "price": "290"
+            "size": "",
+            "price": "290",
+            "hidden": false
           },
           {
             "name": "Vodka Cruiser",
             "tr": "Votka Cruiser",
-            "price": "270"
+            "size": "",
+            "price": "270",
+            "hidden": false
           }
         ]
       },
@@ -715,11 +933,17 @@
         "items": [
           {
             "name": "Tequila Shot",
-            "price": "150"
+            "tr": "",
+            "size": "",
+            "price": "150",
+            "hidden": false
           },
           {
             "name": "Jäger Shot",
-            "price": "180"
+            "tr": "",
+            "size": "",
+            "price": "180",
+            "hidden": false
           }
         ]
       },
@@ -731,19 +955,31 @@
         "items": [
           {
             "name": "Cielo",
-            "price": "250"
+            "tr": "",
+            "size": "",
+            "price": "250",
+            "hidden": false
           },
           {
             "name": "Prosecco",
-            "price": "280"
+            "tr": "",
+            "size": "",
+            "price": "280",
+            "hidden": false
           },
           {
             "name": "Merlot",
-            "price": "250"
+            "tr": "",
+            "size": "",
+            "price": "250",
+            "hidden": false
           },
           {
             "name": "Kavaklıdere",
-            "price": "250"
+            "tr": "",
+            "size": "",
+            "price": "250",
+            "hidden": false
           }
         ]
       }
