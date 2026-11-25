@@ -24,8 +24,7 @@ const trUrl = new URL(paths.tr, site).href;
 const enUrl = new URL(paths.en, site).href;
 const pageTitle = title ?? t.meta.title;
 const pageDescription = description ?? t.meta.description;
-// Link-preview image for WhatsApp, Instagram, Facebook etc. (1200×630). It uses the placeholder hero photo:
-// regenerate it once there is a real photo of Quadro (see brief.md).
+// Link-preview image for WhatsApp, Instagram, Facebook etc. (1200×630): logo and name over the evening terrace photo.
 const ogImage = new URL('/og.jpg', site).href;
 
 const jsonLd = {

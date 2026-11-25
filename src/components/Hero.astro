@@ -5,7 +5,6 @@
 // centre. Skipped for deep links (e.g. /#yorumlar) and for visitors who prefer reduced motion.
 import Panel from './Panel.astro';
 import Photo from './Photo.astro';
-import SteamCup from './SteamCup.astro';
 import { getContent, type Lang } from '../lib/i18n';
 import { business } from '../lib/business';
 
@@ -31,11 +30,6 @@ const intro = Boolean(t.hero.image);
       <span class="hero-line hero-line-1 mx-auto block w-fit">{line1}</span>
       {line2 && <span class="hero-line hero-line-2 mx-auto block w-fit">{line2}</span>}
     </h1>
-    {!t.hero.image && (
-      <div data-reveal class="my-[clamp(16px,3.5vh,40px)] text-copper">
-        <SteamCup class="float h-[clamp(130px,24vh,230px)] w-auto" />
-      </div>
-    )}
     <p data-reveal class="hero-late mt-5 whitespace-nowrap font-display text-[clamp(19px,2.2vw,28px)] leading-none tracking-[clamp(0.14em,1vw,0.32em)] text-[#D9A86C]">{t.hero.tagline}</p>
     <!-- Open now / closed, worked out in the visitor's browser from the opening hours in business.ts
          (Cyprus time). Hidden until the script below has filled it in. -->
