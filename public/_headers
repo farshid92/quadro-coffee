@@ -1,0 +1,12 @@
+# Browser caching rules for Cloudflare (served with the site's files).
+# Files in /_astro/ have a fingerprint in their name, so a changed file gets a new name: keep them for a year.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fonts rarely change: keep them for 30 days.
+/fonts/*
+  Cache-Control: public, max-age=2592000
+
+# The content editor must always load fresh.
+/admin/*
+  Cache-Control: no-cache
