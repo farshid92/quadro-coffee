@@ -1,0 +1,11 @@
+// Cloudflare settings for the "quadro-coffee" Worker that serves the site.
+// The site is static files: Cloudflare runs `npm run build` and serves the dist/ folder.
+{
+  "name": "quadro-coffee",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    // Unknown addresses show the site's own "page not found" page (dist/404.html) instead of an empty one
+    "not_found_handling": "404-page"
+  }
+}
