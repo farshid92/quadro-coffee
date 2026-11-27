@@ -247,7 +247,13 @@ export function initDeck() {
   });
 
   // Tabbing into a panel that isn't on screen brings it on screen.
+  // Coming back from another browser tab or window, the browser focuses again whatever was last clicked
+  // (a menu tab, say, several panels back); that is not the visitor moving, so it is ignored.
+  let away = false;
+  addEventListener('blur', (e) => { if (e.target === window) away = true; });
+  for (const ev of ['keydown', 'pointerdown']) addEventListener(ev, () => { away = false; }, { capture: true });
   document.addEventListener('focusin', (e) => {
+    if (away) { away = false; return; }
     if (!on) return;
     const target = panelIndexOf(e.target as Element);
     if (target >= 0 && target !== index) go(target);
