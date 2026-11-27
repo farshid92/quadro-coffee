@@ -142,8 +142,8 @@ const icon = (name: string, cls: string) =>
     <p class="mt-1">{business.street}, {business.district}, {business.city}</p>
     <p class="mt-2 flex flex-wrap justify-center gap-x-6">
       <a href={`tel:${business.phone}`} class="inline-flex min-h-[32px] items-center hover:text-white">{business.phoneDisplay}</a>
-      <a href={business.mapsUrl} class="inline-flex min-h-[32px] items-center hover:text-white">Google Maps</a>
-      <a href={business.instagram} class="inline-flex min-h-[32px] items-center hover:text-white">Instagram</a>
+      <a href={business.mapsUrl} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-[32px] items-center hover:text-white">Google Maps</a>
+      <a href={business.instagram} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-[32px] items-center hover:text-white">Instagram</a>
       <a href={homePath(lang)} class="inline-flex min-h-[32px] items-center hover:text-white">{t.back}</a>
     </p>
   </footer>
