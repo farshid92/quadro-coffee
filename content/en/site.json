@@ -139,7 +139,9 @@
     "coffee": "Coffee",
     "drinks": "Wine & beer",
     "visit": "Visit",
-    "follow": "Follow"
+    "follow": "Follow",
+    "rights": "All rights reserved.",
+    "madeBy": "Website by"
   },
   "deck": {
     "shortcuts": "Shortcuts",

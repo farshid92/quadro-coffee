@@ -7,6 +7,10 @@ import { business } from '../lib/business';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = getContent(lang);
+// Copyright year: filled in at build time, so it moves on by itself after the first rebuild of a new year
+const year = new Date().getFullYear();
+// Who made the site (credit line at the very bottom). Change the link to the personal website when it exists.
+const maker = { name: 'Farshid Chian', url: 'https://github.com/farshid92' };
 ---
 <Panel id="bilgi" as="footer" bg="var(--color-espresso)" prev="var(--color-cream)" tone="dark" label="Quadro Coffee" class="items-center text-center text-sm">
   <div data-reveal class="mb-[clamp(24px,6vh,56px)]">
@@ -28,5 +32,12 @@ const t = getContent(lang);
       <a href={business.instagram} class="inline-flex min-h-[28px] items-center justify-center text-[#BFB3A4] hover:text-white">Instagram</a>
       {business.facebook && <a href={business.facebook} class="inline-flex min-h-[28px] items-center justify-center text-[#BFB3A4] hover:text-white">Facebook</a>}
     </div>
+  </div>
+  <div data-reveal class="mt-[clamp(28px,6vh,56px)] w-full max-w-[640px] border-t border-white/10 pt-5 text-xs leading-relaxed text-[#9C8F80]">
+    <p>
+      <span class="block sm:inline">© {year} Quadro Coffee. {t.footer.rights}</span>
+      <span class="hidden sm:inline" aria-hidden="true"> · </span>
+      <span class="block sm:inline">{t.footer.madeBy} <a href={maker.url} class="text-[#BFB3A4] underline-offset-4 hover:text-white hover:underline">{maker.name}</a></span>
+    </p>
   </div>
 </Panel>

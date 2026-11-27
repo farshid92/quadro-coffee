@@ -113,7 +113,7 @@
     "call": "Ara",
     "closed": "Kapalı"
   },
-  "footer": { "menu": "Menü", "coffee": "Kahveler", "drinks": "Şarap & bira", "visit": "Ziyaret", "follow": "Takip et" },
+  "footer": { "menu": "Menü", "coffee": "Kahveler", "drinks": "Şarap & bira", "visit": "Ziyaret", "follow": "Takip et", "rights": "Tüm hakları saklıdır.", "madeBy": "Web sitesi:" },
   "deck": {
     "shortcuts": "Kısayollar", "scroll": "Kaydır", "sections": "Bölümler" },
   "whatsapp": "WhatsApp'tan yaz",
